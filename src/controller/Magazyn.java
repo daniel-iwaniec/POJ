@@ -23,41 +23,48 @@
  */
 package controller;
 
-import java.sql.DriverManager;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import java.awt.EventQueue;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import view.MainView;
 
 /**
  *
  * @author Daniel Iwaniec, Karol Gos.
  */
-public class Main {
+public class Magazyn {
 
- protected static MainView view;
- protected static Connection db;
+ private static MainView view;
 
- public static void mainAction() throws SQLException, ClassNotFoundException {
+ public static void mainAction() {
+  view = new MainView();
+
+  Connection c;
+  Statement stmt;
   try {
-   view = new MainView();
-
    Class.forName("org.postgresql.Driver");
-   db = DriverManager.getConnection("jdbc:postgresql://localhost:5433/poj", "postgres", "postgres");
+   c = DriverManager.getConnection("jdbc:postgresql://localhost:5433/poj", "postgres", "postgres");
+   c.setAutoCommit(false);
 
-   db.setAutoCommit(false);
-
-   //cos tutaj
-   
-   db.close();
-   view.setVisible(true);
-  } catch (SQLException | ClassNotFoundException e) {
-   System.err.println(e.getMessage());
+   stmt = c.createStatement();
+   ResultSet rs = stmt.executeQuery("SELECT * FROM warehouse;");
+   while (rs.next()) {
+    int id = rs.getInt("id");
+    String name = rs.getString("name");
+    view.getLabel().setText(name);
+   }
+   rs.close();
+   stmt.close();
+   c.close();
+  } catch (Exception e) {
+   System.err.println(e.getClass().getName() + ": " + e.getMessage());
    System.exit(0);
   }
+
+  view.setVisible(true);
  }
 
  /**
@@ -65,13 +72,8 @@ public class Main {
   */
  public static void main(String[] args) {
   EventQueue.invokeLater(new Runnable() {
-   @Override
    public void run() {
-    try {
-     mainAction();
-    } catch (SQLException | ClassNotFoundException ex) {
-     Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    mainAction();
    }
   });
 

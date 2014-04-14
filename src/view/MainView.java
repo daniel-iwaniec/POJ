@@ -78,21 +78,19 @@ public class MainView extends javax.swing.JFrame {
    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
    .addGroup(layout.createSequentialGroup()
     .addGap(24, 24, 24)
-    .addComponent(jLabel2)
-    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-    .addComponent(jRadioButton1)
-    .addGap(121, 121, 121))
+    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+     .addComponent(jRadioButton1)
+     .addComponent(jLabel2))
+    .addContainerGap(243, Short.MAX_VALUE))
   );
   layout.setVerticalGroup(
    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
    .addGroup(layout.createSequentialGroup()
     .addGap(24, 24, 24)
     .addComponent(jLabel2)
-    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
     .addComponent(jRadioButton1)
-    .addGap(118, 118, 118))
+    .addContainerGap(197, Short.MAX_VALUE))
   );
 
   pack();
