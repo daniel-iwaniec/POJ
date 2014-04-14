@@ -31,6 +31,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.MainView;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import Model.Magazyn;
 
 /**
  *
@@ -41,17 +44,28 @@ public class Main {
  protected static MainView view;
  protected static Connection db;
 
+
  public static void mainAction() throws SQLException, ClassNotFoundException {
   try {
    view = new MainView();
 
    Class.forName("org.postgresql.Driver");
+   // Przerobić na jakąś klasę która robi za połączenie ('driver' jakiś)
    db = DriverManager.getConnection("jdbc:postgresql://localhost:5433/poj", "postgres", "postgres");
-
    db.setAutoCommit(false);
 
-   //cos tutaj
-   
+   Statement stmt;
+   stmt = db.createStatement();
+   ResultSet rs = stmt.executeQuery("SELECT * FROM warehouse;");
+   while (rs.next()) {
+    // Dekorator Magazyn
+    Magazyn m = new Magazyn(rs);
+     //wypisz dane do okienka
+    //cos w stylu view.setKol1Wiersz1(m.getId();)
+    m.getId();
+    m.getName();
+   }
+
    db.close();
    view.setVisible(true);
   } catch (SQLException | ClassNotFoundException e) {
