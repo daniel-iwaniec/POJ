@@ -34,11 +34,18 @@ public class MainView extends javax.swing.JFrame {
   * Creates new form MainView
   */
  public MainView() {
+  this.setExtendedState(this.MAXIMIZED_BOTH);
+  this.setUndecorated(true);
+  this.setLocation(0, 0);
   initComponents();
  }
 
  public javax.swing.JLabel getLabel() {
-  return jLabel2;
+  return null;
+ }
+
+ public javax.swing.JTable getTable() {
+  return this.jTable1;
  }
 
  /**
@@ -51,54 +58,187 @@ public class MainView extends javax.swing.JFrame {
  private void initComponents() {
 
   jLabel1 = new javax.swing.JLabel();
+  jPopupMenu1 = new javax.swing.JPopupMenu();
+  jMenu1 = new javax.swing.JMenu();
+  jMenuItem1 = new javax.swing.JMenuItem();
+  jMenuItem2 = new javax.swing.JMenuItem();
+  jMenuItem12 = new javax.swing.JMenuItem();
   jLabel2 = new javax.swing.JLabel();
-  jRadioButton1 = new javax.swing.JRadioButton();
+  jScrollPane1 = new javax.swing.JScrollPane();
+  jTable1 = new javax.swing.JTable();
+  jMenuBar1 = new javax.swing.JMenuBar();
+  jMenu2 = new javax.swing.JMenu();
+  jMenuItem7 = new javax.swing.JMenuItem();
+  jMenuItem8 = new javax.swing.JMenuItem();
+  jMenu3 = new javax.swing.JMenu();
+  jMenuItem3 = new javax.swing.JMenuItem();
+  jMenuItem4 = new javax.swing.JMenuItem();
+  jMenu4 = new javax.swing.JMenu();
+  jMenu5 = new javax.swing.JMenu();
+  jMenuItem10 = new javax.swing.JMenuItem();
+  jMenuItem9 = new javax.swing.JMenuItem();
+  jMenu6 = new javax.swing.JMenu();
+  jMenuItem11 = new javax.swing.JMenuItem();
+  jMenuItem13 = new javax.swing.JMenuItem();
 
   jLabel1.setText("jLabel1");
 
-  setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-  setTitle("test");
+  jMenu1.setText("jMenu1");
+
+  jMenuItem1.setText("jMenuItem1");
+
+  jMenuItem2.setText("jMenuItem2");
+
+  jMenuItem12.setText("jMenuItem12");
+
+  setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+  setTitle("Magazyn");
   setAlwaysOnTop(true);
-  setBounds(new java.awt.Rectangle(100, 100, 200, 200));
+  setBackground(new java.awt.Color(255, 255, 255));
+  setBounds(new java.awt.Rectangle(0, 0, 0, 0));
   setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-  setFont(new java.awt.Font("DejaVu Sans", 0, 10)); // NOI18N
+  setFont(new java.awt.Font("Myriad Pro", 0, 12)); // NOI18N
+  setForeground(new java.awt.Color(0, 0, 0));
+  setPreferredSize(new java.awt.Dimension(500, 500));
 
-  jLabel2.setText("TEST JAVY");
+  jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+  jLabel2.setFont(new java.awt.Font("Myriad Pro", 1, 24)); // NOI18N
+  jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/box.png"))); // NOI18N
+  jLabel2.setText("MAGAZYNY");
+  jLabel2.setToolTipText("");
+  jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(204, 204, 204)));
+  jLabel2.setIconTextGap(20);
 
-  jRadioButton1.setText("jRadioButton1");
-  jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jRadioButton1ActionPerformed(evt);
+  jTable1.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jTable1.setModel(new javax.swing.table.DefaultTableModel(
+   new Object [][] {
+
+   },
+   new String [] {
+    "ID", "Nazwa"
+   }
+  ) {
+   Class[] types = new Class [] {
+    java.lang.Long.class, java.lang.String.class
+   };
+   boolean[] canEdit = new boolean [] {
+    false, false
+   };
+
+   public Class getColumnClass(int columnIndex) {
+    return types [columnIndex];
+   }
+
+   public boolean isCellEditable(int rowIndex, int columnIndex) {
+    return canEdit [columnIndex];
    }
   });
+  jTable1.setColumnSelectionAllowed(true);
+  jTable1.setFillsViewportHeight(true);
+  jTable1.setGridColor(new java.awt.Color(204, 204, 204));
+  jTable1.setRowHeight(36);
+  jTable1.setSelectionBackground(new java.awt.Color(204, 255, 255));
+  jTable1.getTableHeader().setReorderingAllowed(false);
+  jScrollPane1.setViewportView(jTable1);
+  jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+  if (jTable1.getColumnModel().getColumnCount() > 0) {
+   jTable1.getColumnModel().getColumn(0).setResizable(false);
+   jTable1.getColumnModel().getColumn(1).setResizable(false);
+  }
+
+  jMenuBar1.setBorderPainted(false);
+
+  jMenu2.setText("Aplikacja");
+
+  jMenuItem7.setText("Start");
+  jMenu2.add(jMenuItem7);
+
+  jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
+  jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/exit.png"))); // NOI18N
+  jMenuItem8.setText("Zakończ");
+  jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem8ActionPerformed(evt);
+   }
+  });
+  jMenu2.add(jMenuItem8);
+
+  jMenuBar1.add(jMenu2);
+
+  jMenu3.setText("Magazyn");
+  jMenu3.setBorderPainted(true);
+
+  jMenuItem3.setText("Lista");
+  jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem3ActionPerformed(evt);
+   }
+  });
+  jMenu3.add(jMenuItem3);
+
+  jMenuItem4.setText("Dodaj");
+  jMenu3.add(jMenuItem4);
+
+  jMenuBar1.add(jMenu3);
+
+  jMenu4.setText("Dokument");
+
+  jMenu5.setText("Wydanie zewnętrzne");
+
+  jMenuItem10.setText("Lista");
+  jMenu5.add(jMenuItem10);
+
+  jMenuItem9.setText("Dodaj");
+  jMenu5.add(jMenuItem9);
+
+  jMenu4.add(jMenu5);
+
+  jMenu6.setText("Przyjęcie zewnętrzne");
+
+  jMenuItem11.setText("Lista");
+  jMenu6.add(jMenuItem11);
+
+  jMenuItem13.setText("Dodaj");
+  jMenu6.add(jMenuItem13);
+
+  jMenu4.add(jMenu6);
+
+  jMenuBar1.add(jMenu4);
+
+  setJMenuBar(jMenuBar1);
 
   javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
   getContentPane().setLayout(layout);
   layout.setHorizontalGroup(
    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
    .addGroup(layout.createSequentialGroup()
-    .addGap(24, 24, 24)
-    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-     .addComponent(jRadioButton1)
-     .addComponent(jLabel2))
-    .addContainerGap(243, Short.MAX_VALUE))
+    .addContainerGap()
+    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+    .addContainerGap())
   );
   layout.setVerticalGroup(
    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
    .addGroup(layout.createSequentialGroup()
-    .addGap(24, 24, 24)
+    .addContainerGap()
     .addComponent(jLabel2)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-    .addComponent(jRadioButton1)
-    .addContainerGap(197, Short.MAX_VALUE))
+    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addContainerGap())
   );
 
   pack();
  }// </editor-fold>//GEN-END:initComponents
 
- private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+ private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
   // TODO add your handling code here:
- }//GEN-LAST:event_jRadioButton1ActionPerformed
+ }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+ private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+  // TODO add your handling code here:
+  this.dispose();
+ }//GEN-LAST:event_jMenuItem8ActionPerformed
 
  /**
   * @param args the command line arguments
@@ -138,6 +278,26 @@ public class MainView extends javax.swing.JFrame {
  // Variables declaration - do not modify//GEN-BEGIN:variables
  private javax.swing.JLabel jLabel1;
  private javax.swing.JLabel jLabel2;
- private javax.swing.JRadioButton jRadioButton1;
+ private javax.swing.JMenu jMenu1;
+ private javax.swing.JMenu jMenu2;
+ private javax.swing.JMenu jMenu3;
+ private javax.swing.JMenu jMenu4;
+ private javax.swing.JMenu jMenu5;
+ private javax.swing.JMenu jMenu6;
+ private javax.swing.JMenuBar jMenuBar1;
+ private javax.swing.JMenuItem jMenuItem1;
+ private javax.swing.JMenuItem jMenuItem10;
+ private javax.swing.JMenuItem jMenuItem11;
+ private javax.swing.JMenuItem jMenuItem12;
+ private javax.swing.JMenuItem jMenuItem13;
+ private javax.swing.JMenuItem jMenuItem2;
+ private javax.swing.JMenuItem jMenuItem3;
+ private javax.swing.JMenuItem jMenuItem4;
+ private javax.swing.JMenuItem jMenuItem7;
+ private javax.swing.JMenuItem jMenuItem8;
+ private javax.swing.JMenuItem jMenuItem9;
+ private javax.swing.JPopupMenu jPopupMenu1;
+ private javax.swing.JScrollPane jScrollPane1;
+ private javax.swing.JTable jTable1;
  // End of variables declaration//GEN-END:variables
 }

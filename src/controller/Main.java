@@ -35,6 +35,9 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import Model.Magazyn;
 
+import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Daniel Iwaniec, Karol Gos.
@@ -43,7 +46,6 @@ public class Main {
 
  protected static MainView view;
  protected static Connection db;
-
 
  public static void mainAction() throws SQLException, ClassNotFoundException {
   try {
@@ -60,13 +62,15 @@ public class Main {
    while (rs.next()) {
     // Dekorator Magazyn
     Magazyn m = new Magazyn(rs);
-     //wypisz dane do okienka
+    //wypisz dane do okienka
     //cos w stylu view.setKol1Wiersz1(m.getId();)
-    m.getId();
-    m.getName();
+
+    DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
+    model.addRow(new Object[]{rs.getInt("id"), rs.getString("name")});
    }
 
    db.close();
+   view.getContentPane().setBackground(Color.WHITE);
    view.setVisible(true);
   } catch (SQLException | ClassNotFoundException e) {
    System.err.println(e.getMessage());
