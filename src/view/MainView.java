@@ -57,14 +57,10 @@ public class MainView extends javax.swing.JFrame {
  // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
  private void initComponents() {
 
-  jLabel1 = new javax.swing.JLabel();
-  jPopupMenu1 = new javax.swing.JPopupMenu();
-  jMenu1 = new javax.swing.JMenu();
-  jMenuItem1 = new javax.swing.JMenuItem();
-  jMenuItem2 = new javax.swing.JMenuItem();
-  jMenuItem12 = new javax.swing.JMenuItem();
   jLabel2 = new javax.swing.JLabel();
-  jScrollPane1 = new javax.swing.JScrollPane();
+  jLayeredPane1 = new javax.swing.JLayeredPane();
+  jPanel1 = new javax.swing.JPanel();
+  jScrollPane2 = new javax.swing.JScrollPane();
   jTable1 = new javax.swing.JTable();
   jMenuBar1 = new javax.swing.JMenuBar();
   jMenu2 = new javax.swing.JMenu();
@@ -80,16 +76,6 @@ public class MainView extends javax.swing.JFrame {
   jMenu6 = new javax.swing.JMenu();
   jMenuItem11 = new javax.swing.JMenuItem();
   jMenuItem13 = new javax.swing.JMenuItem();
-
-  jLabel1.setText("jLabel1");
-
-  jMenu1.setText("jMenu1");
-
-  jMenuItem1.setText("jMenuItem1");
-
-  jMenuItem2.setText("jMenuItem2");
-
-  jMenuItem12.setText("jMenuItem12");
 
   setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
   setTitle("Magazyn");
@@ -109,6 +95,8 @@ public class MainView extends javax.swing.JFrame {
   jLabel2.setToolTipText("");
   jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(204, 204, 204)));
   jLabel2.setIconTextGap(20);
+
+  jLayeredPane1.setOpaque(true);
 
   jTable1.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
   jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -134,18 +122,40 @@ public class MainView extends javax.swing.JFrame {
     return canEdit [columnIndex];
    }
   });
-  jTable1.setColumnSelectionAllowed(true);
   jTable1.setFillsViewportHeight(true);
   jTable1.setGridColor(new java.awt.Color(204, 204, 204));
   jTable1.setRowHeight(36);
   jTable1.setSelectionBackground(new java.awt.Color(204, 255, 255));
   jTable1.getTableHeader().setReorderingAllowed(false);
-  jScrollPane1.setViewportView(jTable1);
+  jScrollPane2.setViewportView(jTable1);
   jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
   if (jTable1.getColumnModel().getColumnCount() > 0) {
    jTable1.getColumnModel().getColumn(0).setResizable(false);
    jTable1.getColumnModel().getColumn(1).setResizable(false);
   }
+
+  javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+  jPanel1.setLayout(jPanel1Layout);
+  jPanel1Layout.setHorizontalGroup(
+   jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+  );
+  jPanel1Layout.setVerticalGroup(
+   jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+  );
+
+  javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+  jLayeredPane1.setLayout(jLayeredPane1Layout);
+  jLayeredPane1Layout.setHorizontalGroup(
+   jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+  );
+  jLayeredPane1Layout.setVerticalGroup(
+   jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+  );
+  jLayeredPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
   jMenuBar1.setBorderPainted(false);
 
@@ -212,10 +222,10 @@ public class MainView extends javax.swing.JFrame {
   getContentPane().setLayout(layout);
   layout.setHorizontalGroup(
    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+   .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
    .addGroup(layout.createSequentialGroup()
     .addContainerGap()
-    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+    .addComponent(jLayeredPane1)
     .addContainerGap())
   );
   layout.setVerticalGroup(
@@ -224,7 +234,7 @@ public class MainView extends javax.swing.JFrame {
     .addContainerGap()
     .addComponent(jLabel2)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addComponent(jLayeredPane1)
     .addContainerGap())
   );
 
@@ -276,28 +286,24 @@ public class MainView extends javax.swing.JFrame {
  }
 
  // Variables declaration - do not modify//GEN-BEGIN:variables
- private javax.swing.JLabel jLabel1;
  private javax.swing.JLabel jLabel2;
- private javax.swing.JMenu jMenu1;
+ private javax.swing.JLayeredPane jLayeredPane1;
  private javax.swing.JMenu jMenu2;
  private javax.swing.JMenu jMenu3;
  private javax.swing.JMenu jMenu4;
  private javax.swing.JMenu jMenu5;
  private javax.swing.JMenu jMenu6;
  private javax.swing.JMenuBar jMenuBar1;
- private javax.swing.JMenuItem jMenuItem1;
  private javax.swing.JMenuItem jMenuItem10;
  private javax.swing.JMenuItem jMenuItem11;
- private javax.swing.JMenuItem jMenuItem12;
  private javax.swing.JMenuItem jMenuItem13;
- private javax.swing.JMenuItem jMenuItem2;
  private javax.swing.JMenuItem jMenuItem3;
  private javax.swing.JMenuItem jMenuItem4;
  private javax.swing.JMenuItem jMenuItem7;
  private javax.swing.JMenuItem jMenuItem8;
  private javax.swing.JMenuItem jMenuItem9;
- private javax.swing.JPopupMenu jPopupMenu1;
- private javax.swing.JScrollPane jScrollPane1;
+ private javax.swing.JPanel jPanel1;
+ private javax.swing.JScrollPane jScrollPane2;
  private javax.swing.JTable jTable1;
  // End of variables declaration//GEN-END:variables
 }

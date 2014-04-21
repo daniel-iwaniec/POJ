@@ -23,71 +23,56 @@
  */
 package controller;
 
-import java.sql.DriverManager;
 import java.sql.Connection;
-
 import java.awt.EventQueue;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.MainView;
-import java.sql.Statement;
-import java.sql.ResultSet;
+import database.Database;
+import java.util.List;
 import Model.Magazyn;
 
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Daniel Iwaniec, Karol Gos.
- */
 public class Main {
 
  protected static MainView view;
  protected static Connection db;
 
- public static void mainAction() throws SQLException, ClassNotFoundException {
+ public static void mainAction() throws Exception {
   try {
    view = new MainView();
 
-   Class.forName("org.postgresql.Driver");
-   // Przerobić na jakąś klasę która robi za połączenie ('driver' jakiś)
-   db = DriverManager.getConnection("jdbc:postgresql://localhost:5433/poj", "postgres", "postgres");
-   db.setAutoCommit(false);
+   Database database = new Database();
+   database.insertMagazyn("Magazyn 1");
+   database.insertMagazyn("Magazyn 7");
+   database.insertMagazyn("Magazyn 616");
 
-   Statement stmt;
-   stmt = db.createStatement();
-   ResultSet rs = stmt.executeQuery("SELECT * FROM warehouse;");
-   while (rs.next()) {
-    // Dekorator Magazyn
-    Magazyn m = new Magazyn(rs);
-    //wypisz dane do okienka
-    //cos w stylu view.setKol1Wiersz1(m.getId();)
+   List<Magazyn> magazyny = database.selectMagazyny();
 
-    DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-    model.addRow(new Object[]{rs.getInt("id"), rs.getString("name")});
+   DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
+   for (Magazyn m : magazyny) {
+    model.addRow(new Object[]{m.getId(), m.getName()});
    }
 
-   db.close();
+   database.closeConnection();
+
    view.getContentPane().setBackground(Color.WHITE);
    view.setVisible(true);
-  } catch (SQLException | ClassNotFoundException e) {
+  } catch (Exception e) {
    System.err.println(e.getMessage());
    System.exit(0);
   }
  }
 
- /**
-  * @param args the command line arguments
-  */
  public static void main(String[] args) {
   EventQueue.invokeLater(new Runnable() {
    @Override
    public void run() {
     try {
      mainAction();
-    } catch (SQLException | ClassNotFoundException ex) {
+    } catch (Exception ex) {
      Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
    }

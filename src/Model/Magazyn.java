@@ -22,38 +22,36 @@
  * THE SOFTWARE.
  */
 package Model;
-import java.sql.ResultSet;
 
-/**
- *
- * @author Daniel Iwaniec, Karol Gos
- */
 public class Magazyn {
 
- protected Integer id;
- protected String name;
+ private int id;
+ private String name;
 
- public Magazyn(ResultSet data) {
-  //this.setId(data.getInt("id"));
-  //this.setName(data.getString("name"));
-  this.setId(1);
-  this.setName("test");
- }
-
- public void setId(Integer id) {
+ //public Magazyn() {}
+ public Magazyn(int id, String name) {
   this.id = id;
+  this.name = name;
  }
 
- public Integer getId() {
+ public int getId() {
   return this.id;
  }
 
- public void setName(String name) {
-  this.name = name;
+ public void setId(int id) {
+  this.id = id;
  }
 
  public String getName() {
   return this.name;
  }
 
+ public void setName(String name) {
+  this.name = name;
+ }
+
+ @Override
+ public String toString() {
+  return "[" + id + "] - " + name;
+ }
 }
