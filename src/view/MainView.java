@@ -140,7 +140,7 @@ public class MainView extends javax.swing.JFrame {
   jPanel1.setLayout(jPanel1Layout);
   jPanel1Layout.setHorizontalGroup(
    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+   .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
   );
   jPanel1Layout.setVerticalGroup(
    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,8 +294,8 @@ public class MainView extends javax.swing.JFrame {
  }// </editor-fold>//GEN-END:initComponents
 
  private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-  this.jLayeredPane1.setLayer(jPanel2, 101);
-  this.jLayeredPane1.setLayer(jPanel1, 102);
+  this.jPanel2.setVisible(false);
+  this.jPanel1.setVisible(true);
  }//GEN-LAST:event_jMenuItem3ActionPerformed
 
  private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -307,8 +307,8 @@ public class MainView extends javax.swing.JFrame {
  }//GEN-LAST:event_jButton1ActionPerformed
 
  private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-  this.jLayeredPane1.setLayer(jPanel1, 101);
-  this.jLayeredPane1.setLayer(jPanel2, 102);
+  this.jPanel1.setVisible(false);
+  this.jPanel2.setVisible(true);
  }//GEN-LAST:event_jMenuItem4ActionPerformed
 
  /**
