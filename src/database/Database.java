@@ -23,115 +23,114 @@
  */
 package database;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.sql.SQLException;
 
-import Model.Magazyn;
+import database.entity.Warehouse;
 
-public class Database {
+public final class Database {
 
  public static final String DRIVER = "org.sqlite.JDBC";
  public static final String DB_URL = "jdbc:sqlite:magazyn.db";
 
- private Connection conn;
- private Statement stat;
+ private Connection connection;
+ private Statement statement;
+ private PreparedStatement preparedStatement;
 
  public Database() {
   try {
    Class.forName(Database.DRIVER);
-  } catch (ClassNotFoundException e) {
-   System.err.println("Brak sterownika JDBC");
-   e.printStackTrace();
+  } catch (ClassNotFoundException exception) {
+   System.err.println(exception.getMessage());
   }
 
   try {
-   conn = DriverManager.getConnection(DB_URL);
-   stat = conn.createStatement();
-  } catch (SQLException e) {
-   System.err.println("Problem z otwarciem polaczenia");
-   e.printStackTrace();
+   this.connection = DriverManager.getConnection(Database.DB_URL);
+   this.statement = this.connection.createStatement();
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
   }
 
-  createTables();
+  this.initialize();
  }
 
- public boolean createTables() {
-  String createMagazyn = "CREATE TABLE IF NOT EXISTS magazyn (id INTEGER PRIMARY KEY AUTOINCREMENT, nazwa varchar(255))";
+ public void initialize() {
+  String createWarehouseTable = "CREATE TABLE IF NOT EXISTS warehouse (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))";
   try {
-   stat.execute(createMagazyn);
-   stat.execute("DELETE FROM magazyn");
-  } catch (SQLException e) {
-   System.err.println("Blad przy tworzeniu tabeli");
-   e.printStackTrace();
+   this.statement.execute(createWarehouseTable);
+
+   // Remove from production
+   statement.execute("DELETE FROM warehouse");
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+  }
+ }
+
+ public boolean saveWarehouse(Warehouse warehouse) {
+  try {
+   if (!warehouse.validate()) {
+    return false;
+   }
+
+   if (warehouse.getId().equals(Warehouse.NULL_ID)) {
+    PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO warehouse VALUES (NULL, ?);");
+    preparedStatement.setString(1, warehouse.getName());
+    preparedStatement.execute();
+   } else {
+    this.preparedStatement = this.connection.prepareStatement("UPDATE warehouse SET name = ? WHERE id = ?;");
+    this.preparedStatement.setString(1, warehouse.getName());
+    this.preparedStatement.setInt(2, warehouse.getId());
+    this.preparedStatement.execute();
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
    return false;
   }
   return true;
  }
 
- public boolean insertMagazyn(String nazwa) {
+ public List<Warehouse> getWarehouses() {
+  List<Warehouse> warehouses = new LinkedList<>();
   try {
-   PreparedStatement prepStmt = conn.prepareStatement(
-           "insert into magazyn values (NULL, ?);");
-   prepStmt.setString(1, nazwa);
-   prepStmt.execute();
-  } catch (SQLException e) {
-   System.err.println("Blad przy wstawianiu magazynu");
-   e.printStackTrace();
-   return false;
-  }
-  return true;
- }
-
- public List<Magazyn> selectMagazyny() {
-  List<Magazyn> magazyny = new LinkedList<Magazyn>();
-  try {
-   ResultSet result = stat.executeQuery("SELECT * FROM magazyn");
-   int id;
-   String nazwa;
+   ResultSet result = this.statement.executeQuery("SELECT * FROM warehouse");
    while (result.next()) {
-    id = result.getInt("id");
-    nazwa = result.getString("nazwa");
-    magazyny.add(new Magazyn(id, nazwa));
+    warehouses.add(new Warehouse(result.getInt("id"), result.getString("name")));
    }
-  } catch (SQLException e) {
-   e.printStackTrace();
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
    return null;
   }
-  return magazyny;
+  return warehouses;
  }
 
- public Magazyn selectMagazynById(int id) {
-  Magazyn magazyn = null;
+ public Warehouse selectWarehouseById(Integer id) {
+  Warehouse warehouse = null;
   try {
-   PreparedStatement prepStmt = conn.prepareStatement("SELECT * FROM magazyn WHERE id = ?;");
-   prepStmt.setInt(1, id);
-   ResultSet result = prepStmt.executeQuery();
-   String nazwa;
+   this.preparedStatement = this.connection.prepareStatement("SELECT * FROM warehouse WHERE id = ?;");
+   this.preparedStatement.setInt(1, id);
+   ResultSet result = this.preparedStatement.executeQuery();
    while (result.next()) {
-    id = result.getInt("id");
-    nazwa = result.getString("nazwa");
-    magazyn = new Magazyn(id, nazwa);
+    warehouse = new Warehouse(result.getInt("id"), result.getString("name"));
    }
-  } catch (SQLException e) {
-   e.printStackTrace();
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
    return null;
   }
 
-  return magazyn;
+  return warehouse;
  }
 
  public void closeConnection() {
   try {
-   conn.close();
-  } catch (SQLException e) {
-   System.err.println("Problem z zamknieciem polaczenia");
-   e.printStackTrace();
+   this.connection.close();
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
   }
  }
 }

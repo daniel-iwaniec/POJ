@@ -17,52 +17,82 @@
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * LIABILITY, WHETHER IN AN ACTION OF ONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+/**
+ * @todo Dodawanie magazynu Usuwanie magazynu Edycja magazynu
+ *
+ * ekran główny release (installer?) lepsze repo (git flow?)
+ *
+ * ikonki lepszy wygląd
+ *
+ * więcej danych do listy magazynu
+ *
+ * Podzielić warstwy widoku na podwidoki (osobne pliki) Osobne kontrolery
+ *
+ */
 package controller;
 
-import java.sql.Connection;
 import java.awt.EventQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import view.MainView;
-import database.Database;
 import java.util.List;
-import Model.Magazyn;
 
-import java.awt.Color;
+import database.Database;
+import database.entity.Warehouse;
+
+import view.MainView;
 import javax.swing.table.DefaultTableModel;
 
 public class Main {
 
- protected static MainView view;
- protected static Connection db;
+ protected static MainView view = new MainView();
+ protected static Database database = new Database();
 
  public static void mainAction() throws Exception {
   try {
-   view = new MainView();
+   Warehouse newWarehouse = new Warehouse();
 
-   Database database = new Database();
-   database.insertMagazyn("Magazyn 1");
-   database.insertMagazyn("Magazyn 7");
-   database.insertMagazyn("Magazyn 616");
+   newWarehouse.setName("Magazyn 1");
+   database.saveWarehouse(newWarehouse);
 
-   List<Magazyn> magazyny = database.selectMagazyny();
+   newWarehouse.setName("Magazyn 7");
+   database.saveWarehouse(newWarehouse);
 
-   DefaultTableModel model = (DefaultTableModel) view.getTable().getModel();
-   for (Magazyn m : magazyny) {
-    model.addRow(new Object[]{m.getId(), m.getName()});
+   newWarehouse.setName("Magazyn 616");
+   database.saveWarehouse(newWarehouse);
+
+   List<Warehouse> warehouses = database.getWarehouses();
+   DefaultTableModel table = (DefaultTableModel) view.getTable().getModel();
+   for (Warehouse warehouse : warehouses) {
+    table.addRow(new Object[]{warehouse.getId(), warehouse.getName()});
    }
 
    database.closeConnection();
-
-   view.getContentPane().setBackground(Color.WHITE);
    view.setVisible(true);
   } catch (Exception e) {
    System.err.println(e.getMessage());
    System.exit(0);
+  }
+ }
+
+ public static void addWarehouse(String name) throws Exception {
+  Warehouse newWarehouse = new Warehouse();
+  newWarehouse.setName(name);
+  database.saveWarehouse(newWarehouse);
+
+  DefaultTableModel table = (DefaultTableModel) view.getTable().getModel();
+  Integer tableRowCount = table.getRowCount();
+  while (tableRowCount <= 0) {
+   table.removeRow(tableRowCount);
+   tableRowCount--;
+  }
+
+  List<Warehouse> warehouses = database.getWarehouses();
+  for (Warehouse warehouse : warehouses) {
+   table.addRow(new Object[]{warehouse.getId(), warehouse.getName()});
   }
  }
 

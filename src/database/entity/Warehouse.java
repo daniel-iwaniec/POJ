@@ -21,24 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package Model;
+package database.entity;
 
-public class Magazyn {
+public class Warehouse {
 
- private int id;
- private String name;
+ public static final Integer NULL_ID = 0;
 
- //public Magazyn() {}
- public Magazyn(int id, String name) {
+ private Integer id = Warehouse.NULL_ID;
+ private String name = "";
+
+ public Warehouse() {
+ }
+
+ public Warehouse(Integer id, String name) {
+  this();
   this.id = id;
   this.name = name;
  }
 
- public int getId() {
+ public Integer getId() {
   return this.id;
  }
 
- public void setId(int id) {
+ public void setId(Integer id) {
   this.id = id;
  }
 
@@ -50,8 +55,13 @@ public class Magazyn {
   this.name = name;
  }
 
- @Override
- public String toString() {
-  return "[" + id + "] - " + name;
+ public Boolean validate() {
+  String emptyString = "";
+
+  if (this.name.equals(emptyString)) {
+   return false;
+  }
+
+  return true;
  }
 }

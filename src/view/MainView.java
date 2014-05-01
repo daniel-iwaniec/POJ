@@ -21,8 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package view;
+
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.UIManager;
+import controller.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,10 +40,17 @@ public class MainView extends javax.swing.JFrame {
   * Creates new form MainView
   */
  public MainView() {
-  this.setExtendedState(this.MAXIMIZED_BOTH);
+  this.getContentPane().setBackground(Color.WHITE);
+  this.setExtendedState(MainView.MAXIMIZED_BOTH);
   this.setUndecorated(true);
   this.setLocation(0, 0);
+
+  UIManager.put("PopupMenu.border", BorderFactory.createLineBorder(Color.BLACK, 1));
+
   initComponents();
+
+  this.jPanel1.setVisible(true);
+  this.jPanel2.setVisible(false);
  }
 
  public javax.swing.JLabel getLabel() {
@@ -65,6 +78,7 @@ public class MainView extends javax.swing.JFrame {
   jPanel2 = new javax.swing.JPanel();
   jButton1 = new javax.swing.JButton();
   jTextField1 = new javax.swing.JTextField();
+  jLabel1 = new javax.swing.JLabel();
   jMenuBar1 = new javax.swing.JMenuBar();
   jMenu2 = new javax.swing.JMenu();
   jMenuItem7 = new javax.swing.JMenuItem();
@@ -149,34 +163,39 @@ public class MainView extends javax.swing.JFrame {
 
   jPanel2.setPreferredSize(new java.awt.Dimension(452, 379));
 
-  jButton1.setText("jButton1");
+  jButton1.setText("Dodaj");
   jButton1.addActionListener(new java.awt.event.ActionListener() {
    public void actionPerformed(java.awt.event.ActionEvent evt) {
     jButton1ActionPerformed(evt);
    }
   });
 
-  jTextField1.setText("jTextField1");
+  jLabel1.setText("Nazwa magazynu");
 
   javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
   jPanel2.setLayout(jPanel2Layout);
   jPanel2Layout.setHorizontalGroup(
    jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-    .addComponent(jButton1)
-    .addContainerGap())
    .addGroup(jPanel2Layout.createSequentialGroup()
-    .addGap(107, 107, 107)
-    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-    .addContainerGap(294, Short.MAX_VALUE))
+    .addContainerGap()
+    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+     .addGroup(jPanel2Layout.createSequentialGroup()
+      .addGap(0, 379, Short.MAX_VALUE)
+      .addComponent(jButton1))
+     .addGroup(jPanel2Layout.createSequentialGroup()
+      .addComponent(jLabel1)
+      .addGap(0, 0, Short.MAX_VALUE))
+     .addComponent(jTextField1))
+    .addContainerGap())
   );
   jPanel2Layout.setVerticalGroup(
    jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-    .addGap(61, 61, 61)
+    .addContainerGap()
+    .addComponent(jLabel1)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE)
     .addComponent(jButton1)
     .addContainerGap())
   );
@@ -208,12 +227,21 @@ public class MainView extends javax.swing.JFrame {
 
   jMenu2.setText("Aplikacja");
 
+  jMenuItem7.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/home.png"))); // NOI18N
   jMenuItem7.setText("Start");
+  jMenuItem7.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem7ActionPerformed(evt);
+   }
+  });
   jMenu2.add(jMenuItem7);
 
-  jMenuItem8.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
+  jMenuItem8.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
   jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/exit.png"))); // NOI18N
   jMenuItem8.setText("Zakończ");
+  jMenuItem8.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
   jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
    public void actionPerformed(java.awt.event.ActionEvent evt) {
     jMenuItem8ActionPerformed(evt);
@@ -226,7 +254,10 @@ public class MainView extends javax.swing.JFrame {
   jMenu3.setText("Magazyn");
   jMenu3.setBorderPainted(true);
 
+  jMenuItem3.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/list.png"))); // NOI18N
   jMenuItem3.setText("Lista");
+  jMenuItem3.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
   jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
    public void actionPerformed(java.awt.event.ActionEvent evt) {
     jMenuItem3ActionPerformed(evt);
@@ -234,7 +265,10 @@ public class MainView extends javax.swing.JFrame {
   });
   jMenu3.add(jMenuItem3);
 
+  jMenuItem4.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/add.png"))); // NOI18N
   jMenuItem4.setText("Dodaj");
+  jMenuItem4.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
   jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
    public void actionPerformed(java.awt.event.ActionEvent evt) {
     jMenuItem4ActionPerformed(evt);
@@ -298,12 +332,14 @@ public class MainView extends javax.swing.JFrame {
   this.jPanel1.setVisible(true);
  }//GEN-LAST:event_jMenuItem3ActionPerformed
 
- private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-  this.dispose();
- }//GEN-LAST:event_jMenuItem8ActionPerformed
-
  private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-  // TODO add your handling code here:
+  try {
+   Main.addWarehouse(jTextField1.getText());
+  } catch (Exception ex) {
+   Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+  }
+  this.jPanel1.setVisible(true);
+  this.jPanel2.setVisible(false);
  }//GEN-LAST:event_jButton1ActionPerformed
 
  private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -311,12 +347,20 @@ public class MainView extends javax.swing.JFrame {
   this.jPanel2.setVisible(true);
  }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+ private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+  // TODO add your handling code here:
+ }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+ private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+  this.dispose();
+ }//GEN-LAST:event_jMenuItem8ActionPerformed
+
  /**
   * @param args the command line arguments
   */
  public static void main(String args[]) {
   /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+  //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
    * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
    */
@@ -336,7 +380,7 @@ public class MainView extends javax.swing.JFrame {
   } catch (javax.swing.UnsupportedLookAndFeelException ex) {
    java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
   }
-        //</editor-fold>
+  //</editor-fold>
 
   /* Create and display the form */
   java.awt.EventQueue.invokeLater(new Runnable() {
@@ -348,6 +392,7 @@ public class MainView extends javax.swing.JFrame {
 
  // Variables declaration - do not modify//GEN-BEGIN:variables
  private javax.swing.JButton jButton1;
+ private javax.swing.JLabel jLabel1;
  private javax.swing.JLabel jLabel2;
  private javax.swing.JLayeredPane jLayeredPane1;
  private javax.swing.JMenu jMenu2;
