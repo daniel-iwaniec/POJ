@@ -37,11 +37,20 @@ import database.entity.Warehouse;
 public final class Database {
 
  public static final String DRIVER = "org.sqlite.JDBC";
- public static final String DB_URL = "jdbc:sqlite:magazyn.db";
+ public static final String DB_URL = "jdbc:sqlite:database.db";
 
  private Connection connection;
  private Statement statement;
- private PreparedStatement preparedStatement;
+
+ private static Database instance = null;
+
+ public static Database getInstance() {
+  if (instance == null) {
+   instance = new Database();
+  }
+
+  return instance;
+ }
 
  public Database() {
   try {
@@ -57,16 +66,15 @@ public final class Database {
    System.err.println(exception.getMessage());
   }
 
-  this.initialize();
+  initialize();
  }
 
  public void initialize() {
   String createWarehouseTable = "CREATE TABLE IF NOT EXISTS warehouse (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))";
+  String truncateWarehouseTable = "DELETE FROM warehouse";
   try {
    this.statement.execute(createWarehouseTable);
-
-   // Remove from production
-   statement.execute("DELETE FROM warehouse");
+   this.statement.execute(truncateWarehouseTable);
   } catch (SQLException exception) {
    System.err.println(exception.getMessage());
   }
@@ -79,14 +87,14 @@ public final class Database {
    }
 
    if (warehouse.getId().equals(Warehouse.NULL_ID)) {
-    PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO warehouse VALUES (NULL, ?);");
+    PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO warehouse VALUES (NULL, ?);");
     preparedStatement.setString(1, warehouse.getName());
     preparedStatement.execute();
    } else {
-    this.preparedStatement = this.connection.prepareStatement("UPDATE warehouse SET name = ? WHERE id = ?;");
-    this.preparedStatement.setString(1, warehouse.getName());
-    this.preparedStatement.setInt(2, warehouse.getId());
-    this.preparedStatement.execute();
+    PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE warehouse SET name = ? WHERE id = ?;");
+    preparedStatement.setString(1, warehouse.getName());
+    preparedStatement.setInt(2, warehouse.getId());
+    preparedStatement.execute();
    }
   } catch (SQLException exception) {
    System.err.println(exception.getMessage());
@@ -112,9 +120,9 @@ public final class Database {
  public Warehouse selectWarehouseById(Integer id) {
   Warehouse warehouse = null;
   try {
-   this.preparedStatement = this.connection.prepareStatement("SELECT * FROM warehouse WHERE id = ?;");
-   this.preparedStatement.setInt(1, id);
-   ResultSet result = this.preparedStatement.executeQuery();
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM warehouse WHERE id = ?;");
+   preparedStatement.setInt(1, id);
+   ResultSet result = preparedStatement.executeQuery();
    while (result.next()) {
     warehouse = new Warehouse(result.getInt("id"), result.getString("name"));
    }

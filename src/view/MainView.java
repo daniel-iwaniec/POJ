@@ -36,6 +36,16 @@ import java.util.logging.Logger;
  */
 public class MainView extends javax.swing.JFrame {
 
+ private static MainView instance = null;
+
+ public static MainView getInstance() {
+  if (instance == null) {
+   instance = new MainView();
+  }
+
+  return instance;
+ }
+
  /**
   * Creates new form MainView
   */
@@ -49,16 +59,29 @@ public class MainView extends javax.swing.JFrame {
 
   initComponents();
 
-  this.jPanel1.setVisible(true);
-  this.jPanel2.setVisible(false);
- }
-
- public javax.swing.JLabel getLabel() {
-  return null;
+  this.WarehouseList.setVisible(true);
+  this.WarehouseForm.setVisible(false);
  }
 
  public javax.swing.JTable getTable() {
   return this.jTable1;
+ }
+
+ public javax.swing.JPanel getWarehouseList() {
+  return this.WarehouseList;
+ }
+
+ public javax.swing.JPanel getWarehouseForm() {
+  return this.WarehouseForm;
+ }
+
+ public void hideAll() {
+  this.WarehouseList.setVisible(false);
+  this.WarehouseForm.setVisible(false);
+ }
+
+ public javax.swing.JTextField getTextField() {
+  return jTextField1;
  }
 
  /**
@@ -72,10 +95,10 @@ public class MainView extends javax.swing.JFrame {
 
   jLabel2 = new javax.swing.JLabel();
   jLayeredPane1 = new javax.swing.JLayeredPane();
-  jPanel1 = new javax.swing.JPanel();
+  WarehouseList = new javax.swing.JPanel();
   jScrollPane2 = new javax.swing.JScrollPane();
   jTable1 = new javax.swing.JTable();
-  jPanel2 = new javax.swing.JPanel();
+  WarehouseForm = new javax.swing.JPanel();
   jButton1 = new javax.swing.JButton();
   jTextField1 = new javax.swing.JTextField();
   jLabel1 = new javax.swing.JLabel();
@@ -86,6 +109,8 @@ public class MainView extends javax.swing.JFrame {
   jMenu3 = new javax.swing.JMenu();
   jMenuItem3 = new javax.swing.JMenuItem();
   jMenuItem4 = new javax.swing.JMenuItem();
+  jMenuItem1 = new javax.swing.JMenuItem();
+  jMenuItem5 = new javax.swing.JMenuItem();
   jMenu4 = new javax.swing.JMenu();
   jMenu5 = new javax.swing.JMenu();
   jMenuItem10 = new javax.swing.JMenuItem();
@@ -138,30 +163,31 @@ public class MainView extends javax.swing.JFrame {
     return canEdit [columnIndex];
    }
   });
+  jTable1.setColumnSelectionAllowed(true);
   jTable1.setFillsViewportHeight(true);
   jTable1.setGridColor(new java.awt.Color(204, 204, 204));
   jTable1.setRowHeight(36);
   jTable1.setSelectionBackground(new java.awt.Color(204, 255, 255));
   jTable1.getTableHeader().setReorderingAllowed(false);
   jScrollPane2.setViewportView(jTable1);
-  jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+  jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
   if (jTable1.getColumnModel().getColumnCount() > 0) {
    jTable1.getColumnModel().getColumn(0).setResizable(false);
    jTable1.getColumnModel().getColumn(1).setResizable(false);
   }
 
-  javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-  jPanel1.setLayout(jPanel1Layout);
-  jPanel1Layout.setHorizontalGroup(
-   jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+  javax.swing.GroupLayout WarehouseListLayout = new javax.swing.GroupLayout(WarehouseList);
+  WarehouseList.setLayout(WarehouseListLayout);
+  WarehouseListLayout.setHorizontalGroup(
+   WarehouseListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
   );
-  jPanel1Layout.setVerticalGroup(
-   jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+  WarehouseListLayout.setVerticalGroup(
+   WarehouseListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
   );
 
-  jPanel2.setPreferredSize(new java.awt.Dimension(452, 379));
+  WarehouseForm.setPreferredSize(new java.awt.Dimension(452, 379));
 
   jButton1.setText("Dodaj");
   jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -172,25 +198,25 @@ public class MainView extends javax.swing.JFrame {
 
   jLabel1.setText("Nazwa magazynu");
 
-  javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-  jPanel2.setLayout(jPanel2Layout);
-  jPanel2Layout.setHorizontalGroup(
-   jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addGroup(jPanel2Layout.createSequentialGroup()
+  javax.swing.GroupLayout WarehouseFormLayout = new javax.swing.GroupLayout(WarehouseForm);
+  WarehouseForm.setLayout(WarehouseFormLayout);
+  WarehouseFormLayout.setHorizontalGroup(
+   WarehouseFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(WarehouseFormLayout.createSequentialGroup()
     .addContainerGap()
-    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-     .addGroup(jPanel2Layout.createSequentialGroup()
+    .addGroup(WarehouseFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+     .addGroup(WarehouseFormLayout.createSequentialGroup()
       .addGap(0, 379, Short.MAX_VALUE)
       .addComponent(jButton1))
-     .addGroup(jPanel2Layout.createSequentialGroup()
+     .addGroup(WarehouseFormLayout.createSequentialGroup()
       .addComponent(jLabel1)
       .addGap(0, 0, Short.MAX_VALUE))
      .addComponent(jTextField1))
     .addContainerGap())
   );
-  jPanel2Layout.setVerticalGroup(
-   jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+  WarehouseFormLayout.setVerticalGroup(
+   WarehouseFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WarehouseFormLayout.createSequentialGroup()
     .addContainerGap()
     .addComponent(jLabel1)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -204,24 +230,27 @@ public class MainView extends javax.swing.JFrame {
   jLayeredPane1.setLayout(jLayeredPane1Layout);
   jLayeredPane1Layout.setHorizontalGroup(
    jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+   .addComponent(WarehouseList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+     .addComponent(WarehouseForm, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
      .addContainerGap()))
   );
   jLayeredPane1Layout.setVerticalGroup(
    jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+   .addComponent(WarehouseList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addGap(10, 10, 10)
-     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(WarehouseForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
      .addContainerGap()))
   );
-  jLayeredPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-  jLayeredPane1.setLayer(jPanel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+  jLayeredPane1.setLayer(WarehouseList, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+  WarehouseList.getAccessibleContext().setAccessibleName("WarehouseList");
+  jLayeredPane1.setLayer(WarehouseForm, javax.swing.JLayeredPane.DEFAULT_LAYER);
+  WarehouseForm.getAccessibleContext().setAccessibleName("WarehouseForm");
 
   jMenuBar1.setBorderPainted(false);
 
@@ -276,6 +305,23 @@ public class MainView extends javax.swing.JFrame {
   });
   jMenu3.add(jMenuItem4);
 
+  jMenuItem1.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/edit.png"))); // NOI18N
+  jMenuItem1.setText("Edytuj");
+  jMenuItem1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenu3.add(jMenuItem1);
+
+  jMenuItem5.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/delete.png"))); // NOI18N
+  jMenuItem5.setText("Usuń");
+  jMenuItem5.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem5ActionPerformed(evt);
+   }
+  });
+  jMenu3.add(jMenuItem5);
+
   jMenuBar1.add(jMenu3);
 
   jMenu4.setText("Dokument");
@@ -328,23 +374,19 @@ public class MainView extends javax.swing.JFrame {
  }// </editor-fold>//GEN-END:initComponents
 
  private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-  this.jPanel2.setVisible(false);
-  this.jPanel1.setVisible(true);
+  WarehouseController.list();
  }//GEN-LAST:event_jMenuItem3ActionPerformed
 
  private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
   try {
-   Main.addWarehouse(jTextField1.getText());
+   WarehouseController.addAction();
   } catch (Exception ex) {
    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
   }
-  this.jPanel1.setVisible(true);
-  this.jPanel2.setVisible(false);
  }//GEN-LAST:event_jButton1ActionPerformed
 
  private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-  this.jPanel1.setVisible(false);
-  this.jPanel2.setVisible(true);
+  WarehouseController.addForm();
  }//GEN-LAST:event_jMenuItem4ActionPerformed
 
  private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -354,6 +396,10 @@ public class MainView extends javax.swing.JFrame {
  private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
   this.dispose();
  }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+ private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+  // TODO add your handling code here:
+ }//GEN-LAST:event_jMenuItem5ActionPerformed
 
  /**
   * @param args the command line arguments
@@ -384,6 +430,7 @@ public class MainView extends javax.swing.JFrame {
 
   /* Create and display the form */
   java.awt.EventQueue.invokeLater(new Runnable() {
+   @Override
    public void run() {
     new MainView().setVisible(true);
    }
@@ -391,6 +438,8 @@ public class MainView extends javax.swing.JFrame {
  }
 
  // Variables declaration - do not modify//GEN-BEGIN:variables
+ private javax.swing.JPanel WarehouseForm;
+ private javax.swing.JPanel WarehouseList;
  private javax.swing.JButton jButton1;
  private javax.swing.JLabel jLabel1;
  private javax.swing.JLabel jLabel2;
@@ -401,16 +450,16 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JMenu jMenu5;
  private javax.swing.JMenu jMenu6;
  private javax.swing.JMenuBar jMenuBar1;
+ private javax.swing.JMenuItem jMenuItem1;
  private javax.swing.JMenuItem jMenuItem10;
  private javax.swing.JMenuItem jMenuItem11;
  private javax.swing.JMenuItem jMenuItem13;
  private javax.swing.JMenuItem jMenuItem3;
  private javax.swing.JMenuItem jMenuItem4;
+ private javax.swing.JMenuItem jMenuItem5;
  private javax.swing.JMenuItem jMenuItem7;
  private javax.swing.JMenuItem jMenuItem8;
  private javax.swing.JMenuItem jMenuItem9;
- private javax.swing.JPanel jPanel1;
- private javax.swing.JPanel jPanel2;
  private javax.swing.JScrollPane jScrollPane2;
  private javax.swing.JTable jTable1;
  private javax.swing.JTextField jTextField1;

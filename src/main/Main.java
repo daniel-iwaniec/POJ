@@ -21,79 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 /**
- * @todo Dodawanie magazynu, Usuwanie magazynu, Edycja magazynu
- *
+ * @todo Usuwanie magazynu, Edycja magazynu
+ * ten niebiseki kolor podświetlenia w menu, javadoc
  * ekran główny, release (installer?)
- *
- * ikonki, lepszy wygląd
  *
  * więcej danych do listy magazynu
  *
- * Podzielić warstwy widoku na podwidoki (osobne pliki), Osobne kontrolery, javadoc
- *
  */
-package controller;
+package main;
 
 import java.awt.EventQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.List;
 
 import database.Database;
-import database.entity.Warehouse;
-
 import view.MainView;
-import javax.swing.table.DefaultTableModel;
 
 public class Main {
 
- protected static MainView view = new MainView();
- protected static Database database = new Database();
+ protected static MainView view = MainView.getInstance();
+ protected static Database database = Database.getInstance();
 
  public static void mainAction() throws Exception {
   try {
-   Warehouse newWarehouse = new Warehouse();
-
-   newWarehouse.setName("Magazyn 1");
-   database.saveWarehouse(newWarehouse);
-
-   newWarehouse.setName("Magazyn 7");
-   database.saveWarehouse(newWarehouse);
-
-   newWarehouse.setName("Magazyn 616");
-   database.saveWarehouse(newWarehouse);
-
-   List<Warehouse> warehouses = database.getWarehouses();
-   DefaultTableModel table = (DefaultTableModel) view.getTable().getModel();
-   for (Warehouse warehouse : warehouses) {
-    table.addRow(new Object[]{warehouse.getId(), warehouse.getName()});
-   }
-
-   database.closeConnection();
    view.setVisible(true);
   } catch (Exception e) {
    System.err.println(e.getMessage());
    System.exit(0);
-  }
- }
-
- public static void addWarehouse(String name) throws Exception {
-  Warehouse newWarehouse = new Warehouse();
-  newWarehouse.setName(name);
-  database.saveWarehouse(newWarehouse);
-
-  DefaultTableModel table = (DefaultTableModel) view.getTable().getModel();
-  Integer tableRowCount = table.getRowCount();
-  while (tableRowCount <= 0) {
-   table.removeRow(tableRowCount);
-   tableRowCount--;
-  }
-
-  List<Warehouse> warehouses = database.getWarehouses();
-  for (Warehouse warehouse : warehouses) {
-   table.addRow(new Object[]{warehouse.getId(), warehouse.getName()});
   }
  }
 
