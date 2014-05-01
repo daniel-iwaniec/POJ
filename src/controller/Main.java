@@ -23,16 +23,15 @@
  */
 
 /**
- * @todo Dodawanie magazynu Usuwanie magazynu Edycja magazynu
+ * @todo Dodawanie magazynu, Usuwanie magazynu, Edycja magazynu
  *
- * ekran główny release (installer?) lepsze repo (git flow?)
+ * ekran główny, release (installer?)
  *
- * ikonki lepszy wygląd
+ * ikonki, lepszy wygląd
  *
  * więcej danych do listy magazynu
  *
- * Podzielić warstwy widoku na podwidoki (osobne pliki) Osobne kontrolery
- * javadoc
+ * Podzielić warstwy widoku na podwidoki (osobne pliki), Osobne kontrolery, javadoc
  *
  */
 package controller;
