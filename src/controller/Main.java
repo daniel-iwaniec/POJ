@@ -21,6 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 /**
  * @todo Dodawanie magazynu Usuwanie magazynu Edycja magazynu
  *
@@ -31,6 +32,7 @@
  * więcej danych do listy magazynu
  *
  * Podzielić warstwy widoku na podwidoki (osobne pliki) Osobne kontrolery
+ * javadoc
  *
  */
 package controller;
