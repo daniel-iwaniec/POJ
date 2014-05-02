@@ -64,6 +64,10 @@ public class Warehouse {
  }
 
  public Boolean validate() {
+  /**
+   * @ todo lepsza walidacja
+   */
+
   String trimmedName = this.name.trim();
   if ("".equals(trimmedName)) {
    validationErrors.add("Nazwa magazynu nie może być pusta");

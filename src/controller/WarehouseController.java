@@ -27,8 +27,17 @@ import java.util.List;
 
 import database.Database;
 import database.entity.Warehouse;
+import java.awt.Button;
+import java.awt.Dialog;
+import java.awt.FlowLayout;
+import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 
 import view.MainView;
+import view.SelectItem;
 import javax.swing.table.DefaultTableModel;
 
 public class WarehouseController {
@@ -65,13 +74,29 @@ public class WarehouseController {
   Warehouse newWarehouse = new Warehouse();
   newWarehouse.setName(view.getWarehouseFormNameInput().getText());
 
+  /**
+   * @todo poprawić
+   */
   if (newWarehouse.validate()) {
    database.saveWarehouse(newWarehouse);
    WarehouseController.list();
   } else {
-   /**
-    * @todo pokaż błędy w popupie
-    */
+
+   final Dialog d = new Dialog(view, "Alert", true);
+   d.setLayout(new FlowLayout());
+   Button ok = new Button("OK");
+   ok.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+     d.setVisible(false);
+    }
+   });
+
+   d.add(new Label("Click OK to continue"));
+   d.add(ok);
+   d.pack();
+   d.setVisible(true);
+
   }
  }
 
@@ -80,15 +105,77 @@ public class WarehouseController {
   view.getHeader().setText("Magazyn - usuń");
   view.setIcon(MainView.BOX_ICON);
 
-  /**
-   * @todo dodaj do seleca wszystkie magazyny
-   */
-  /**
-   * @todo dodaj do buttona akcję usuwania magazynu
-   */
+  List<Warehouse> warehouses = database.getWarehouses();
+  view.getSelectFormSelect().removeAllItems();
+  for (Warehouse warehouse : warehouses) {
+   view.getSelectFormSelect().addItem(new SelectItem(warehouse.getId(), warehouse.getName()));
+  }
+
+  view.getSelectFormButton().addActionListener(new java.awt.event.ActionListener() {
+   @Override
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    WarehouseController.deleteAction();
+   }
+  });
+
   view.getSelectFormHeader().setText("Wybierz magazyn");
   view.getSelectFormButton().setText("Usuń");
   view.getSelectFormView().setVisible(true);
+ }
+
+ public static void deleteAction() {
+  Object selectedWarehouse = view.getSelectFormSelect().getSelectedItem();
+  Integer id = ((SelectItem) selectedWarehouse).getId();
+
+  Warehouse warehouse = database.getWarehouseById(id);
+  if (warehouse == null) {
+   //pokaż błąd
+  } else {
+   database.deleteWarehouseById(id);
+  }
+
+  WarehouseController.list();
+ }
+
+ public static void editSelectForm() {
+  view.hideAllViews();
+  view.getHeader().setText("Magazyn - edytuj");
+  view.setIcon(MainView.BOX_ICON);
+
+  List<Warehouse> warehouses = database.getWarehouses();
+  view.getSelectFormSelect().removeAllItems();
+  for (Warehouse warehouse : warehouses) {
+   view.getSelectFormSelect().addItem(new SelectItem(warehouse.getId(), warehouse.getName()));
+  }
+
+  view.getSelectFormButton().addActionListener(new java.awt.event.ActionListener() {
+   @Override
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    WarehouseController.editForm();
+   }
+  });
+
+  view.getSelectFormHeader().setText("Wybierz magazyn");
+  view.getSelectFormButton().setText("Edytuj");
+  view.getSelectFormView().setVisible(true);
+ }
+
+ public static void editForm() {
+  Object selectedWarehouse = view.getSelectFormSelect().getSelectedItem();
+  Integer id = ((SelectItem) selectedWarehouse).getId();
+
+  Warehouse warehouse = database.getWarehouseById(id);
+  if (warehouse == null) {
+   //pokaż błąd
+  } else {
+   view.hideAllViews();
+   view.getHeader().setText("Magazyn - edytuj");
+   view.setIcon(MainView.BOX_ICON);
+
+   // dodaj hidden inputa z id
+   view.getWarehouseFormNameInput().setText(warehouse.getName());
+   view.getWarehouseFormView().setVisible(true);
+  }
  }
 
 }

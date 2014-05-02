@@ -492,7 +492,7 @@ public class MainView extends javax.swing.JFrame {
     .addContainerGap()
     .addGroup(SelectFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
      .addGroup(SelectFormLayout.createSequentialGroup()
-      .addGap(0, 375, Short.MAX_VALUE)
+      .addGap(0, 423, Short.MAX_VALUE)
       .addComponent(jButton2))
      .addGroup(SelectFormLayout.createSequentialGroup()
       .addComponent(jLabel17)
@@ -507,7 +507,7 @@ public class MainView extends javax.swing.JFrame {
     .addComponent(jLabel17)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
     .addComponent(SelectFormSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 330, Short.MAX_VALUE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 451, Short.MAX_VALUE)
     .addComponent(jButton2)
     .addContainerGap())
   );
@@ -642,6 +642,11 @@ public class MainView extends javax.swing.JFrame {
   jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/edit.png"))); // NOI18N
   jMenuItem1.setText("Edytuj");
   jMenuItem1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem1ActionPerformed(evt);
+   }
+  });
   jMenu3.add(jMenuItem1);
 
   jMenuItem5.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
@@ -743,6 +748,10 @@ public class MainView extends javax.swing.JFrame {
  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
   // TODO add your handling code here:
  }//GEN-LAST:event_jButton2ActionPerformed
+
+ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+  WarehouseController.editSelectForm();
+ }//GEN-LAST:event_jMenuItem1ActionPerformed
 
  /**
   * @param args the command line arguments

@@ -123,7 +123,7 @@ public final class Database {
   return warehouses;
  }
 
- public Warehouse selectWarehouseById(Integer id) {
+ public Warehouse getWarehouseById(Integer id) {
   Warehouse warehouse = null;
   try {
    PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM warehouse WHERE id = ?;");
@@ -138,6 +138,17 @@ public final class Database {
   }
 
   return warehouse;
+ }
+
+ public void deleteWarehouseById(Integer id) {
+  Warehouse warehouse = null;
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM warehouse WHERE id = ?;");
+   preparedStatement.setInt(1, id);
+   preparedStatement.execute();
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+  }
  }
 
  public Boolean isNameUnique(Warehouse warehouse) {
