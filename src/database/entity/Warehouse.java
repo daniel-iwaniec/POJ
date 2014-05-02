@@ -23,6 +23,10 @@
  */
 package database.entity;
 
+import database.Database;
+import java.util.LinkedList;
+import java.util.List;
+
 public class Warehouse {
 
  public static final Integer NULL_ID = 0;
@@ -30,7 +34,11 @@ public class Warehouse {
  private Integer id = Warehouse.NULL_ID;
  private String name = "";
 
+ @SuppressWarnings("FieldMayBeFinal")
+ private List<String> validationErrors;
+
  public Warehouse() {
+  this.validationErrors = new LinkedList<>();
  }
 
  public Warehouse(Integer id, String name) {
@@ -58,11 +66,31 @@ public class Warehouse {
  public Boolean validate() {
   String trimmedName = this.name.trim();
   if ("".equals(trimmedName)) {
-   return false;
+   validationErrors.add("Nazwa magazynu nie może być pusta");
   }
-  /**
-   * @todo unique name
-   */
-  return true;
+
+  if (trimmedName.length() > 255) {
+   validationErrors.add("Nazwa magazynu może zawierać maksymalnie 255 znaków");
+  }
+
+  Database database = Database.getInstance();
+  if (!database.isNameUnique(this)) {
+   validationErrors.add("Nazwa magazynu musi być unikalna");
+  }
+
+  return validationErrors.isEmpty();
  }
+
+ private void addValidationError(String error) {
+  validationErrors.add(error);
+ }
+
+ private void clearValidationErrors() {
+  validationErrors.clear();
+ }
+
+ public List<String> getValidationErrors() {
+  return validationErrors;
+ }
+
 }

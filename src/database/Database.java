@@ -140,6 +140,23 @@ public final class Database {
   return warehouse;
  }
 
+ public Boolean isNameUnique(Warehouse warehouse) {
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM warehouse WHERE name = ? LIMIT 1;");
+   preparedStatement.setString(1, warehouse.getName());
+   ResultSet result = preparedStatement.executeQuery();
+
+   if (!result.next()) {
+    return true;
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return false;
+  }
+
+  return false;
+ }
+
  public void closeConnection() {
   try {
    this.connection.close();

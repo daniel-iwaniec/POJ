@@ -62,14 +62,33 @@ public class WarehouseController {
  }
 
  public static void addAction() throws java.lang.Exception {
-  /**
-   * @todo Walidacja
-   */
   Warehouse newWarehouse = new Warehouse();
   newWarehouse.setName(view.getWarehouseFormNameInput().getText());
-  database.saveWarehouse(newWarehouse);
 
-  WarehouseController.list();
+  if (newWarehouse.validate()) {
+   database.saveWarehouse(newWarehouse);
+   WarehouseController.list();
+  } else {
+   /**
+    * @todo pokaż błędy w popupie
+    */
+  }
+ }
+
+ public static void deleteForm() {
+  view.hideAllViews();
+  view.getHeader().setText("Magazyn - usuń");
+  view.setIcon(MainView.BOX_ICON);
+
+  /**
+   * @todo dodaj do seleca wszystkie magazyny
+   */
+  /**
+   * @todo dodaj do buttona akcję usuwania magazynu
+   */
+  view.getSelectFormHeader().setText("Wybierz magazyn");
+  view.getSelectFormButton().setText("Usuń");
+  view.getSelectFormView().setVisible(true);
  }
 
 }
