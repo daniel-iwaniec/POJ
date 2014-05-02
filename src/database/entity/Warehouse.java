@@ -56,12 +56,13 @@ public class Warehouse {
  }
 
  public Boolean validate() {
-  String emptyString = "";
-
-  if (this.name.equals(emptyString)) {
+  String trimmedName = this.name.trim();
+  if ("".equals(trimmedName)) {
    return false;
   }
-
+  /**
+   * @todo unique name
+   */
   return true;
  }
 }

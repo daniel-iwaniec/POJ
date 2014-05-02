@@ -31,6 +31,8 @@ import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import database.entity.Warehouse;
 
@@ -48,42 +50,48 @@ public final class Database {
   if (instance == null) {
    instance = new Database();
   }
-
   return instance;
  }
 
  public Database() {
   try {
    Class.forName(Database.DRIVER);
-  } catch (ClassNotFoundException exception) {
-   System.err.println(exception.getMessage());
-  }
 
-  try {
    this.connection = DriverManager.getConnection(Database.DB_URL);
    this.statement = this.connection.createStatement();
-  } catch (SQLException exception) {
-   System.err.println(exception.getMessage());
-  }
 
-  initialize();
+   initialize();
+  } catch (ClassNotFoundException | SQLException ex) {
+   Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+  }
  }
 
  public void initialize() {
-  String createWarehouseTable = "CREATE TABLE IF NOT EXISTS warehouse (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))";
-  String truncateWarehouseTable = "DELETE FROM warehouse";
   try {
+   String createWarehouseTable = "CREATE TABLE IF NOT EXISTS warehouse (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))";
+   /**
+    * @todo Remove from production
+    */
+   this.clearDatabase();
+
    this.statement.execute(createWarehouseTable);
-   this.statement.execute(truncateWarehouseTable);
-  } catch (SQLException exception) {
-   System.err.println(exception.getMessage());
+  } catch (SQLException ex) {
+   Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
   }
  }
 
- public boolean saveWarehouse(Warehouse warehouse) {
+ public void clearDatabase() {
+  try {
+   this.statement.execute("DROP TABLE IF EXISTS warehouse");
+  } catch (SQLException ex) {
+   Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+  }
+ }
+
+ public void saveWarehouse(Warehouse warehouse) {
   try {
    if (!warehouse.validate()) {
-    return false;
+    return;
    }
 
    if (warehouse.getId().equals(Warehouse.NULL_ID)) {
@@ -96,11 +104,9 @@ public final class Database {
     preparedStatement.setInt(2, warehouse.getId());
     preparedStatement.execute();
    }
-  } catch (SQLException exception) {
-   System.err.println(exception.getMessage());
-   return false;
+  } catch (SQLException ex) {
+   Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
   }
-  return true;
  }
 
  public List<Warehouse> getWarehouses() {

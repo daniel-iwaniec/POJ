@@ -37,26 +37,28 @@ public class WarehouseController {
  protected static Database database = Database.getInstance();
 
  public static void list() {
-  DefaultTableModel table = (DefaultTableModel) view.getTable().getModel();
-
-  Integer rowCount = table.getRowCount();
-  for (Integer i = 0; i < rowCount; i++) {
-   table.removeRow(i);
-  }
+  DefaultTableModel table = (DefaultTableModel) view.getWarehouseListTable().getModel();
+  table.setRowCount(0);
 
   List<Warehouse> warehouses = database.getWarehouses();
   for (Warehouse warehouse : warehouses) {
    table.addRow(new Object[]{warehouse.getId(), warehouse.getName(), false});
   }
 
-  view.hideAll();
-  view.getWarehouseList().setVisible(true);
+  view.hideAllViews();
+  view.getHeader().setText("Magazyn - lista");
+  view.setIcon(MainView.BOX_ICON);
+
+  view.getWarehouseListView().setVisible(true);
  }
 
  public static void addForm() {
-  view.hideAll();
-  view.getTextField().setText("");
-  view.getWarehouseForm().setVisible(true);
+  view.hideAllViews();
+  view.getHeader().setText("Magazyn - dodaj");
+  view.setIcon(MainView.BOX_ICON);
+
+  view.getWarehouseFormNameInput().setText("");
+  view.getWarehouseFormView().setVisible(true);
  }
 
  public static void addAction() throws java.lang.Exception {
@@ -64,7 +66,7 @@ public class WarehouseController {
    * @todo Walidacja
    */
   Warehouse newWarehouse = new Warehouse();
-  newWarehouse.setName(view.getTextField().getText());
+  newWarehouse.setName(view.getWarehouseFormNameInput().getText());
   database.saveWarehouse(newWarehouse);
 
   WarehouseController.list();

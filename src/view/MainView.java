@@ -23,18 +23,19 @@
  */
 package view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.UIManager;
 import controller.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author Daniel Iwaniec, Karol Gos
- */
 public class MainView extends javax.swing.JFrame {
+
+ public static final String BOX_ICON = "box";
+ public static final String HOME_ICON = "home";
+ public static final String LICENSE_ICON = "license";
 
  private static MainView instance = null;
 
@@ -42,13 +43,9 @@ public class MainView extends javax.swing.JFrame {
   if (instance == null) {
    instance = new MainView();
   }
-
   return instance;
  }
 
- /**
-  * Creates new form MainView
-  */
  public MainView() {
   this.getContentPane().setBackground(Color.WHITE);
   this.setExtendedState(MainView.MAXIMIZED_BOTH);
@@ -59,28 +56,49 @@ public class MainView extends javax.swing.JFrame {
 
   initComponents();
 
-  this.WarehouseList.setVisible(true);
-  this.WarehouseForm.setVisible(false);
+  this.hideAllViews();
  }
 
- public javax.swing.JTable getTable() {
-  return this.jTable1;
+ public javax.swing.JLabel getHeader() {
+  return this.Header;
  }
 
- public javax.swing.JPanel getWarehouseList() {
+ public void setIcon(String name) {
+  Header.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/" + name + ".png")));
+ }
+
+ public javax.swing.JPanel getIndexView() {
+  return this.Index;
+ }
+
+ public javax.swing.JPanel getLicenseView() {
+  return this.License;
+ }
+
+ public javax.swing.JTextArea getLicenseTextArea() {
+  return this.licenseTextArea;
+ }
+
+ public javax.swing.JPanel getWarehouseListView() {
   return this.WarehouseList;
  }
 
- public javax.swing.JPanel getWarehouseForm() {
+ public javax.swing.JPanel getWarehouseFormView() {
   return this.WarehouseForm;
  }
 
- public void hideAll() {
+ public final void hideAllViews() {
   this.WarehouseList.setVisible(false);
   this.WarehouseForm.setVisible(false);
+  this.Index.setVisible(false);
+  this.License.setVisible(false);
  }
 
- public javax.swing.JTextField getTextField() {
+ public javax.swing.JTable getWarehouseListTable() {
+  return this.jTable1;
+ }
+
+ public javax.swing.JTextField getWarehouseFormNameInput() {
   return jTextField1;
  }
 
@@ -93,7 +111,7 @@ public class MainView extends javax.swing.JFrame {
  // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
  private void initComponents() {
 
-  jLabel2 = new javax.swing.JLabel();
+  Header = new javax.swing.JLabel();
   jLayeredPane1 = new javax.swing.JLayeredPane();
   WarehouseList = new javax.swing.JPanel();
   jScrollPane2 = new javax.swing.JScrollPane();
@@ -102,9 +120,29 @@ public class MainView extends javax.swing.JFrame {
   jButton1 = new javax.swing.JButton();
   jTextField1 = new javax.swing.JTextField();
   jLabel1 = new javax.swing.JLabel();
+  Index = new javax.swing.JPanel();
+  jLabel2 = new javax.swing.JLabel();
+  jLabel3 = new javax.swing.JLabel();
+  jLabel4 = new javax.swing.JLabel();
+  jLabel5 = new javax.swing.JLabel();
+  jLabel6 = new javax.swing.JLabel();
+  jLabel7 = new javax.swing.JLabel();
+  jLabel8 = new javax.swing.JLabel();
+  jLabel9 = new javax.swing.JLabel();
+  jLabel10 = new javax.swing.JLabel();
+  jLabel11 = new javax.swing.JLabel();
+  jLabel15 = new javax.swing.JLabel();
+  jLabel16 = new javax.swing.JLabel();
+  License = new javax.swing.JPanel();
+  jLabel12 = new javax.swing.JLabel();
+  jLabel13 = new javax.swing.JLabel();
+  jLabel14 = new javax.swing.JLabel();
+  jScrollPane1 = new javax.swing.JScrollPane();
+  licenseTextArea = new javax.swing.JTextArea();
   jMenuBar1 = new javax.swing.JMenuBar();
   jMenu2 = new javax.swing.JMenu();
   jMenuItem7 = new javax.swing.JMenuItem();
+  jMenuItem2 = new javax.swing.JMenuItem();
   jMenuItem8 = new javax.swing.JMenuItem();
   jMenu3 = new javax.swing.JMenu();
   jMenuItem3 = new javax.swing.JMenuItem();
@@ -128,16 +166,20 @@ public class MainView extends javax.swing.JFrame {
   setFont(new java.awt.Font("Myriad Pro", 0, 12)); // NOI18N
   setForeground(new java.awt.Color(0, 0, 0));
 
-  jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-  jLabel2.setFont(new java.awt.Font("Myriad Pro", 1, 24)); // NOI18N
-  jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-  jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/box.png"))); // NOI18N
-  jLabel2.setText("MAGAZYNY");
-  jLabel2.setToolTipText("");
-  jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(204, 204, 204)));
-  jLabel2.setIconTextGap(20);
+  Header.setBackground(new java.awt.Color(255, 255, 255));
+  Header.setFont(new java.awt.Font("Myriad Pro", 1, 24)); // NOI18N
+  Header.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  Header.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/box.png"))); // NOI18N
+  Header.setText("MAGAZYNY");
+  Header.setToolTipText("");
+  Header.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 0, 2, 0, new java.awt.Color(204, 204, 204)));
+  Header.setIconTextGap(20);
 
   jLayeredPane1.setOpaque(true);
+
+  WarehouseList.setBackground(new java.awt.Color(255, 255, 255));
+
+  jScrollPane2.setPreferredSize(new java.awt.Dimension(452, 427));
 
   jTable1.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
   jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -180,15 +222,24 @@ public class MainView extends javax.swing.JFrame {
   WarehouseList.setLayout(WarehouseListLayout);
   WarehouseListLayout.setHorizontalGroup(
    WarehouseListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WarehouseListLayout.createSequentialGroup()
+    .addContainerGap()
+    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    .addContainerGap())
   );
   WarehouseListLayout.setVerticalGroup(
    WarehouseListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+   .addGroup(WarehouseListLayout.createSequentialGroup()
+    .addContainerGap()
+    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+    .addContainerGap())
   );
 
-  WarehouseForm.setPreferredSize(new java.awt.Dimension(452, 379));
+  WarehouseForm.setBackground(new java.awt.Color(255, 255, 255));
+  WarehouseForm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+  WarehouseForm.setPreferredSize(new java.awt.Dimension(452, 427));
 
+  jButton1.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
   jButton1.setText("Dodaj");
   jButton1.addActionListener(new java.awt.event.ActionListener() {
    public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,6 +247,10 @@ public class MainView extends javax.swing.JFrame {
    }
   });
 
+  jTextField1.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+
+  jLabel1.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel1.setLabelFor(jTextField1);
   jLabel1.setText("Nazwa magazynu");
 
   javax.swing.GroupLayout WarehouseFormLayout = new javax.swing.GroupLayout(WarehouseForm);
@@ -206,7 +261,7 @@ public class MainView extends javax.swing.JFrame {
     .addContainerGap()
     .addGroup(WarehouseFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
      .addGroup(WarehouseFormLayout.createSequentialGroup()
-      .addGap(0, 379, Short.MAX_VALUE)
+      .addGap(0, 351, Short.MAX_VALUE)
       .addComponent(jButton1))
      .addGroup(WarehouseFormLayout.createSequentialGroup()
       .addComponent(jLabel1)
@@ -221,8 +276,171 @@ public class MainView extends javax.swing.JFrame {
     .addComponent(jLabel1)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 330, Short.MAX_VALUE)
     .addComponent(jButton1)
+    .addContainerGap())
+  );
+
+  Index.setBackground(new java.awt.Color(255, 255, 255));
+  Index.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+  Index.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jLabel2.setFont(new java.awt.Font("Myriad Pro", 1, 24)); // NOI18N
+  jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+  jLabel2.setText("Politechnika Świętokrzyska");
+  jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+  jLabel3.setFont(new java.awt.Font("Myriad Pro", 1, 24)); // NOI18N
+  jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+  jLabel3.setText("Programowanie obiektowe Java - Projekt");
+
+  jLabel4.setFont(new java.awt.Font("Myriad Pro", 0, 20)); // NOI18N
+  jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel4.setText("Semetr letni 2014r.");
+
+  jLabel5.setFont(new java.awt.Font("Myriad Pro", 0, 20)); // NOI18N
+  jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel5.setText("Autorzy:");
+
+  jLabel6.setFont(new java.awt.Font("Myriad Pro", 0, 20)); // NOI18N
+  jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/bullet.png"))); // NOI18N
+  jLabel6.setText("Daniel Iwaniec");
+
+  jLabel7.setFont(new java.awt.Font("Myriad Pro", 0, 20)); // NOI18N
+  jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/bullet.png"))); // NOI18N
+  jLabel7.setText("Karol Gos");
+
+  jLabel8.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+  jLabel8.setText("Copyright 2014 Daniel Iwaniec, Karol Gos.");
+
+  jLabel9.setFont(new java.awt.Font("Myriad Pro", 1, 16)); // NOI18N
+  jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel9.setText("Temat projektu: Aplikacja magazynowa.");
+
+  jLabel10.setFont(new java.awt.Font("Myriad Pro", 0, 16)); // NOI18N
+  jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel10.setText("Projekt obejmuje:");
+
+  jLabel11.setFont(new java.awt.Font("Myriad Pro", 0, 16)); // NOI18N
+  jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/bullet.png"))); // NOI18N
+  jLabel11.setText("Dodawanie magazynów.");
+
+  jLabel15.setFont(new java.awt.Font("Myriad Pro", 0, 16)); // NOI18N
+  jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/bullet.png"))); // NOI18N
+  jLabel15.setText("Edytowanie magazynów.");
+
+  jLabel16.setFont(new java.awt.Font("Myriad Pro", 0, 16)); // NOI18N
+  jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/bullet.png"))); // NOI18N
+  jLabel16.setText("Usuwanie magazynów.");
+
+  javax.swing.GroupLayout IndexLayout = new javax.swing.GroupLayout(Index);
+  Index.setLayout(IndexLayout);
+  IndexLayout.setHorizontalGroup(
+   IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+   .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+   .addGroup(IndexLayout.createSequentialGroup()
+    .addContainerGap()
+    .addGroup(IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    .addContainerGap())
+  );
+  IndexLayout.setVerticalGroup(
+   IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(IndexLayout.createSequentialGroup()
+    .addGap(5, 5, 5)
+    .addComponent(jLabel2)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jLabel3)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel4)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel5)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel6)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jLabel7)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel9)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jLabel10)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jLabel11)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jLabel15)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jLabel16)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+    .addComponent(jLabel8)
+    .addContainerGap())
+  );
+
+  License.setBackground(new java.awt.Color(255, 255, 255));
+  License.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+  License.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jLabel12.setFont(new java.awt.Font("Myriad Pro", 1, 24)); // NOI18N
+  jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+  jLabel12.setText("Politechnika Świętokrzyska");
+  jLabel12.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+  jLabel13.setFont(new java.awt.Font("Myriad Pro", 1, 24)); // NOI18N
+  jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+  jLabel13.setText("Programowanie obiektowe Java - Projekt");
+
+  jLabel14.setFont(new java.awt.Font("Myriad Pro", 0, 20)); // NOI18N
+  jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel14.setText("The MIT License");
+
+  jScrollPane1.setBorder(null);
+
+  licenseTextArea.setEditable(false);
+  licenseTextArea.setBackground(new java.awt.Color(245, 245, 245));
+  licenseTextArea.setColumns(20);
+  licenseTextArea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+  licenseTextArea.setRows(5);
+  licenseTextArea.setBorder(null);
+  jScrollPane1.setViewportView(licenseTextArea);
+
+  javax.swing.GroupLayout LicenseLayout = new javax.swing.GroupLayout(License);
+  License.setLayout(LicenseLayout);
+  LicenseLayout.setHorizontalGroup(
+   LicenseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+   .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LicenseLayout.createSequentialGroup()
+    .addContainerGap()
+    .addGroup(LicenseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+     .addComponent(jScrollPane1)
+     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    .addContainerGap())
+  );
+  LicenseLayout.setVerticalGroup(
+   LicenseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(LicenseLayout.createSequentialGroup()
+    .addGap(5, 5, 5)
+    .addComponent(jLabel12)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jLabel13)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel14)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
     .addContainerGap())
   );
 
@@ -234,7 +452,17 @@ public class MainView extends javax.swing.JFrame {
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(WarehouseForm, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+     .addComponent(WarehouseForm, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(Index, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(License, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
      .addContainerGap()))
   );
   jLayeredPane1Layout.setVerticalGroup(
@@ -243,22 +471,36 @@ public class MainView extends javax.swing.JFrame {
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addGap(10, 10, 10)
-     .addComponent(WarehouseForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(WarehouseForm, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
      .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addGap(10, 10, 10)
+     .addComponent(Index, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(License, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+     .addGap(21, 21, 21)))
   );
   jLayeredPane1.setLayer(WarehouseList, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
   WarehouseList.getAccessibleContext().setAccessibleName("WarehouseList");
   jLayeredPane1.setLayer(WarehouseForm, javax.swing.JLayeredPane.DEFAULT_LAYER);
   WarehouseForm.getAccessibleContext().setAccessibleName("WarehouseForm");
+  jLayeredPane1.setLayer(Index, javax.swing.JLayeredPane.DEFAULT_LAYER);
+  Index.getAccessibleContext().setAccessibleName("Index");
+  jLayeredPane1.setLayer(License, javax.swing.JLayeredPane.DEFAULT_LAYER);
+  License.getAccessibleContext().setAccessibleName("License");
 
   jMenuBar1.setBorderPainted(false);
 
   jMenu2.setText("Aplikacja");
 
   jMenuItem7.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
-  jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/home.png"))); // NOI18N
-  jMenuItem7.setText("Start");
+  jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/home_small.png"))); // NOI18N
+  jMenuItem7.setText("Informacje o projekcie");
   jMenuItem7.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
   jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
    public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,6 +508,17 @@ public class MainView extends javax.swing.JFrame {
    }
   });
   jMenu2.add(jMenuItem7);
+
+  jMenuItem2.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/license_menu.png"))); // NOI18N
+  jMenuItem2.setText("Licencja");
+  jMenuItem2.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem2ActionPerformed(evt);
+   }
+  });
+  jMenu2.add(jMenuItem2);
 
   jMenuItem8.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
   jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/exit.png"))); // NOI18N
@@ -354,7 +607,7 @@ public class MainView extends javax.swing.JFrame {
   getContentPane().setLayout(layout);
   layout.setHorizontalGroup(
    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+   .addComponent(Header, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
    .addGroup(layout.createSequentialGroup()
     .addContainerGap()
     .addComponent(jLayeredPane1)
@@ -364,11 +617,13 @@ public class MainView extends javax.swing.JFrame {
    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
    .addGroup(layout.createSequentialGroup()
     .addContainerGap()
-    .addComponent(jLabel2)
+    .addComponent(Header)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
     .addComponent(jLayeredPane1)
     .addContainerGap())
   );
+
+  Header.getAccessibleContext().setAccessibleName("Header");
 
   pack();
  }// </editor-fold>//GEN-END:initComponents
@@ -390,7 +645,7 @@ public class MainView extends javax.swing.JFrame {
  }//GEN-LAST:event_jMenuItem4ActionPerformed
 
  private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-  // TODO add your handling code here:
+  main.Main.mainAction();
  }//GEN-LAST:event_jMenuItem7ActionPerformed
 
  private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -400,6 +655,10 @@ public class MainView extends javax.swing.JFrame {
  private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
   // TODO add your handling code here:
  }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+  main.Main.licenseAction();
+ }//GEN-LAST:event_jMenuItem2ActionPerformed
 
  /**
   * @param args the command line arguments
@@ -438,11 +697,28 @@ public class MainView extends javax.swing.JFrame {
  }
 
  // Variables declaration - do not modify//GEN-BEGIN:variables
+ private javax.swing.JLabel Header;
+ private javax.swing.JPanel Index;
+ private javax.swing.JPanel License;
  private javax.swing.JPanel WarehouseForm;
  private javax.swing.JPanel WarehouseList;
  private javax.swing.JButton jButton1;
  private javax.swing.JLabel jLabel1;
+ private javax.swing.JLabel jLabel10;
+ private javax.swing.JLabel jLabel11;
+ private javax.swing.JLabel jLabel12;
+ private javax.swing.JLabel jLabel13;
+ private javax.swing.JLabel jLabel14;
+ private javax.swing.JLabel jLabel15;
+ private javax.swing.JLabel jLabel16;
  private javax.swing.JLabel jLabel2;
+ private javax.swing.JLabel jLabel3;
+ private javax.swing.JLabel jLabel4;
+ private javax.swing.JLabel jLabel5;
+ private javax.swing.JLabel jLabel6;
+ private javax.swing.JLabel jLabel7;
+ private javax.swing.JLabel jLabel8;
+ private javax.swing.JLabel jLabel9;
  private javax.swing.JLayeredPane jLayeredPane1;
  private javax.swing.JMenu jMenu2;
  private javax.swing.JMenu jMenu3;
@@ -454,14 +730,17 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JMenuItem jMenuItem10;
  private javax.swing.JMenuItem jMenuItem11;
  private javax.swing.JMenuItem jMenuItem13;
+ private javax.swing.JMenuItem jMenuItem2;
  private javax.swing.JMenuItem jMenuItem3;
  private javax.swing.JMenuItem jMenuItem4;
  private javax.swing.JMenuItem jMenuItem5;
  private javax.swing.JMenuItem jMenuItem7;
  private javax.swing.JMenuItem jMenuItem8;
  private javax.swing.JMenuItem jMenuItem9;
+ private javax.swing.JScrollPane jScrollPane1;
  private javax.swing.JScrollPane jScrollPane2;
  private javax.swing.JTable jTable1;
  private javax.swing.JTextField jTextField1;
+ private javax.swing.JTextArea licenseTextArea;
  // End of variables declaration//GEN-END:variables
 }
