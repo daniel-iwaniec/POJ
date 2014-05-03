@@ -24,17 +24,12 @@
 package controller;
 
 import java.util.List;
-
 import database.Database;
 import database.entity.Warehouse;
-import java.awt.Button;
-import java.awt.Dialog;
-import java.awt.FlowLayout;
-import java.awt.Label;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
+import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import view.MainView;
 import view.SelectItem;
@@ -51,7 +46,7 @@ public class WarehouseController {
 
   List<Warehouse> warehouses = database.getWarehouses();
   for (Warehouse warehouse : warehouses) {
-   table.addRow(new Object[]{warehouse.getId(), warehouse.getName(), false});
+   table.addRow(new Object[]{warehouse.getId().toString(), warehouse.getName(), new DecimalFormat("0.00zł").format((double) Math.round(warehouse.calculateValue() * 100) / 100)});
   }
 
   view.hideAllViews();
@@ -66,7 +61,22 @@ public class WarehouseController {
   view.getHeader().setText("Magazyn - dodaj");
   view.setIcon(MainView.BOX_ICON);
 
+  for (ActionListener listener : view.getWarehouseFormButton().getActionListeners()) {
+   view.getWarehouseFormButton().removeActionListener(listener);
+  }
+  view.getWarehouseFormButton().addActionListener(new java.awt.event.ActionListener() {
+   @Override
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    try {
+     WarehouseController.addAction();
+    } catch (Exception ex) {
+     Logger.getLogger(WarehouseController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+   }
+  });
+
   view.getWarehouseFormNameInput().setText("");
+  view.getWarehouseFormButton().setText("Dodaj");
   view.getWarehouseFormView().setVisible(true);
  }
 
@@ -74,29 +84,11 @@ public class WarehouseController {
   Warehouse newWarehouse = new Warehouse();
   newWarehouse.setName(view.getWarehouseFormNameInput().getText());
 
-  /**
-   * @todo poprawić
-   */
   if (newWarehouse.validate()) {
    database.saveWarehouse(newWarehouse);
    WarehouseController.list();
   } else {
-
-   final Dialog d = new Dialog(view, "Alert", true);
-   d.setLayout(new FlowLayout());
-   Button ok = new Button("OK");
-   ok.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-     d.setVisible(false);
-    }
-   });
-
-   d.add(new Label("Click OK to continue"));
-   d.add(ok);
-   d.pack();
-   d.setVisible(true);
-
+   view.showErrorPopup(newWarehouse.getValidationErrors());
   }
  }
 
@@ -111,6 +103,9 @@ public class WarehouseController {
    view.getSelectFormSelect().addItem(new SelectItem(warehouse.getId(), warehouse.getName()));
   }
 
+  for (ActionListener listener : view.getSelectFormButton().getActionListeners()) {
+   view.getSelectFormButton().removeActionListener(listener);
+  }
   view.getSelectFormButton().addActionListener(new java.awt.event.ActionListener() {
    @Override
    public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,16 +120,18 @@ public class WarehouseController {
 
  public static void deleteAction() {
   Object selectedWarehouse = view.getSelectFormSelect().getSelectedItem();
-  Integer id = ((SelectItem) selectedWarehouse).getId();
+  if (selectedWarehouse != null) {
+   Integer id = ((SelectItem) selectedWarehouse).getId();
 
-  Warehouse warehouse = database.getWarehouseById(id);
-  if (warehouse == null) {
-   //pokaż błąd
-  } else {
-   database.deleteWarehouseById(id);
+   Warehouse warehouse = database.getWarehouseById(id);
+   if (warehouse == null) {
+    view.showErrorPopup("Wybrany magazyn nie istnieje");
+   } else {
+    database.deleteWarehouseById(id);
+   }
+
+   WarehouseController.list();
   }
-
-  WarehouseController.list();
  }
 
  public static void editSelectForm() {
@@ -148,6 +145,9 @@ public class WarehouseController {
    view.getSelectFormSelect().addItem(new SelectItem(warehouse.getId(), warehouse.getName()));
   }
 
+  for (ActionListener listener : view.getSelectFormButton().getActionListeners()) {
+   view.getSelectFormButton().removeActionListener(listener);
+  }
   view.getSelectFormButton().addActionListener(new java.awt.event.ActionListener() {
    @Override
    public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,20 +162,97 @@ public class WarehouseController {
 
  public static void editForm() {
   Object selectedWarehouse = view.getSelectFormSelect().getSelectedItem();
-  Integer id = ((SelectItem) selectedWarehouse).getId();
+  if (selectedWarehouse != null) {
+   Integer id = ((SelectItem) selectedWarehouse).getId();
 
-  Warehouse warehouse = database.getWarehouseById(id);
-  if (warehouse == null) {
-   //pokaż błąd
-  } else {
-   view.hideAllViews();
-   view.getHeader().setText("Magazyn - edytuj");
-   view.setIcon(MainView.BOX_ICON);
+   Warehouse warehouse = database.getWarehouseById(id);
+   if (warehouse == null) {
+    view.showErrorPopup("Wybrany magazyn nie istnieje");
+   } else {
+    view.hideAllViews();
+    view.getHeader().setText("Magazyn - edytuj");
+    view.setIcon(MainView.BOX_ICON);
 
-   // dodaj hidden inputa z id
-   view.getWarehouseFormNameInput().setText(warehouse.getName());
-   view.getWarehouseFormView().setVisible(true);
+    for (ActionListener listener : view.getWarehouseFormButton().getActionListeners()) {
+     view.getWarehouseFormButton().removeActionListener(listener);
+    }
+    view.getWarehouseFormButton().addActionListener(new java.awt.event.ActionListener() {
+     @Override
+     public void actionPerformed(java.awt.event.ActionEvent evt) {
+      WarehouseController.editAction();
+     }
+    });
+
+    view.getHiddenWarehouseId().setText(warehouse.getId().toString());
+    view.getWarehouseFormNameInput().setText(warehouse.getName());
+    view.getWarehouseFormButton().setText("Edytuj");
+    view.getWarehouseFormView().setVisible(true);
+   }
   }
+ }
+
+ public static void editAction() {
+  Warehouse editedWarehouse = new Warehouse();
+  editedWarehouse.setId(Integer.parseInt(view.getHiddenWarehouseId().getText()));
+  editedWarehouse.setName(view.getWarehouseFormNameInput().getText());
+
+  editedWarehouse.setName(view.getWarehouseFormNameInput().getText());
+
+  if (editedWarehouse.validate()) {
+   database.saveWarehouse(editedWarehouse);
+   WarehouseController.list();
+  } else {
+   view.showErrorPopup(editedWarehouse.getValidationErrors());
+  }
+ }
+
+ public static void viewInformationsForm() {
+  view.hideAllViews();
+  view.getHeader().setText("Magazyn - informacje");
+  view.setIcon(MainView.BOX_ICON);
+
+  List<Warehouse> warehouses = database.getWarehouses();
+  view.getSelectFormSelect().removeAllItems();
+  for (Warehouse warehouse : warehouses) {
+   view.getSelectFormSelect().addItem(new SelectItem(warehouse.getId(), warehouse.getName()));
+  }
+
+  for (ActionListener listener : view.getSelectFormButton().getActionListeners()) {
+   view.getSelectFormButton().removeActionListener(listener);
+  }
+  view.getSelectFormButton().addActionListener(new java.awt.event.ActionListener() {
+   @Override
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    WarehouseController.viewInformationsAction();
+   }
+  });
+
+  view.getSelectFormHeader().setText("Wybierz magazyn");
+  view.getSelectFormButton().setText("Pokaż informacje");
+  view.getSelectFormView().setVisible(true);
+ }
+
+ public static void viewInformationsAction() {
+  Object selectedWarehouse = view.getSelectFormSelect().getSelectedItem();
+  if (selectedWarehouse != null) {
+   Integer id = ((SelectItem) selectedWarehouse).getId();
+
+   Warehouse warehouse = database.getWarehouseById(id);
+   if (warehouse == null) {
+    view.showErrorPopup("Wybrany magazyn nie istnieje");
+   } else {
+    view.hideAllViews();
+    view.getHeader().setText("Magazyn - informacje");
+    view.setIcon(MainView.BOX_ICON);
+
+    view.getWarehouseViewIDInput().setText(warehouse.getId().toString());
+    view.getWarehouseViewNameInput().setText(warehouse.getName());
+    view.getWarehouseViewValueInput().setText(new DecimalFormat("0.00zł").format((double) Math.round(warehouse.calculateValue() * 100) / 100));
+
+    view.getWarehouseViewInformationsView().setVisible(true);
+   }
+  }
+
  }
 
 }

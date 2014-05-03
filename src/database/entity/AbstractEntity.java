@@ -23,73 +23,38 @@
  */
 package database.entity;
 
-import database.Database;
+import java.util.LinkedList;
+import java.util.List;
 
-public class Warehouse extends AbstractEntity {
+public class AbstractEntity {
 
- private Integer id = AbstractEntity.NULL_ID;
- private String name = "";
+ public static final Integer NULL_ID = 0;
 
- public Warehouse() {
-  super();
+ @SuppressWarnings("FieldMayBeFinal")
+ protected List<String> validationErrors;
+
+ public AbstractEntity() {
+  this.validationErrors = new LinkedList<>();
  }
 
- public Warehouse(Integer id, String name) {
-  super();
-  this.id = id;
-  this.name = name;
- }
-
- public Integer getId() {
-  return this.id;
- }
-
- public void setId(Integer id) {
-  this.id = id;
- }
-
- public String getName() {
-  return this.name;
- }
-
- public void setName(String name) {
-  this.name = name;
- }
-
- public Double calculateValue() {
-  /**
-   * @todo calculate value
-   */
-  return 0.0;
- }
-
- @Override
  public void filter() {
-  this.name = this.name.trim();
  }
 
- @Override
  public Boolean validate() {
   this.filter();
+  return true;
+ }
 
-  if ("".equals(name)) {
-   validationErrors.add("Nazwa nie może być pusta");
-  }
+ protected void addValidationError(String error) {
+  validationErrors.add(error);
+ }
 
-  if (name.length() > 20) {
-   validationErrors.add("Nazwa może zawierać max 20 znaków");
-  }
+ protected void clearValidationErrors() {
+  validationErrors.clear();
+ }
 
-  if (!name.matches("^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃ]*$")) {
-   validationErrors.add("Nazwa może zawierać tylko alfanumeryczne znaki");
-  }
-
-  Database database = Database.getInstance();
-  if (!database.isNameUnique(this)) {
-   validationErrors.add("Nazwa musi być unikalna");
-  }
-
-  return validationErrors.isEmpty();
+ public List<String> getValidationErrors() {
+  return validationErrors;
  }
 
 }

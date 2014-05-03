@@ -68,7 +68,7 @@ public final class Database {
 
  public void initialize() {
   try {
-   String createWarehouseTable = "CREATE TABLE IF NOT EXISTS warehouse (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(255))";
+   String createWarehouseTable = "CREATE TABLE IF NOT EXISTS warehouse (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(20))";
    /**
     * @todo Remove from production
     */
@@ -153,8 +153,9 @@ public final class Database {
 
  public Boolean isNameUnique(Warehouse warehouse) {
   try {
-   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM warehouse WHERE name = ? LIMIT 1;");
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM warehouse WHERE name = ? AND id != ? LIMIT 1;");
    preparedStatement.setString(1, warehouse.getName());
+   preparedStatement.setInt(1, warehouse.getId());
    ResultSet result = preparedStatement.executeQuery();
 
    if (!result.next()) {
