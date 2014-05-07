@@ -25,19 +25,23 @@ package database.entity;
 
 import database.Database;
 
-public class Warehouse extends AbstractEntity {
+public class Ware extends AbstractEntity {
 
  private Integer id = AbstractEntity.NULL_ID;
  private String name = "";
+ private Double value = 0.00;
+ private Double tax = 0.00;
 
- public Warehouse() {
+ public Ware() {
   super();
  }
 
- public Warehouse(Integer id, String name) {
+ public Ware(Integer id, String name, Double value, Double tax) {
   super();
   this.id = id;
   this.name = name;
+  this.value = value;
+  this.tax = tax;
  }
 
  public Integer getId() {
@@ -56,16 +60,31 @@ public class Warehouse extends AbstractEntity {
   this.name = name;
  }
 
- public Double calculateValue() {
-  /**
-   * @todo calculate value
-   */
-  return 0.0;
+ public Double getValue() {
+  return this.value;
+ }
+
+ public void setValue(Double value) {
+  this.value = value;
+ }
+
+ public Double getTax() {
+  return this.tax;
+ }
+
+ public void setTax(Double tax) {
+  this.tax = tax;
+ }
+
+ public Double getValueIncludingTax() {
+  return this.getValue() + (this.getValue() * (this.getTax() / 100));
  }
 
  @Override
  public void filter() {
   this.name = this.name.trim();
+  this.value = (double) Math.round(this.value * 100) / 100;
+  this.tax = (double) Math.round(this.tax * 100) / 100;
  }
 
  @Override
@@ -85,8 +104,24 @@ public class Warehouse extends AbstractEntity {
   }
 
   Database database = Database.getInstance();
-  if (!database.isWarehouseNameUnique(this)) {
+  if (!database.isWareNameUnique(this)) {
    validationErrors.add("Nazwa musi być unikalna");
+  }
+
+  if (value.isNaN() || !(value > 0.0)) {
+   validationErrors.add("Wartość musi być większa od zera");
+  }
+
+  if (value > 999999999999999.99) {
+   validationErrors.add("Maksymalna wartość to 999999999999999.99");
+  }
+
+  if (tax.isNaN() || !(tax >= 0.0)) {
+   validationErrors.add("Procentowa wysokość podatku musi być większa od zera lub równa zeru");
+  }
+
+  if (tax > 999999999999999.99) {
+   validationErrors.add("Maksymalna procentowa wysokość podatku to 999999999999999.99");
   }
 
   return validationErrors.isEmpty();

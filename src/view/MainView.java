@@ -38,6 +38,7 @@ public class MainView extends javax.swing.JFrame {
  private JDialog errorPopupDialog;
 
  public static final String BOX_ICON = "box";
+ public static final String WARE_ICON = "ware";
  public static final String HOME_ICON = "home";
  public static final String LICENSE_ICON = "license";
 
@@ -61,7 +62,8 @@ public class MainView extends javax.swing.JFrame {
   initComponents();
 
   this.hideAllViews();
-  hiddenWarehouseId.setVisible(false);
+  this.hiddenWarehouseId.setVisible(false);
+  this.hiddenWareId.setVisible(false);
 
   this.initializeErrorPopup();
  }
@@ -137,8 +139,36 @@ public class MainView extends javax.swing.JFrame {
   return this.WarehouseList;
  }
 
+ public javax.swing.JPanel getWareListView() {
+  return this.WareList;
+ }
+
  public javax.swing.JPanel getWarehouseFormView() {
   return this.WarehouseForm;
+ }
+
+ public javax.swing.JPanel getWareFormView() {
+  return this.WareForm;
+ }
+
+ public javax.swing.JPanel getWareViewInformationsView() {
+  return this.WareViewInformations;
+ }
+
+ public javax.swing.JTextField getWareViewInformationsNameInput() {
+  return this.jTextField6;
+ }
+
+ public javax.swing.JFormattedTextField getWareViewInformationsValueInput() {
+  return this.jFormattedTextField3;
+ }
+
+ public javax.swing.JFormattedTextField getWareViewInformationsTaxInput() {
+  return this.jFormattedTextField4;
+ }
+
+ public javax.swing.JFormattedTextField getWareViewInformationsValueWithTaxInput() {
+  return this.jFormattedTextField5;
  }
 
  public javax.swing.JPanel getSelectFormView() {
@@ -173,10 +203,17 @@ public class MainView extends javax.swing.JFrame {
   this.SelectForm.setVisible(false);
   this.WarehouseViewInformations.setVisible(false);
   this.ErrorPopup.setVisible(false);
+  this.WareList.setVisible(false);
+  this.WareForm.setVisible(false);
+  this.WareViewInformations.setVisible(false);
  }
 
  public javax.swing.JTable getWarehouseListTable() {
   return this.jTable1;
+ }
+
+ public javax.swing.JTable getWareListTable() {
+  return this.jTable2;
  }
 
  public javax.swing.JTextField getWarehouseFormNameInput() {
@@ -197,6 +234,26 @@ public class MainView extends javax.swing.JFrame {
 
  public javax.swing.JButton getWarehouseFormButton() {
   return this.jButton1;
+ }
+
+ public javax.swing.JButton getWareFormButton() {
+  return this.jButton4;
+ }
+
+ public javax.swing.JTextField getWareFormNameInput() {
+  return jTextField5;
+ }
+
+ public javax.swing.JTextField getWareFormValueInput() {
+  return jFormattedTextField1;
+ }
+
+ public javax.swing.JTextField getWareFormTaxInput() {
+  return jFormattedTextField2;
+ }
+
+ public javax.swing.JTextField getWareFormHiddenIdInput() {
+  return hiddenWareId;
  }
 
  /**
@@ -251,6 +308,27 @@ public class MainView extends javax.swing.JFrame {
   jScrollPane3 = new javax.swing.JScrollPane();
   licenseTextArea1 = new javax.swing.JTextArea();
   jButton3 = new javax.swing.JButton();
+  WareList = new javax.swing.JPanel();
+  jScrollPane4 = new javax.swing.JScrollPane();
+  jTable2 = new javax.swing.JTable();
+  WareForm = new javax.swing.JPanel();
+  jButton4 = new javax.swing.JButton();
+  jTextField5 = new javax.swing.JTextField();
+  jLabel15 = new javax.swing.JLabel();
+  hiddenWareId = new javax.swing.JTextField();
+  jLabel16 = new javax.swing.JLabel();
+  jLabel21 = new javax.swing.JLabel();
+  jFormattedTextField1 = new javax.swing.JFormattedTextField();
+  jFormattedTextField2 = new javax.swing.JFormattedTextField();
+  WareViewInformations = new javax.swing.JPanel();
+  jTextField6 = new javax.swing.JTextField();
+  jLabel22 = new javax.swing.JLabel();
+  jLabel24 = new javax.swing.JLabel();
+  jLabel25 = new javax.swing.JLabel();
+  jFormattedTextField3 = new javax.swing.JFormattedTextField();
+  jFormattedTextField4 = new javax.swing.JFormattedTextField();
+  jLabel26 = new javax.swing.JLabel();
+  jFormattedTextField5 = new javax.swing.JFormattedTextField();
   jMenuBar1 = new javax.swing.JMenuBar();
   jMenu2 = new javax.swing.JMenu();
   jMenuItem7 = new javax.swing.JMenuItem();
@@ -370,7 +448,7 @@ public class MainView extends javax.swing.JFrame {
    WarehouseListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
    .addGroup(WarehouseListLayout.createSequentialGroup()
     .addContainerGap()
-    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
+    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
     .addContainerGap())
   );
 
@@ -733,6 +811,241 @@ public class MainView extends javax.swing.JFrame {
     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
   );
 
+  WareList.setBackground(new java.awt.Color(255, 255, 255));
+
+  jScrollPane4.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jTable2.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jTable2.setModel(new javax.swing.table.DefaultTableModel(
+   new Object [][] {
+
+   },
+   new String [] {
+    "ID", "Nazwa", "Netto", "Podatek", "Brutto"
+   }
+  ) {
+   Class[] types = new Class [] {
+    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+   };
+   boolean[] canEdit = new boolean [] {
+    false, false, false, false, false
+   };
+
+   public Class getColumnClass(int columnIndex) {
+    return types [columnIndex];
+   }
+
+   public boolean isCellEditable(int rowIndex, int columnIndex) {
+    return canEdit [columnIndex];
+   }
+  });
+  jTable2.setColumnSelectionAllowed(true);
+  jTable2.setFillsViewportHeight(true);
+  jTable2.setGridColor(new java.awt.Color(204, 204, 204));
+  jTable2.setRowHeight(36);
+  jTable2.setSelectionBackground(new java.awt.Color(204, 255, 255));
+  jTable2.getTableHeader().setReorderingAllowed(false);
+  jScrollPane4.setViewportView(jTable2);
+  jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+  if (jTable2.getColumnModel().getColumnCount() > 0) {
+   jTable2.getColumnModel().getColumn(0).setResizable(false);
+   jTable2.getColumnModel().getColumn(1).setResizable(false);
+   jTable2.getColumnModel().getColumn(2).setResizable(false);
+   jTable2.getColumnModel().getColumn(3).setResizable(false);
+   jTable2.getColumnModel().getColumn(4).setResizable(false);
+  }
+
+  javax.swing.GroupLayout WareListLayout = new javax.swing.GroupLayout(WareList);
+  WareList.setLayout(WareListLayout);
+  WareListLayout.setHorizontalGroup(
+   WareListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+  );
+  WareListLayout.setVerticalGroup(
+   WareListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+  );
+
+  WareForm.setBackground(new java.awt.Color(255, 255, 255));
+  WareForm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+  WareForm.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jButton4.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jButton4.setText("Dodaj");
+  jButton4.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jButton4ActionPerformed(evt);
+   }
+  });
+
+  jTextField5.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+
+  jLabel15.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel15.setLabelFor(jTextField1);
+  jLabel15.setText("Nazwa towaru");
+
+  hiddenWareId.setText("Hidden ID");
+
+  jLabel16.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel16.setLabelFor(jTextField1);
+  jLabel16.setText("Cena netto towaru");
+
+  jLabel21.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel21.setLabelFor(jTextField1);
+  jLabel21.setText("Procentowa wysokość podatku");
+
+  jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+  jFormattedTextField1.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jFormattedTextField1ActionPerformed(evt);
+   }
+  });
+
+  jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+  jFormattedTextField2.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jFormattedTextField2.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jFormattedTextField2ActionPerformed(evt);
+   }
+  });
+
+  javax.swing.GroupLayout WareFormLayout = new javax.swing.GroupLayout(WareForm);
+  WareForm.setLayout(WareFormLayout);
+  WareFormLayout.setHorizontalGroup(
+   WareFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(WareFormLayout.createSequentialGroup()
+    .addContainerGap()
+    .addGroup(WareFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+     .addGroup(WareFormLayout.createSequentialGroup()
+      .addGap(0, 399, Short.MAX_VALUE)
+      .addComponent(jButton4))
+     .addComponent(jTextField5)
+     .addComponent(hiddenWareId)
+     .addGroup(WareFormLayout.createSequentialGroup()
+      .addGroup(WareFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+       .addComponent(jLabel15)
+       .addComponent(jLabel16)
+       .addComponent(jLabel21))
+      .addGap(0, 0, Short.MAX_VALUE))
+     .addComponent(jFormattedTextField1)
+     .addComponent(jFormattedTextField2))
+    .addContainerGap())
+  );
+  WareFormLayout.setVerticalGroup(
+   WareFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WareFormLayout.createSequentialGroup()
+    .addContainerGap()
+    .addComponent(jLabel15)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel16)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel21)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
+    .addComponent(hiddenWareId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jButton4)
+    .addContainerGap())
+  );
+
+  WareViewInformations.setBackground(new java.awt.Color(255, 255, 255));
+  WareViewInformations.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+  WareViewInformations.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jTextField6.setEditable(false);
+  jTextField6.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+
+  jLabel22.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel22.setLabelFor(jTextField1);
+  jLabel22.setText("Nazwa towaru");
+
+  jLabel24.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel24.setLabelFor(jTextField1);
+  jLabel24.setText("Cena netto towaru");
+
+  jLabel25.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel25.setLabelFor(jTextField1);
+  jLabel25.setText("Procentowa wysokość podatku");
+
+  jFormattedTextField3.setEditable(false);
+  jFormattedTextField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+  jFormattedTextField3.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jFormattedTextField3.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jFormattedTextField3ActionPerformed(evt);
+   }
+  });
+
+  jFormattedTextField4.setEditable(false);
+  jFormattedTextField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+  jFormattedTextField4.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jFormattedTextField4.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jFormattedTextField4ActionPerformed(evt);
+   }
+  });
+
+  jLabel26.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel26.setLabelFor(jTextField1);
+  jLabel26.setText("Wartość brutto");
+
+  jFormattedTextField5.setEditable(false);
+  jFormattedTextField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
+  jFormattedTextField5.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jFormattedTextField5.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jFormattedTextField5ActionPerformed(evt);
+   }
+  });
+
+  javax.swing.GroupLayout WareViewInformationsLayout = new javax.swing.GroupLayout(WareViewInformations);
+  WareViewInformations.setLayout(WareViewInformationsLayout);
+  WareViewInformationsLayout.setHorizontalGroup(
+   WareViewInformationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(WareViewInformationsLayout.createSequentialGroup()
+    .addContainerGap()
+    .addGroup(WareViewInformationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+     .addComponent(jTextField6)
+     .addComponent(jFormattedTextField3)
+     .addComponent(jFormattedTextField4)
+     .addGroup(WareViewInformationsLayout.createSequentialGroup()
+      .addGroup(WareViewInformationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+       .addComponent(jLabel22)
+       .addComponent(jLabel24)
+       .addComponent(jLabel25)
+       .addComponent(jLabel26))
+      .addGap(0, 239, Short.MAX_VALUE))
+     .addComponent(jFormattedTextField5))
+    .addContainerGap())
+  );
+  WareViewInformationsLayout.setVerticalGroup(
+   WareViewInformationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WareViewInformationsLayout.createSequentialGroup()
+    .addContainerGap()
+    .addComponent(jLabel22)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel24)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel25)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel26)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jFormattedTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addContainerGap(308, Short.MAX_VALUE))
+  );
+
   javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
   jLayeredPane1.setLayout(jLayeredPane1Layout);
   jLayeredPane1Layout.setHorizontalGroup(
@@ -741,33 +1054,48 @@ public class MainView extends javax.swing.JFrame {
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(WarehouseForm, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+     .addComponent(WarehouseForm, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(Index, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+     .addComponent(Index, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(License, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+     .addComponent(License, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(SelectForm, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+     .addComponent(SelectForm, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(WarehouseViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+     .addComponent(WarehouseViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(ErrorPopup, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+     .addComponent(ErrorPopup, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
      .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(WareList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(WareForm, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(WareViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+     .addGap(30, 30, 30)))
   );
   jLayeredPane1Layout.setVerticalGroup(
    jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -775,33 +1103,48 @@ public class MainView extends javax.swing.JFrame {
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addGap(10, 10, 10)
-     .addComponent(WarehouseForm, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+     .addComponent(WarehouseForm, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addGap(10, 10, 10)
-     .addComponent(Index, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+     .addComponent(Index, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(License, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+     .addComponent(License, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
      .addGap(21, 21, 21)))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(SelectForm, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+     .addComponent(SelectForm, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
      .addGap(21, 21, 21)))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(WarehouseViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+     .addComponent(WarehouseViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
      .addGap(21, 21, 21)))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addGap(21, 21, 21)
-     .addComponent(ErrorPopup, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+     .addComponent(ErrorPopup, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
      .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addGap(10, 10, 10)
+     .addComponent(WareList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(WareForm, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+     .addGap(21, 21, 21)))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(WareViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+     .addGap(132, 132, 132)))
   );
   jLayeredPane1.setLayer(WarehouseList, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -817,6 +1160,10 @@ public class MainView extends javax.swing.JFrame {
   jLayeredPane1.setLayer(WarehouseViewInformations, javax.swing.JLayeredPane.DEFAULT_LAYER);
   jLayeredPane1.setLayer(ErrorPopup, javax.swing.JLayeredPane.DEFAULT_LAYER);
   ErrorPopup.getAccessibleContext().setAccessibleName("ErrorPopup");
+  jLayeredPane1.setLayer(WareList, javax.swing.JLayeredPane.DEFAULT_LAYER);
+  jLayeredPane1.setLayer(WareForm, javax.swing.JLayeredPane.DEFAULT_LAYER);
+  WareForm.getAccessibleContext().setAccessibleName("WareForm");
+  jLayeredPane1.setLayer(WareViewInformations, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
   jMenuBar1.setBorderPainted(false);
 
@@ -919,19 +1266,59 @@ public class MainView extends javax.swing.JFrame {
 
   jMenu1.setText("Towar");
 
-  jMenuItem12.setText("jMenuItem12");
+  jMenuItem12.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/list.png"))); // NOI18N
+  jMenuItem12.setText("Lista");
+  jMenuItem12.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem12ActionPerformed(evt);
+   }
+  });
   jMenu1.add(jMenuItem12);
 
-  jMenuItem14.setText("jMenuItem14");
+  jMenuItem14.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/view.png"))); // NOI18N
+  jMenuItem14.setText("Informacje");
+  jMenuItem14.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem14ActionPerformed(evt);
+   }
+  });
   jMenu1.add(jMenuItem14);
 
-  jMenuItem16.setText("jMenuItem16");
+  jMenuItem16.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/add.png"))); // NOI18N
+  jMenuItem16.setText("Dodaj");
+  jMenuItem16.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem16ActionPerformed(evt);
+   }
+  });
   jMenu1.add(jMenuItem16);
 
-  jMenuItem17.setText("jMenuItem17");
+  jMenuItem17.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/edit.png"))); // NOI18N
+  jMenuItem17.setText("Edytuj");
+  jMenuItem17.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem17ActionPerformed(evt);
+   }
+  });
   jMenu1.add(jMenuItem17);
 
-  jMenuItem18.setText("jMenuItem18");
+  jMenuItem18.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/exit.png"))); // NOI18N
+  jMenuItem18.setText("Usuń");
+  jMenuItem18.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem18ActionPerformed(evt);
+   }
+  });
   jMenu1.add(jMenuItem18);
 
   jMenuBar1.add(jMenu1);
@@ -1095,6 +1482,50 @@ public class MainView extends javax.swing.JFrame {
   this.hideErrorPopup();
  }//GEN-LAST:event_jButton3ActionPerformed
 
+ private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+  WareController.addForm();
+ }//GEN-LAST:event_jMenuItem16ActionPerformed
+
+ private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+  WareController.deleteForm();
+ }//GEN-LAST:event_jMenuItem18ActionPerformed
+
+ private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+  WareController.list();
+ }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+  // TODO add your handling code here:
+ }//GEN-LAST:event_jButton4ActionPerformed
+
+ private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+  // TODO add your handling code here:
+ }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+
+ private void jFormattedTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField2ActionPerformed
+  // TODO add your handling code here:
+ }//GEN-LAST:event_jFormattedTextField2ActionPerformed
+
+ private void jFormattedTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField3ActionPerformed
+  // TODO add your handling code here:
+ }//GEN-LAST:event_jFormattedTextField3ActionPerformed
+
+ private void jFormattedTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField4ActionPerformed
+  // TODO add your handling code here:
+ }//GEN-LAST:event_jFormattedTextField4ActionPerformed
+
+ private void jFormattedTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField5ActionPerformed
+  // TODO add your handling code here:
+ }//GEN-LAST:event_jFormattedTextField5ActionPerformed
+
+ private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+  WareController.viewInformationsForm();
+ }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+ private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+  WareController.editSelectForm();
+ }//GEN-LAST:event_jMenuItem17ActionPerformed
+
  /**
   * @param args the command line arguments
   */
@@ -1138,25 +1569,42 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JPanel License;
  private javax.swing.JPanel SelectForm;
  private javax.swing.JComboBox SelectFormSelect;
+ private javax.swing.JPanel WareForm;
+ private javax.swing.JPanel WareList;
+ private javax.swing.JPanel WareViewInformations;
  private javax.swing.JPanel WarehouseForm;
  private javax.swing.JPanel WarehouseList;
  private javax.swing.JPanel WarehouseViewInformations;
+ private javax.swing.JTextField hiddenWareId;
  private javax.swing.JTextField hiddenWarehouseId;
  private javax.swing.JButton jButton1;
  private javax.swing.JButton jButton2;
  private javax.swing.JButton jButton3;
+ private javax.swing.JButton jButton4;
+ private javax.swing.JFormattedTextField jFormattedTextField1;
+ private javax.swing.JFormattedTextField jFormattedTextField2;
+ private javax.swing.JFormattedTextField jFormattedTextField3;
+ private javax.swing.JFormattedTextField jFormattedTextField4;
+ private javax.swing.JFormattedTextField jFormattedTextField5;
  private javax.swing.JLabel jLabel1;
  private javax.swing.JLabel jLabel10;
  private javax.swing.JLabel jLabel11;
  private javax.swing.JLabel jLabel12;
  private javax.swing.JLabel jLabel13;
  private javax.swing.JLabel jLabel14;
+ private javax.swing.JLabel jLabel15;
+ private javax.swing.JLabel jLabel16;
  private javax.swing.JLabel jLabel17;
  private javax.swing.JLabel jLabel18;
  private javax.swing.JLabel jLabel19;
  private javax.swing.JLabel jLabel2;
  private javax.swing.JLabel jLabel20;
+ private javax.swing.JLabel jLabel21;
+ private javax.swing.JLabel jLabel22;
  private javax.swing.JLabel jLabel23;
+ private javax.swing.JLabel jLabel24;
+ private javax.swing.JLabel jLabel25;
+ private javax.swing.JLabel jLabel26;
  private javax.swing.JLabel jLabel3;
  private javax.swing.JLabel jLabel4;
  private javax.swing.JLabel jLabel5;
@@ -1211,11 +1659,15 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JScrollPane jScrollPane1;
  private javax.swing.JScrollPane jScrollPane2;
  private javax.swing.JScrollPane jScrollPane3;
+ private javax.swing.JScrollPane jScrollPane4;
  private javax.swing.JTable jTable1;
+ private javax.swing.JTable jTable2;
  private javax.swing.JTextField jTextField1;
  private javax.swing.JTextField jTextField2;
  private javax.swing.JTextField jTextField3;
  private javax.swing.JTextField jTextField4;
+ private javax.swing.JTextField jTextField5;
+ private javax.swing.JTextField jTextField6;
  private javax.swing.JTextArea licenseTextArea;
  private javax.swing.JTextArea licenseTextArea1;
  // End of variables declaration//GEN-END:variables

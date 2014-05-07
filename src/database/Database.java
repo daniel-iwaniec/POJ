@@ -23,6 +23,7 @@
  */
 package database;
 
+import database.entity.Ware;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -69,12 +70,14 @@ public final class Database {
  public void initialize() {
   try {
    String createWarehouseTable = "CREATE TABLE IF NOT EXISTS warehouse (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(20))";
+   String createWareTable = "CREATE TABLE IF NOT EXISTS ware (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(20), value DECIMAL(17,2), tax DECIMAL(17,2))";
    /**
     * @todo Remove from production
     */
    this.clearDatabase();
 
    this.statement.execute(createWarehouseTable);
+   this.statement.execute(createWareTable);
   } catch (SQLException ex) {
    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
   }
@@ -83,6 +86,7 @@ public final class Database {
  public void clearDatabase() {
   try {
    this.statement.execute("DROP TABLE IF EXISTS warehouse");
+   this.statement.execute("DROP TABLE IF EXISTS ware");
   } catch (SQLException ex) {
    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
   }
@@ -151,22 +155,99 @@ public final class Database {
   }
  }
 
- public Boolean isNameUnique(Warehouse warehouse) {
+ public Boolean isWarehouseNameUnique(Warehouse warehouse) {
   try {
    PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM warehouse WHERE name = ? AND id != ? LIMIT 1;");
    preparedStatement.setString(1, warehouse.getName());
    preparedStatement.setInt(1, warehouse.getId());
    ResultSet result = preparedStatement.executeQuery();
 
-   if (!result.next()) {
-    return true;
-   }
+   return !result.next();
   } catch (SQLException exception) {
    System.err.println(exception.getMessage());
    return false;
   }
+ }
 
-  return false;
+ public void saveWare(Ware ware) {
+  try {
+   if (!ware.validate()) {
+    return;
+   }
+
+   if (ware.getId().equals(Ware.NULL_ID)) {
+    PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO ware VALUES (NULL, ?, ?, ?);");
+    preparedStatement.setString(1, ware.getName());
+    preparedStatement.setDouble(2, ware.getValue());
+    preparedStatement.setDouble(3, ware.getTax());
+    preparedStatement.execute();
+   } else {
+    PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE ware SET name = ?, value = ?, tax = ? WHERE id = ?;");
+    preparedStatement.setString(1, ware.getName());
+    preparedStatement.setDouble(2, ware.getValue());
+    preparedStatement.setDouble(3, ware.getTax());
+    preparedStatement.setInt(4, ware.getId());
+    preparedStatement.execute();
+   }
+  } catch (SQLException ex) {
+   Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+  }
+ }
+
+ public List<Ware> getWares() {
+  List<Ware> wares = new LinkedList<>();
+  try {
+   ResultSet result = this.statement.executeQuery("SELECT * FROM ware");
+   while (result.next()) {
+    wares.add(new Ware(result.getInt("id"), result.getString("name"), result.getDouble("value"), result.getDouble("tax")));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+  return wares;
+ }
+
+ public Boolean isWareNameUnique(Ware ware) {
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM ware WHERE name = ? AND id != ? LIMIT 1;");
+   preparedStatement.setString(1, ware.getName());
+   preparedStatement.setInt(1, ware.getId());
+   ResultSet result = preparedStatement.executeQuery();
+
+   return !result.next();
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return false;
+  }
+ }
+
+ public Ware getWareById(Integer id) {
+  Ware ware = null;
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM ware WHERE id = ?;");
+   preparedStatement.setInt(1, id);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    ware = new Ware(result.getInt("id"), result.getString("name"), result.getDouble("value"), result.getDouble("tax"));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+
+  return ware;
+ }
+
+ public void deleteWareById(Integer id) {
+  Ware ware = null;
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM ware WHERE id = ?;");
+   preparedStatement.setInt(1, id);
+   preparedStatement.execute();
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+  }
  }
 
  public void closeConnection() {
