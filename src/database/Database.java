@@ -159,7 +159,7 @@ public final class Database {
   try {
    PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM warehouse WHERE name = ? AND id != ? LIMIT 1;");
    preparedStatement.setString(1, warehouse.getName());
-   preparedStatement.setInt(1, warehouse.getId());
+   preparedStatement.setInt(2, warehouse.getId());
    ResultSet result = preparedStatement.executeQuery();
 
    return !result.next();
@@ -212,7 +212,7 @@ public final class Database {
   try {
    PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM ware WHERE name = ? AND id != ? LIMIT 1;");
    preparedStatement.setString(1, ware.getName());
-   preparedStatement.setInt(1, ware.getId());
+   preparedStatement.setInt(2, ware.getId());
    ResultSet result = preparedStatement.executeQuery();
 
    return !result.next();

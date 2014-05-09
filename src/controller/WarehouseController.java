@@ -46,7 +46,7 @@ public class WarehouseController {
 
   List<Warehouse> warehouses = database.getWarehouses();
   for (Warehouse warehouse : warehouses) {
-   table.addRow(new Object[]{warehouse.getId().toString(), warehouse.getName(), new DecimalFormat("#0,00zł").format((double) Math.round(warehouse.calculateValue() * 100) / 100)});
+   table.addRow(new Object[]{warehouse.getId().toString(), warehouse.getName(), new DecimalFormat("#0.00zł").format((double) Math.round(warehouse.calculateValue() * 100) / 100)});
   }
 
   view.hideAllViews();
@@ -247,7 +247,7 @@ public class WarehouseController {
 
     view.getWarehouseViewIDInput().setText(warehouse.getId().toString());
     view.getWarehouseViewNameInput().setText(warehouse.getName());
-    view.getWarehouseViewValueInput().setText(new DecimalFormat("#0,00zł").format((double) Math.round(warehouse.calculateValue() * 100) / 100));
+    view.getWarehouseViewValueInput().setText(new DecimalFormat("#0.00zł").format((double) Math.round(warehouse.calculateValue() * 100) / 100));
 
     view.getWarehouseViewInformationsView().setVisible(true);
    }

@@ -26,11 +26,11 @@ package controller;
 import java.util.List;
 import database.Database;
 import database.entity.Ware;
-import database.entity.Warehouse;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
 
 import view.MainView;
 import view.SelectItem;
@@ -51,7 +51,7 @@ public class WareController {
     ware.getId().toString(),
     ware.getName(),
     new DecimalFormat("#0.00zł").format((double) Math.round(ware.getValue() * 100) / 100),
-    new DecimalFormat("#0.00%").format((double) Math.round(ware.getTax()) / 100),
+    new DecimalFormat("#0.00%").format((double) Math.round(ware.getTax() * 100) / 10000),
     new DecimalFormat("#0.00zł").format((double) Math.round(ware.getValueIncludingTax() * 100) / 100)
    });
   }
@@ -81,6 +81,9 @@ public class WareController {
     }
    }
   });
+
+  view.getWareViewInformationsValueInput().setFocusLostBehavior(JFormattedTextField.COMMIT_OR_REVERT);
+  view.getWareViewInformationsTaxInput().setFocusLostBehavior(JFormattedTextField.COMMIT_OR_REVERT);
 
   view.getWareFormNameInput().setText("");
   view.getWareFormValueInput().setText("0,00");
@@ -196,9 +199,12 @@ public class WareController {
 
     view.getWareFormHiddenIdInput().setText(ware.getId().toString());
 
+    view.getWareViewInformationsValueInput().setFocusLostBehavior(JFormattedTextField.COMMIT_OR_REVERT);
+    view.getWareViewInformationsTaxInput().setFocusLostBehavior(JFormattedTextField.COMMIT_OR_REVERT);
+
     view.getWareFormNameInput().setText(ware.getName());
-    view.getWareFormValueInput().setText(new DecimalFormat("#0.00zł").format((double) Math.round(ware.getValue() * 100) / 100));
-    view.getWareFormTaxInput().setText(new DecimalFormat("#0.00zł").format((double) Math.round(ware.getTax() * 100) / 100));
+    view.getWareFormValueInput().setText(new DecimalFormat("#0.00").format((double) Math.round(ware.getValue() * 100) / 100));
+    view.getWareFormTaxInput().setText(new DecimalFormat("#0.00").format((double) Math.round(ware.getTax() * 100) / 100));
 
     view.getWareFormButton().setText("Edytuj");
     view.getWareFormView().setVisible(true);
@@ -260,9 +266,13 @@ public class WareController {
     view.getHeader().setText("Towar - informacje");
     view.setIcon(MainView.WARE_ICON);
 
+    view.getWareViewInformationsValueInput().setFocusLostBehavior(JFormattedTextField.PERSIST);
+    view.getWareViewInformationsTaxInput().setFocusLostBehavior(JFormattedTextField.PERSIST);
+    view.getWareViewInformationsValueWithTaxInput().setFocusLostBehavior(JFormattedTextField.PERSIST);
+
     view.getWareViewInformationsNameInput().setText(ware.getName());
     view.getWareViewInformationsValueInput().setText(new DecimalFormat("#0.00zł").format((double) Math.round(ware.getValue() * 100) / 100));
-    view.getWareViewInformationsTaxInput().setText(new DecimalFormat("#0.00%").format((double) Math.round(ware.getTax() * 100) / 100));
+    view.getWareViewInformationsTaxInput().setText(new DecimalFormat("#0.00%").format((double) Math.round(ware.getTax() * 100) / 10000));
     view.getWareViewInformationsValueWithTaxInput().setText(new DecimalFormat("#0.00zł").format((double) Math.round(ware.getValueIncludingTax() * 100) / 100));
 
     view.getWareViewInformationsView().setVisible(true);

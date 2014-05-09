@@ -286,6 +286,9 @@ public class MainView extends javax.swing.JFrame {
   jLabel9 = new javax.swing.JLabel();
   jLabel10 = new javax.swing.JLabel();
   jLabel11 = new javax.swing.JLabel();
+  jLabel27 = new javax.swing.JLabel();
+  jLabel28 = new javax.swing.JLabel();
+  jLabel29 = new javax.swing.JLabel();
   License = new javax.swing.JPanel();
   jLabel12 = new javax.swing.JLabel();
   jLabel13 = new javax.swing.JLabel();
@@ -352,6 +355,7 @@ public class MainView extends javax.swing.JFrame {
   jMenuItem9 = new javax.swing.JMenuItem();
   jMenuItem19 = new javax.swing.JMenuItem();
   jMenuItem20 = new javax.swing.JMenuItem();
+  jMenuItem21 = new javax.swing.JMenuItem();
   jMenu6 = new javax.swing.JMenu();
   jMenuItem11 = new javax.swing.JMenuItem();
   jMenuItem13 = new javax.swing.JMenuItem();
@@ -372,6 +376,7 @@ public class MainView extends javax.swing.JFrame {
   jMenuItem34 = new javax.swing.JMenuItem();
   jMenu9 = new javax.swing.JMenu();
   jMenuItem35 = new javax.swing.JMenuItem();
+  jMenuItem15 = new javax.swing.JMenuItem();
 
   setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
   setTitle("Magazyn");
@@ -551,12 +556,27 @@ public class MainView extends javax.swing.JFrame {
   jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/bullet.png"))); // NOI18N
   jLabel11.setText("Obsługę magazynów.");
 
+  jLabel27.setFont(new java.awt.Font("Myriad Pro", 0, 16)); // NOI18N
+  jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/bullet.png"))); // NOI18N
+  jLabel27.setText("Obsługę towarów.");
+
+  jLabel28.setFont(new java.awt.Font("Myriad Pro", 0, 16)); // NOI18N
+  jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/bullet.png"))); // NOI18N
+  jLabel28.setText("Obsługę dokumentów PZ, WZ, PW, RW.");
+
+  jLabel29.setFont(new java.awt.Font("Myriad Pro", 0, 16)); // NOI18N
+  jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+  jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/bullet.png"))); // NOI18N
+  jLabel29.setText("Statystyki magazynów.");
+
   javax.swing.GroupLayout IndexLayout = new javax.swing.GroupLayout(Index);
   Index.setLayout(IndexLayout);
   IndexLayout.setHorizontalGroup(
    IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-   .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+   .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
    .addGroup(IndexLayout.createSequentialGroup()
     .addContainerGap()
     .addGroup(IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -567,7 +587,10 @@ public class MainView extends javax.swing.JFrame {
      .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
      .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
      .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     .addContainerGap())
   );
   IndexLayout.setVerticalGroup(
@@ -591,7 +614,13 @@ public class MainView extends javax.swing.JFrame {
     .addComponent(jLabel10)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
     .addComponent(jLabel11)
-    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jLabel27)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jLabel28)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jLabel29)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 286, Short.MAX_VALUE)
     .addComponent(jLabel8)
     .addContainerGap())
   );
@@ -1325,75 +1354,250 @@ public class MainView extends javax.swing.JFrame {
 
   jMenu4.setText("Dokument");
 
-  jMenu5.setText("Wydanie zewnętrzne");
+  jMenu5.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/outside_income.png"))); // NOI18N
+  jMenu5.setText("Przyjęcie zewnętrzne (PZ)");
+  jMenu5.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
 
+  jMenuItem10.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/list.png"))); // NOI18N
   jMenuItem10.setText("Lista");
+  jMenuItem10.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem10ActionPerformed(evt);
+   }
+  });
   jMenu5.add(jMenuItem10);
 
-  jMenuItem9.setText("Dodaj");
+  jMenuItem9.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/view.png"))); // NOI18N
+  jMenuItem9.setText("Informacje");
+  jMenuItem9.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem9ActionPerformed(evt);
+   }
+  });
   jMenu5.add(jMenuItem9);
 
-  jMenuItem19.setText("jMenuItem19");
+  jMenuItem19.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/add.png"))); // NOI18N
+  jMenuItem19.setText("Dodaj");
+  jMenuItem19.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem19ActionPerformed(evt);
+   }
+  });
   jMenu5.add(jMenuItem19);
 
-  jMenuItem20.setText("jMenuItem20");
+  jMenuItem20.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/edit.png"))); // NOI18N
+  jMenuItem20.setText("Edytuj");
+  jMenuItem20.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem20ActionPerformed(evt);
+   }
+  });
   jMenu5.add(jMenuItem20);
+
+  jMenuItem21.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/delete.png"))); // NOI18N
+  jMenuItem21.setText("Usuń");
+  jMenuItem21.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem21ActionPerformed(evt);
+   }
+  });
+  jMenu5.add(jMenuItem21);
 
   jMenu4.add(jMenu5);
 
-  jMenu6.setText("Przyjęcie zewnętrzne");
+  jMenu6.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/outside_outcome.png"))); // NOI18N
+  jMenu6.setText("Wydanie zewnętrzne (WZ)");
+  jMenu6.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
 
+  jMenuItem11.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/list.png"))); // NOI18N
   jMenuItem11.setText("Lista");
+  jMenuItem11.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem11ActionPerformed(evt);
+   }
+  });
   jMenu6.add(jMenuItem11);
 
-  jMenuItem13.setText("Dodaj");
+  jMenuItem13.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/view.png"))); // NOI18N
+  jMenuItem13.setText("Informacje");
+  jMenuItem13.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem13ActionPerformed(evt);
+   }
+  });
   jMenu6.add(jMenuItem13);
 
-  jMenuItem22.setText("jMenuItem22");
+  jMenuItem22.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/add.png"))); // NOI18N
+  jMenuItem22.setText("Dodaj");
+  jMenuItem22.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem22ActionPerformed(evt);
+   }
+  });
   jMenu6.add(jMenuItem22);
 
-  jMenuItem23.setText("jMenuItem23");
+  jMenuItem23.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/edit.png"))); // NOI18N
+  jMenuItem23.setText("Edytuj");
+  jMenuItem23.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem23ActionPerformed(evt);
+   }
+  });
   jMenu6.add(jMenuItem23);
 
-  jMenuItem24.setText("jMenuItem24");
+  jMenuItem24.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/delete.png"))); // NOI18N
+  jMenuItem24.setText("Usuń");
+  jMenuItem24.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem24ActionPerformed(evt);
+   }
+  });
   jMenu6.add(jMenuItem24);
 
   jMenu4.add(jMenu6);
 
-  jMenu7.setText("Rozchód wewnętrzny");
+  jMenu7.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/inside_income.png"))); // NOI18N
+  jMenu7.setText("Przychód wewnętrzny (PW)");
+  jMenu7.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
 
-  jMenuItem25.setText("jMenuItem25");
+  jMenuItem25.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/list.png"))); // NOI18N
+  jMenuItem25.setText("Lista");
+  jMenuItem25.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem25ActionPerformed(evt);
+   }
+  });
   jMenu7.add(jMenuItem25);
 
-  jMenuItem26.setText("jMenuItem26");
+  jMenuItem26.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/view.png"))); // NOI18N
+  jMenuItem26.setText("Informacje");
+  jMenuItem26.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem26ActionPerformed(evt);
+   }
+  });
   jMenu7.add(jMenuItem26);
 
-  jMenuItem27.setText("jMenuItem27");
+  jMenuItem27.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/add.png"))); // NOI18N
+  jMenuItem27.setText("Dodaj");
+  jMenuItem27.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem27ActionPerformed(evt);
+   }
+  });
   jMenu7.add(jMenuItem27);
 
-  jMenuItem28.setText("jMenuItem28");
+  jMenuItem28.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/edit.png"))); // NOI18N
+  jMenuItem28.setText("Edytuj");
+  jMenuItem28.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem28ActionPerformed(evt);
+   }
+  });
   jMenu7.add(jMenuItem28);
 
-  jMenuItem29.setText("jMenuItem29");
+  jMenuItem29.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/delete.png"))); // NOI18N
+  jMenuItem29.setText("Usuń");
+  jMenuItem29.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem29ActionPerformed(evt);
+   }
+  });
   jMenu7.add(jMenuItem29);
 
   jMenu4.add(jMenu7);
 
-  jMenu8.setText("Przychód wewnętrzny");
+  jMenu8.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/inside_outcome.png"))); // NOI18N
+  jMenu8.setText("Rozchód wewnętrzny (RW)");
+  jMenu8.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
 
-  jMenuItem30.setText("jMenuItem30");
+  jMenuItem30.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/list.png"))); // NOI18N
+  jMenuItem30.setText("Lista");
+  jMenuItem30.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem30.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem30ActionPerformed(evt);
+   }
+  });
   jMenu8.add(jMenuItem30);
 
-  jMenuItem31.setText("jMenuItem31");
+  jMenuItem31.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/view.png"))); // NOI18N
+  jMenuItem31.setText("Informacje");
+  jMenuItem31.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem31.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem31ActionPerformed(evt);
+   }
+  });
   jMenu8.add(jMenuItem31);
 
-  jMenuItem32.setText("jMenuItem32");
+  jMenuItem32.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/add.png"))); // NOI18N
+  jMenuItem32.setText("Dodaj");
+  jMenuItem32.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem32.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem32ActionPerformed(evt);
+   }
+  });
   jMenu8.add(jMenuItem32);
 
-  jMenuItem33.setText("jMenuItem33");
+  jMenuItem33.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/edit.png"))); // NOI18N
+  jMenuItem33.setText("Edytuj");
+  jMenuItem33.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem33.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem33ActionPerformed(evt);
+   }
+  });
   jMenu8.add(jMenuItem33);
 
-  jMenuItem34.setText("jMenuItem34");
+  jMenuItem34.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/delete.png"))); // NOI18N
+  jMenuItem34.setText("Usuń");
+  jMenuItem34.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem34.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem34ActionPerformed(evt);
+   }
+  });
   jMenu8.add(jMenuItem34);
 
   jMenu4.add(jMenu8);
@@ -1402,8 +1606,27 @@ public class MainView extends javax.swing.JFrame {
 
   jMenu9.setText("Dane");
 
-  jMenuItem35.setText("Wartość magazynów");
+  jMenuItem35.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/chart_pie.png"))); // NOI18N
+  jMenuItem35.setText("Balans");
+  jMenuItem35.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem35.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem35ActionPerformed(evt);
+   }
+  });
   jMenu9.add(jMenuItem35);
+
+  jMenuItem15.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/chart_bar.png"))); // NOI18N
+  jMenuItem15.setText("Wartość magazynów");
+  jMenuItem15.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem15ActionPerformed(evt);
+   }
+  });
+  jMenu9.add(jMenuItem15);
 
   jMenuBar1.add(jMenu9);
 
@@ -1526,6 +1749,94 @@ public class MainView extends javax.swing.JFrame {
   WareController.editSelectForm();
  }//GEN-LAST:event_jMenuItem17ActionPerformed
 
+ private void jMenuItem32ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem32ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem32ActionPerformed
+
+ private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem26ActionPerformed
+
+ private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+ private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+ private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem19ActionPerformed
+
+ private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem20ActionPerformed
+
+ private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem21ActionPerformed
+
+ private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+ private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+ private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem22ActionPerformed
+
+ private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem23ActionPerformed
+
+ private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem24ActionPerformed
+
+ private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem25ActionPerformed
+
+ private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem27ActionPerformed
+
+ private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem28ActionPerformed
+
+ private void jMenuItem29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem29ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem29ActionPerformed
+
+ private void jMenuItem30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem30ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem30ActionPerformed
+
+ private void jMenuItem31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem31ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem31ActionPerformed
+
+ private void jMenuItem33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem33ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem33ActionPerformed
+
+ private void jMenuItem34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem34ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem34ActionPerformed
+
+ private void jMenuItem35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem35ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem35ActionPerformed
+
+ private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+  this.showErrorPopup("Funkcjonalność niedostępna");
+ }//GEN-LAST:event_jMenuItem15ActionPerformed
+
  /**
   * @param args the command line arguments
   */
@@ -1605,6 +1916,9 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JLabel jLabel24;
  private javax.swing.JLabel jLabel25;
  private javax.swing.JLabel jLabel26;
+ private javax.swing.JLabel jLabel27;
+ private javax.swing.JLabel jLabel28;
+ private javax.swing.JLabel jLabel29;
  private javax.swing.JLabel jLabel3;
  private javax.swing.JLabel jLabel4;
  private javax.swing.JLabel jLabel5;
@@ -1629,12 +1943,14 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JMenuItem jMenuItem12;
  private javax.swing.JMenuItem jMenuItem13;
  private javax.swing.JMenuItem jMenuItem14;
+ private javax.swing.JMenuItem jMenuItem15;
  private javax.swing.JMenuItem jMenuItem16;
  private javax.swing.JMenuItem jMenuItem17;
  private javax.swing.JMenuItem jMenuItem18;
  private javax.swing.JMenuItem jMenuItem19;
  private javax.swing.JMenuItem jMenuItem2;
  private javax.swing.JMenuItem jMenuItem20;
+ private javax.swing.JMenuItem jMenuItem21;
  private javax.swing.JMenuItem jMenuItem22;
  private javax.swing.JMenuItem jMenuItem23;
  private javax.swing.JMenuItem jMenuItem24;
