@@ -71,6 +71,15 @@ public final class Database {
   try {
    String createWarehouseTable = "CREATE TABLE IF NOT EXISTS warehouse (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(20))";
    String createWareTable = "CREATE TABLE IF NOT EXISTS ware (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(20), value DECIMAL(17,2), tax DECIMAL(17,2))";
+
+   String createDocumentTypeTable = "CREATE TABLE IF NOT EXISTS document_type (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(50), symbol VARCHAR(5))";
+   String insertDocumentTypes = "INSERT INTO document_type VALUES (\"Przyjęcie zewnętrzne\", \"PZ\"), (\"Wydanie zewnętrzne\", \"WZ\", (\"Przyjęcie wewnętrzne\", \"PW\"), (\"Rozchód wewnętrzny\", \"RW\"))";
+
+   String createDocumentTable = "CREATE TABLE IF NOT EXISTS document (id INTEGER PRIMARY KEY AUTOINCREMENT, document_type_id INTEGER, number VARCHAR(100), FOREIGN KEY(document_type_id) REFERENCES document_type(id))";
+   String createDocumentElementTable = "CREATE TABLE IF NOT EXISTS document_element (id INTEGER PRIMARY KEY AUTOINCREMENT, document_id INTEGER, ware_name VARCHAR(20), value DECIMAL(17,2), tax DECIMAL(17,2), amount INTEGER, FOREIGN KEY(document_id) REFERENCES document(id))";
+
+   String createWareRecordTable = "CREATE TABLE IF NOT EXISTS ware_record (id INTEGER PRIMARY KEY AUTOINCREMENT, warehouse_id INTEGER, ware_name VARCHAR(20), value DECIMAL(17,2), tax DECIMAL(17,2), amount INTEGER, FOREIGN KEY(warehouse_id) REFERENCES warehouse(id))";
+
    /**
     * @todo Remove from production
     */
@@ -78,6 +87,14 @@ public final class Database {
 
    this.statement.execute(createWarehouseTable);
    this.statement.execute(createWareTable);
+
+   this.statement.execute(createDocumentTypeTable);
+   this.statement.execute(insertDocumentTypes);
+
+   this.statement.execute(createDocumentTable);
+   this.statement.execute(createDocumentElementTable);
+
+   this.statement.execute(createWareRecordTable);
   } catch (SQLException ex) {
    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
   }
@@ -87,6 +104,12 @@ public final class Database {
   try {
    this.statement.execute("DROP TABLE IF EXISTS warehouse");
    this.statement.execute("DROP TABLE IF EXISTS ware");
+
+   this.statement.execute("DROP TABLE IF EXISTS document_type");
+   this.statement.execute("DROP TABLE IF EXISTS document");
+   this.statement.execute("DROP TABLE IF EXISTS document_element");
+
+   this.statement.execute("DROP TABLE IF EXISTS ware_record");
   } catch (SQLException ex) {
    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
   }
