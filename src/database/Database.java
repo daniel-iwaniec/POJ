@@ -352,6 +352,22 @@ public final class Database {
   return documents;
  }
 
+ public List<Document> getDocumentsByDocumentTypeId(Integer documentTypeId) {
+  List<Document> documents = new LinkedList<>();
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM document WHERE document_type_id = ?;");
+   preparedStatement.setInt(1, documentTypeId);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    documents.add(new Document(result.getInt("id"), result.getInt("document_type_id"), result.getString("number")));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+  return documents;
+ }
+
  public Boolean isDocumentNumberUnique(Document document) {
   try {
    PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM document WHERE number = ? AND id != ? LIMIT 1;");

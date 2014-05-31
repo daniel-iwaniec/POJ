@@ -24,6 +24,10 @@
 package controller;
 
 import database.Database;
+import database.entity.Document;
+import database.entity.DocumentType;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 import view.MainView;
 
@@ -32,10 +36,80 @@ public class DocumentController {
  protected static MainView view = MainView.getInstance();
  protected static Database database = Database.getInstance();
 
- public static void list() {
-  /**
-   * @todo list
-   */
+ public static void listPZ() {
+  DefaultTableModel table = (DefaultTableModel) view.getDocumentListTable().getModel();
+  table.setRowCount(0);
+
+  List<Document> documents = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID);
+  for (Document document : documents) {
+   table.addRow(new Object[]{
+    document.getId().toString(),
+    document.getNumber()
+   });
+  }
+
+  view.hideAllViews();
+  view.getHeader().setText("Przyjęcie zewnętrzne - lista");
+  view.setIcon(MainView.DOCUMENT_ICON);
+
+  view.getDocumentListView().setVisible(true);
+ }
+
+ public static void listWZ() {
+  DefaultTableModel table = (DefaultTableModel) view.getDocumentListTable().getModel();
+  table.setRowCount(0);
+
+  List<Document> documents = database.getDocumentsByDocumentTypeId(DocumentType.WZ_ID);
+  for (Document document : documents) {
+   table.addRow(new Object[]{
+    document.getId().toString(),
+    document.getNumber()
+   });
+  }
+
+  view.hideAllViews();
+  view.getHeader().setText("Przyjęcie zewnętrzne - lista");
+  view.setIcon(MainView.DOCUMENT_ICON);
+
+  view.getDocumentListView().setVisible(true);
+ }
+
+ public static void listPW() {
+  DefaultTableModel table = (DefaultTableModel) view.getDocumentListTable().getModel();
+  table.setRowCount(0);
+
+  List<Document> documents = database.getDocumentsByDocumentTypeId(DocumentType.PW_ID);
+  for (Document document : documents) {
+   table.addRow(new Object[]{
+    document.getId().toString(),
+    document.getNumber()
+   });
+  }
+
+  view.hideAllViews();
+  view.getHeader().setText("Przyjęcie zewnętrzne - lista");
+  view.setIcon(MainView.DOCUMENT_ICON);
+
+  view.getDocumentListView().setVisible(true);
+ }
+
+ public static void listRW() {
+  DefaultTableModel table = (DefaultTableModel) view.getDocumentListTable().getModel();
+  table.setRowCount(0);
+
+  List<Document> documents = database.getDocumentsByDocumentTypeId(DocumentType.RW_ID);
+  for (Document document : documents) {
+   table.addRow(new Object[]{
+    document.getId().toString(),
+    document.getNumber()
+   });
+  }
+
+  view.hideAllViews();
+  view.getHeader().setText("Przyjęcie zewnętrzne - lista");
+  view.setIcon(MainView.DOCUMENT_ICON);
+
+  view.getDocumentListView().setVisible(true);
  }
 
 }

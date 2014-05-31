@@ -41,6 +41,7 @@ public class MainView extends javax.swing.JFrame {
  public static final String WARE_ICON = "ware";
  public static final String HOME_ICON = "home";
  public static final String LICENSE_ICON = "license";
+ public static final String DOCUMENT_ICON = "document";
 
  private static MainView instance = null;
 
@@ -195,6 +196,10 @@ public class MainView extends javax.swing.JFrame {
   return hiddenWarehouseId;
  }
 
+ public javax.swing.JPanel getDocumentListView() {
+  return this.DocumentList;
+ }
+
  public final void hideAllViews() {
   this.WarehouseList.setVisible(false);
   this.WarehouseForm.setVisible(false);
@@ -206,6 +211,7 @@ public class MainView extends javax.swing.JFrame {
   this.WareList.setVisible(false);
   this.WareForm.setVisible(false);
   this.WareViewInformations.setVisible(false);
+  this.DocumentList.setVisible(false);
  }
 
  public javax.swing.JTable getWarehouseListTable() {
@@ -214,6 +220,10 @@ public class MainView extends javax.swing.JFrame {
 
  public javax.swing.JTable getWareListTable() {
   return this.jTable2;
+ }
+
+ public javax.swing.JTable getDocumentListTable() {
+  return this.jTable3;
  }
 
  public javax.swing.JTextField getWarehouseFormNameInput() {
@@ -1751,7 +1761,7 @@ public class MainView extends javax.swing.JFrame {
  }//GEN-LAST:event_jMenuItem26ActionPerformed
 
  private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
+  DocumentController.listPZ();
  }//GEN-LAST:event_jMenuItem10ActionPerformed
 
  private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -1763,7 +1773,7 @@ public class MainView extends javax.swing.JFrame {
  }//GEN-LAST:event_jMenuItem19ActionPerformed
 
  private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
+  DocumentController.listWZ();
  }//GEN-LAST:event_jMenuItem11ActionPerformed
 
  private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
@@ -1775,7 +1785,7 @@ public class MainView extends javax.swing.JFrame {
  }//GEN-LAST:event_jMenuItem22ActionPerformed
 
  private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
+  DocumentController.listPW();
  }//GEN-LAST:event_jMenuItem25ActionPerformed
 
  private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
@@ -1783,7 +1793,7 @@ public class MainView extends javax.swing.JFrame {
  }//GEN-LAST:event_jMenuItem27ActionPerformed
 
  private void jMenuItem30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem30ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
+  DocumentController.listRW();
  }//GEN-LAST:event_jMenuItem30ActionPerformed
 
  private void jMenuItem31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem31ActionPerformed
