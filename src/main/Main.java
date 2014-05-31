@@ -38,7 +38,6 @@ public class Main {
 
   view.hideAllViews();
   view.getIndexView().setVisible(true);
-  view.setVisible(true);
  }
 
  public static void licenseAction() {
@@ -67,7 +66,12 @@ public class Main {
 
   view.hideAllViews();
   view.getLicenseView().setVisible(true);
-  view.setVisible(true);
+ }
+
+ public static void clearDatabaseAction() {
+  database.clearDatabase();
+  view.hideAllViews();
+  view.getIndexView().setVisible(true);
  }
 
  public static void main(String[] args) {
@@ -75,6 +79,7 @@ public class Main {
    @Override
    public void run() {
     mainAction();
+    view.setVisible(true);
    }
   });
  }

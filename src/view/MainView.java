@@ -377,6 +377,8 @@ public class MainView extends javax.swing.JFrame {
   jMenu9 = new javax.swing.JMenu();
   jMenuItem35 = new javax.swing.JMenuItem();
   jMenuItem15 = new javax.swing.JMenuItem();
+  jMenu10 = new javax.swing.JMenu();
+  jMenuItem36 = new javax.swing.JMenuItem();
 
   setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
   setTitle("Magazyn");
@@ -1630,6 +1632,21 @@ public class MainView extends javax.swing.JFrame {
 
   jMenuBar1.add(jMenu9);
 
+  jMenu10.setText("Inne");
+
+  jMenuItem36.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/refresh_database.png"))); // NOI18N
+  jMenuItem36.setText("Wyczyść bazę danych");
+  jMenuItem36.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem36.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem36ActionPerformed(evt);
+   }
+  });
+  jMenu10.add(jMenuItem36);
+
+  jMenuBar1.add(jMenu10);
+
   setJMenuBar(jMenuBar1);
 
   javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1837,6 +1854,10 @@ public class MainView extends javax.swing.JFrame {
   this.showErrorPopup("Funkcjonalność niedostępna");
  }//GEN-LAST:event_jMenuItem15ActionPerformed
 
+ private void jMenuItem36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem36ActionPerformed
+  main.Main.clearDatabaseAction();
+ }//GEN-LAST:event_jMenuItem36ActionPerformed
+
  /**
   * @param args the command line arguments
   */
@@ -1928,6 +1949,7 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JLabel jLabel9;
  private javax.swing.JLayeredPane jLayeredPane1;
  private javax.swing.JMenu jMenu1;
+ private javax.swing.JMenu jMenu10;
  private javax.swing.JMenu jMenu2;
  private javax.swing.JMenu jMenu3;
  private javax.swing.JMenu jMenu4;
@@ -1966,6 +1988,7 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JMenuItem jMenuItem33;
  private javax.swing.JMenuItem jMenuItem34;
  private javax.swing.JMenuItem jMenuItem35;
+ private javax.swing.JMenuItem jMenuItem36;
  private javax.swing.JMenuItem jMenuItem4;
  private javax.swing.JMenuItem jMenuItem5;
  private javax.swing.JMenuItem jMenuItem6;

@@ -27,14 +27,21 @@ import database.Database;
 
 public class Document extends AbstractEntity {
 
- private Integer id = AbstractEntity.NULL_ID;
- private Integer documentTypeId = AbstractEntity.NULL_ID;
- private String number = "";
+ private final Database database = Database.getInstance();
 
+ private Integer id = AbstractEntity.NULL_ID;
  private DocumentType documentType = null;
+ private String number = "";
 
  public Document() {
   super();
+ }
+
+ public Document(Integer id, Integer documentTypeId, String number) {
+  super();
+  this.id = id;
+  this.documentType = database.getDocumentTypeById(documentTypeId);
+  this.number = number;
  }
 
  public Document(Integer id, DocumentType documentType, String number) {
@@ -52,14 +59,6 @@ public class Document extends AbstractEntity {
   this.id = id;
  }
 
- public void setDocumentTypeId(Integer documentTypeId) {
-  this.documentTypeId = documentTypeId;
- }
-
- public Integer getDocumentTypeId() {
-  return this.documentTypeId;
- }
-
  public String getNumber() {
   return this.number;
  }
@@ -69,18 +68,11 @@ public class Document extends AbstractEntity {
  }
 
  public DocumentType getDocumentType() {
-  if (this.documentType == null) {
-   Database database = Database.getInstance();
-   //DocumentType documentType = database.getDocumentTypeById(this.documentTypeId);
-   //this.documentTypeId = documentType.getId();
-  }
-  
   return this.documentType;
  }
 
  public void setDocumentType(DocumentType documentType) {
   this.documentType = documentType;
-  this.documentTypeId = documentType.getId();
  }
 
  @Override
@@ -91,6 +83,15 @@ public class Document extends AbstractEntity {
  @Override
  public Boolean validate() {
   this.filter();
+
+  if (documentType == null) {
+   validationErrors.add("Dokument nie został przypisany do żadnego typu dokumentu");
+  }
+
+  if (!database.isDocumentNumberUnique(this)) {
+   validationErrors.add("Numer dokumentu musi być unikalny");
+  }
+
   return validationErrors.isEmpty();
  }
 

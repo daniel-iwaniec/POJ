@@ -23,7 +23,11 @@
  */
 package database.entity;
 
+import database.Database;
+
 public class WareRecord extends AbstractEntity {
+
+ private final Database database = Database.getInstance();
 
  private Integer id = AbstractEntity.NULL_ID;
  private Warehouse warehouse = null;
@@ -41,6 +45,16 @@ public class WareRecord extends AbstractEntity {
   super();
   this.id = id;
   this.warehouse = warehouse;
+  this.wareName = wareName;
+  this.value = value;
+  this.tax = tax;
+  this.amount = amount;
+ }
+
+ public WareRecord(Integer id, Integer warehouseId, String wareName, Double value, Double tax, Integer amount) {
+  super();
+  this.id = id;
+  this.warehouse = database.getWarehouseById(warehouseId);
   this.wareName = wareName;
   this.value = value;
   this.tax = tax;
@@ -110,6 +124,22 @@ public class WareRecord extends AbstractEntity {
  public Boolean validate() {
   this.filter();
 
+  if (warehouse == null) {
+   validationErrors.add("Seria towaru nie została przypisana do magazynu");
+  }
+
+  if ("".equals(wareName)) {
+   validationErrors.add("Nazwa towaru nie może być pusta");
+  }
+
+  if (wareName.length() > 20) {
+   validationErrors.add("Nazwa towaru może zawierać max 20 znaków");
+  }
+
+  if (!wareName.matches("^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃ ]*$")) {
+   validationErrors.add("Nazwa towaru może zawierać tylko alfanumeryczne znaki");
+  }
+
   if (value.isNaN() || !(value > 0.0)) {
    validationErrors.add("Wartość musi być większa od zera");
   }
@@ -124,6 +154,14 @@ public class WareRecord extends AbstractEntity {
 
   if (tax > 999999999999999.99) {
    validationErrors.add("Maksymalna procentowa wysokość podatku to 999999999999999.99");
+  }
+
+  if (!(amount > 0)) {
+   validationErrors.add("Ilość towaru musi być większa od zera");
+  }
+
+  if (amount > 999999999) {
+   validationErrors.add("Maksymalna ilość towaru to 999999999");
   }
 
   return validationErrors.isEmpty();

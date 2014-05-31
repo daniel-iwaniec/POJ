@@ -14,5 +14,5 @@ TODO:
 
 * Jakieś statystyki/dane magazynów?
 
-* Storno dokumentu PZ? (soft delete)
-* Korekta PZ? (soft edit)
+* Storno dokumentu PZ?
+* Korekta PZ?

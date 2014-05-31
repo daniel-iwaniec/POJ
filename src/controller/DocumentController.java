@@ -17,40 +17,22 @@
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * LIABILITY, WHETHER IN AN ACTION OF ONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package database.entity;
+package controller;
 
-public final class DocumentType extends AbstractEntity {
+import database.Database;
 
- public static final Integer PZ_ID = 1;
- public static final Integer WZ_ID = 2;
- public static final Integer PW_ID = 3;
- public static final Integer RW_ID = 4;
+import view.MainView;
 
- private final Integer id;
- private final String name;
- private final String symbol;
+public class DocumentController {
 
- public DocumentType(Integer id, String name, String symbol) {
-  super();
-  this.id = id;
-  this.name = name;
-  this.symbol = symbol;
- }
+ protected static MainView view = MainView.getInstance();
+ protected static Database database = Database.getInstance();
 
- public Integer getId() {
-  return this.id;
- }
-
- public String getName() {
-  return this.name;
- }
-
- public String getSymbol() {
-  return this.symbol;
+ public static void list() {
  }
 
 }

@@ -23,7 +23,11 @@
  */
 package database;
 
+import database.entity.Document;
+import database.entity.DocumentElement;
+import database.entity.DocumentType;
 import database.entity.Ware;
+import database.entity.WareRecord;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -73,23 +77,26 @@ public final class Database {
    String createWareTable = "CREATE TABLE IF NOT EXISTS ware (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(20), value DECIMAL(17,2), tax DECIMAL(17,2))";
 
    String createDocumentTypeTable = "CREATE TABLE IF NOT EXISTS document_type (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(50), symbol VARCHAR(5))";
-   String insertDocumentTypes = "INSERT INTO document_type VALUES (\"Przyjęcie zewnętrzne\", \"PZ\"), (\"Wydanie zewnętrzne\", \"WZ\", (\"Przyjęcie wewnętrzne\", \"PW\"), (\"Rozchód wewnętrzny\", \"RW\"))";
+   String deleteDocumentTypes = "DELETE FROM document_type;";
+   String insertDocumentTypePZ = "INSERT INTO document_type (id, name, symbol) VALUES (1, 'Przyjęcie zewnętrzne', 'PZ')";
+   String insertDocumentTypeWZ = "INSERT INTO document_type (id, name, symbol) VALUES (2, 'Wydanie zewnętrzne', 'WZ')";
+   String insertDocumentTypePW = "INSERT INTO document_type (id, name, symbol) VALUES (3, 'Przyjęcie wewnętrzne', 'PW')";
+   String insertDocumentTypeRW = "INSERT INTO document_type (id, name, symbol) VALUES (4, 'Rozchód wewnętrzny', 'RW')";
 
    String createDocumentTable = "CREATE TABLE IF NOT EXISTS document (id INTEGER PRIMARY KEY AUTOINCREMENT, document_type_id INTEGER, number VARCHAR(100), FOREIGN KEY(document_type_id) REFERENCES document_type(id))";
    String createDocumentElementTable = "CREATE TABLE IF NOT EXISTS document_element (id INTEGER PRIMARY KEY AUTOINCREMENT, document_id INTEGER, ware_name VARCHAR(20), value DECIMAL(17,2), tax DECIMAL(17,2), amount INTEGER, FOREIGN KEY(document_id) REFERENCES document(id))";
 
    String createWareRecordTable = "CREATE TABLE IF NOT EXISTS ware_record (id INTEGER PRIMARY KEY AUTOINCREMENT, warehouse_id INTEGER, ware_name VARCHAR(20), value DECIMAL(17,2), tax DECIMAL(17,2), amount INTEGER, FOREIGN KEY(warehouse_id) REFERENCES warehouse(id))";
 
-   /**
-    * @todo Remove from production
-    */
-   this.clearDatabase();
-
    this.statement.execute(createWarehouseTable);
    this.statement.execute(createWareTable);
 
    this.statement.execute(createDocumentTypeTable);
-   this.statement.execute(insertDocumentTypes);
+   this.statement.execute(deleteDocumentTypes);
+   this.statement.execute(insertDocumentTypePZ);
+   this.statement.execute(insertDocumentTypeWZ);
+   this.statement.execute(insertDocumentTypePW);
+   this.statement.execute(insertDocumentTypeRW);
 
    this.statement.execute(createDocumentTable);
    this.statement.execute(createDocumentElementTable);
@@ -110,6 +117,8 @@ public final class Database {
    this.statement.execute("DROP TABLE IF EXISTS document_element");
 
    this.statement.execute("DROP TABLE IF EXISTS ware_record");
+
+   this.initialize();
   } catch (SQLException ex) {
    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
   }
@@ -280,4 +289,236 @@ public final class Database {
    System.err.println(exception.getMessage());
   }
  }
+
+ public DocumentType getDocumentTypeById(Integer id) {
+  DocumentType documentType = null;
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM document_type WHERE id = ?;");
+   preparedStatement.setInt(1, id);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    documentType = new DocumentType(result.getInt("id"), result.getString("name"), result.getString("symbol"));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+
+  return documentType;
+ }
+
+ public List<DocumentType> getDocumentTypes() {
+  List<DocumentType> documentTypes = new LinkedList<>();
+  try {
+   ResultSet result = this.statement.executeQuery("SELECT * FROM document_type");
+   while (result.next()) {
+    documentTypes.add(new DocumentType(result.getInt("id"), result.getString("name"), result.getString("symbol")));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+  return documentTypes;
+ }
+
+ public Document getDocumentById(Integer id) {
+  Document document = null;
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM document WHERE id = ?;");
+   preparedStatement.setInt(1, id);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    document = new Document(result.getInt("id"), result.getInt("document_type_id"), result.getString("number"));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+
+  return document;
+ }
+
+ public List<Document> getDocuments() {
+  List<Document> documents = new LinkedList<>();
+  try {
+   ResultSet result = this.statement.executeQuery("SELECT * FROM document");
+   while (result.next()) {
+    documents.add(new Document(result.getInt("id"), result.getInt("document_type_id"), result.getString("number")));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+  return documents;
+ }
+
+ public Boolean isDocumentNumberUnique(Document document) {
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM document WHERE number = ? AND id != ? LIMIT 1;");
+   preparedStatement.setString(1, document.getNumber());
+   preparedStatement.setInt(2, document.getId());
+   ResultSet result = preparedStatement.executeQuery();
+
+   return !result.next();
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return false;
+  }
+ }
+
+ public void saveDocument(Document document) {
+  try {
+   if (!document.validate()) {
+    return;
+   }
+
+   /**
+    * @todo save document elements, save ware records, modify warehouses state
+    * etc.
+    */
+   if (document.getId().equals(Ware.NULL_ID)) {
+    PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO document VALUES (NULL, ?, ?);");
+    preparedStatement.setInt(1, document.getDocumentType().getId());
+    preparedStatement.setString(2, document.getNumber());
+    preparedStatement.execute();
+   }
+  } catch (SQLException ex) {
+   Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+  }
+ }
+
+ public DocumentElement getDocumentElementById(Integer id) {
+  DocumentElement documentElement = null;
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM document_element WHERE id = ?;");
+   preparedStatement.setInt(1, id);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    documentElement = new DocumentElement(result.getInt("id"), result.getInt("document_id"), result.getString("ware_name"), result.getDouble("value"), result.getDouble("tax"), result.getInt("amount"));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+
+  return documentElement;
+ }
+
+ public List<DocumentElement> getDocumentElements() {
+  List<DocumentElement> documentElements = new LinkedList<>();
+  try {
+   ResultSet result = this.statement.executeQuery("SELECT * FROM document_element");
+   while (result.next()) {
+    documentElements.add(new DocumentElement(result.getInt("id"), result.getInt("document_id"), result.getString("ware_name"), result.getDouble("value"), result.getDouble("tax"), result.getInt("amount")));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+  return documentElements;
+ }
+
+ public List<DocumentElement> getDocumentElementsByDocumentId(Integer documentId) {
+  List<DocumentElement> documentElements = new LinkedList<>();
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM document_element WHERE document_id = ?");
+   preparedStatement.setInt(1, documentId);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    documentElements.add(new DocumentElement(result.getInt("id"), result.getInt("document_id"), result.getString("ware_name"), result.getDouble("value"), result.getDouble("tax"), result.getInt("amount")));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+  return documentElements;
+ }
+
+ public void saveDocumentElement(DocumentElement documentElement) {
+  try {
+   if (!documentElement.validate()) {
+    return;
+   }
+
+   if (documentElement.getId().equals(Ware.NULL_ID)) {
+    PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO document_element VALUES (NULL, ?, ?, ?, ?, ?);");
+    preparedStatement.setInt(1, documentElement.getDocument().getId());
+    preparedStatement.setString(2, documentElement.getWareName());
+    preparedStatement.setDouble(3, documentElement.getValue());
+    preparedStatement.setDouble(4, documentElement.getTax());
+    preparedStatement.setInt(5, documentElement.getAmount());
+    preparedStatement.execute();
+   }
+  } catch (SQLException ex) {
+   Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+  }
+ }
+
+ public WareRecord getWareRecordById(Integer id) {
+  WareRecord wareRecord = null;
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM ware_record WHERE id = ?;");
+   preparedStatement.setInt(1, id);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    wareRecord = new WareRecord(result.getInt("id"), result.getInt("warehouse_id"), result.getString("ware_name"), result.getDouble("value"), result.getDouble("tax"), result.getInt("amount"));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+
+  return wareRecord;
+ }
+
+ public List<WareRecord> getWarehouseRecords() {
+  List<WareRecord> wareRecords = new LinkedList<>();
+  try {
+   ResultSet result = this.statement.executeQuery("SELECT * FROM ware_record");
+   while (result.next()) {
+    wareRecords.add(new WareRecord(result.getInt("id"), result.getInt("warehouse_id"), result.getString("ware_name"), result.getDouble("value"), result.getDouble("tax"), result.getInt("amount")));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+  return wareRecords;
+ }
+
+ public List<WareRecord> getWareRecordsByWarehouseId(Integer warehouseId) {
+  List<WareRecord> wareRecords = new LinkedList<>();
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM ware_record WHERE warehouse_id = ?");
+   preparedStatement.setInt(1, warehouseId);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    wareRecords.add(new WareRecord(result.getInt("id"), result.getInt("warehouse_id"), result.getString("ware_name"), result.getDouble("value"), result.getDouble("tax"), result.getInt("amount")));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+  return wareRecords;
+ }
+
+ public void saveWareRecord(WareRecord wareRecord) {
+  try {
+   if (!wareRecord.validate()) {
+    return;
+   }
+
+   if (wareRecord.getId().equals(Ware.NULL_ID)) {
+    PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO ware_record VALUES (NULL, ?, ?, ?, ?, ?);");
+    preparedStatement.setInt(1, wareRecord.getWarehouse().getId());
+    preparedStatement.setString(2, wareRecord.getWareName());
+    preparedStatement.setDouble(3, wareRecord.getValue());
+    preparedStatement.setDouble(4, wareRecord.getTax());
+    preparedStatement.setInt(5, wareRecord.getAmount());
+    preparedStatement.execute();
+   }
+  } catch (SQLException ex) {
+   Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+  }
+ }
+
 }
