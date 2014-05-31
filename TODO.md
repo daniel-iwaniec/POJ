@@ -5,14 +5,18 @@ Programowanie obiektowe Java - Projekt
 
 TODO:
 
-* Lista dokumentów PZ (widok, controller, warstwa bazy)
-* Dodawanie dokumentów PZ (wybór magazynu i lista pozycji). Dodawanie serii towaru.
-* Pokazywanie informacji o dokumentach PZ.
+* Ogólna lista dokumnetów
+* Ogólna lista pozycji
 
-* To samo dla dokumentów WZ, PW, RW.
+* Dodawanie dokumentów.
+* Dodawanie serii towaru.
+* Pokazywanie informacji o dokumentach.
+
+* To samo dla dokumentów PZ, WZ, PW, RW.
+* Podczas dodawania PZ i PW dodawać towary z serii towarów.
 * Podczas dodawania WZ i RW odejmować towary z serii towarów.
 
 * Jakieś statystyki/dane magazynów?
+* Lista towarów na stronie informacji o magazynie.
 
-* Storno dokumentu PZ?
-* Korekta PZ?
+* Trochę lepszy wyglą (kolor obramowań, podświetleń itp.).

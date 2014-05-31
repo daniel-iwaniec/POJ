@@ -332,6 +332,9 @@ public class MainView extends javax.swing.JFrame {
   jFormattedTextField4 = new javax.swing.JFormattedTextField();
   jLabel26 = new javax.swing.JLabel();
   jFormattedTextField5 = new javax.swing.JFormattedTextField();
+  DocumentList = new javax.swing.JPanel();
+  jScrollPane5 = new javax.swing.JScrollPane();
+  jTable3 = new javax.swing.JTable();
   jMenuBar1 = new javax.swing.JMenuBar();
   jMenu2 = new javax.swing.JMenu();
   jMenuItem7 = new javax.swing.JMenuItem();
@@ -354,29 +357,21 @@ public class MainView extends javax.swing.JFrame {
   jMenuItem10 = new javax.swing.JMenuItem();
   jMenuItem9 = new javax.swing.JMenuItem();
   jMenuItem19 = new javax.swing.JMenuItem();
-  jMenuItem20 = new javax.swing.JMenuItem();
-  jMenuItem21 = new javax.swing.JMenuItem();
   jMenu6 = new javax.swing.JMenu();
   jMenuItem11 = new javax.swing.JMenuItem();
   jMenuItem13 = new javax.swing.JMenuItem();
   jMenuItem22 = new javax.swing.JMenuItem();
-  jMenuItem23 = new javax.swing.JMenuItem();
-  jMenuItem24 = new javax.swing.JMenuItem();
   jMenu7 = new javax.swing.JMenu();
   jMenuItem25 = new javax.swing.JMenuItem();
   jMenuItem26 = new javax.swing.JMenuItem();
   jMenuItem27 = new javax.swing.JMenuItem();
-  jMenuItem28 = new javax.swing.JMenuItem();
-  jMenuItem29 = new javax.swing.JMenuItem();
   jMenu8 = new javax.swing.JMenu();
   jMenuItem30 = new javax.swing.JMenuItem();
   jMenuItem31 = new javax.swing.JMenuItem();
   jMenuItem32 = new javax.swing.JMenuItem();
-  jMenuItem33 = new javax.swing.JMenuItem();
-  jMenuItem34 = new javax.swing.JMenuItem();
   jMenu9 = new javax.swing.JMenu();
-  jMenuItem35 = new javax.swing.JMenuItem();
   jMenuItem15 = new javax.swing.JMenuItem();
+  jMenuItem35 = new javax.swing.JMenuItem();
   jMenu10 = new javax.swing.JMenu();
   jMenuItem36 = new javax.swing.JMenuItem();
 
@@ -440,6 +435,7 @@ public class MainView extends javax.swing.JFrame {
    jTable1.getColumnModel().getColumn(0).setResizable(false);
    jTable1.getColumnModel().getColumn(1).setResizable(false);
    jTable1.getColumnModel().getColumn(2).setResizable(false);
+   jTable1.getColumnModel().getColumn(2).setHeaderValue("Wartość");
   }
 
   javax.swing.GroupLayout WarehouseListLayout = new javax.swing.GroupLayout(WarehouseList);
@@ -1077,6 +1073,63 @@ public class MainView extends javax.swing.JFrame {
     .addContainerGap(308, Short.MAX_VALUE))
   );
 
+  DocumentList.setBackground(new java.awt.Color(255, 255, 255));
+
+  jScrollPane5.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jTable3.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jTable3.setModel(new javax.swing.table.DefaultTableModel(
+   new Object [][] {
+
+   },
+   new String [] {
+    "ID", "Numer"
+   }
+  ) {
+   Class[] types = new Class [] {
+    java.lang.String.class, java.lang.String.class
+   };
+   boolean[] canEdit = new boolean [] {
+    false, false
+   };
+
+   public Class getColumnClass(int columnIndex) {
+    return types [columnIndex];
+   }
+
+   public boolean isCellEditable(int rowIndex, int columnIndex) {
+    return canEdit [columnIndex];
+   }
+  });
+  jTable3.setFillsViewportHeight(true);
+  jTable3.setGridColor(new java.awt.Color(204, 204, 204));
+  jTable3.setRowHeight(36);
+  jTable3.setSelectionBackground(new java.awt.Color(204, 255, 255));
+  jTable3.getTableHeader().setReorderingAllowed(false);
+  jScrollPane5.setViewportView(jTable3);
+  jTable3.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+  if (jTable3.getColumnModel().getColumnCount() > 0) {
+   jTable3.getColumnModel().getColumn(0).setResizable(false);
+   jTable3.getColumnModel().getColumn(1).setResizable(false);
+  }
+
+  javax.swing.GroupLayout DocumentListLayout = new javax.swing.GroupLayout(DocumentList);
+  DocumentList.setLayout(DocumentListLayout);
+  DocumentListLayout.setHorizontalGroup(
+   DocumentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DocumentListLayout.createSequentialGroup()
+    .addContainerGap()
+    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+    .addContainerGap())
+  );
+  DocumentListLayout.setVerticalGroup(
+   DocumentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(DocumentListLayout.createSequentialGroup()
+    .addContainerGap()
+    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+    .addContainerGap())
+  );
+
   javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
   jLayeredPane1.setLayout(jLayeredPane1Layout);
   jLayeredPane1Layout.setHorizontalGroup(
@@ -1127,6 +1180,11 @@ public class MainView extends javax.swing.JFrame {
      .addContainerGap()
      .addComponent(WareViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
      .addGap(30, 30, 30)))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(DocumentList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addContainerGap()))
   );
   jLayeredPane1Layout.setVerticalGroup(
    jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1176,6 +1234,11 @@ public class MainView extends javax.swing.JFrame {
      .addContainerGap()
      .addComponent(WareViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
      .addGap(132, 132, 132)))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addGap(10, 10, 10)
+     .addComponent(DocumentList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addContainerGap()))
   );
   jLayeredPane1.setLayer(WarehouseList, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -1195,6 +1258,7 @@ public class MainView extends javax.swing.JFrame {
   jLayeredPane1.setLayer(WareForm, javax.swing.JLayeredPane.DEFAULT_LAYER);
   WareForm.getAccessibleContext().setAccessibleName("WareForm");
   jLayeredPane1.setLayer(WareViewInformations, javax.swing.JLayeredPane.DEFAULT_LAYER);
+  jLayeredPane1.setLayer(DocumentList, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
   jMenuBar1.setBorderPainted(false);
 
@@ -1394,28 +1458,6 @@ public class MainView extends javax.swing.JFrame {
   });
   jMenu5.add(jMenuItem19);
 
-  jMenuItem20.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
-  jMenuItem20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/edit.png"))); // NOI18N
-  jMenuItem20.setText("Edytuj");
-  jMenuItem20.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-  jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuItem20ActionPerformed(evt);
-   }
-  });
-  jMenu5.add(jMenuItem20);
-
-  jMenuItem21.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
-  jMenuItem21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/delete.png"))); // NOI18N
-  jMenuItem21.setText("Usuń");
-  jMenuItem21.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-  jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuItem21ActionPerformed(evt);
-   }
-  });
-  jMenu5.add(jMenuItem21);
-
   jMenu4.add(jMenu5);
 
   jMenu6.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -1455,28 +1497,6 @@ public class MainView extends javax.swing.JFrame {
    }
   });
   jMenu6.add(jMenuItem22);
-
-  jMenuItem23.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
-  jMenuItem23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/edit.png"))); // NOI18N
-  jMenuItem23.setText("Edytuj");
-  jMenuItem23.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-  jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuItem23ActionPerformed(evt);
-   }
-  });
-  jMenu6.add(jMenuItem23);
-
-  jMenuItem24.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
-  jMenuItem24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/delete.png"))); // NOI18N
-  jMenuItem24.setText("Usuń");
-  jMenuItem24.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-  jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuItem24ActionPerformed(evt);
-   }
-  });
-  jMenu6.add(jMenuItem24);
 
   jMenu4.add(jMenu6);
 
@@ -1518,28 +1538,6 @@ public class MainView extends javax.swing.JFrame {
   });
   jMenu7.add(jMenuItem27);
 
-  jMenuItem28.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
-  jMenuItem28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/edit.png"))); // NOI18N
-  jMenuItem28.setText("Edytuj");
-  jMenuItem28.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-  jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuItem28ActionPerformed(evt);
-   }
-  });
-  jMenu7.add(jMenuItem28);
-
-  jMenuItem29.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
-  jMenuItem29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/delete.png"))); // NOI18N
-  jMenuItem29.setText("Usuń");
-  jMenuItem29.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-  jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuItem29ActionPerformed(evt);
-   }
-  });
-  jMenu7.add(jMenuItem29);
-
   jMenu4.add(jMenu7);
 
   jMenu8.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -1580,44 +1578,11 @@ public class MainView extends javax.swing.JFrame {
   });
   jMenu8.add(jMenuItem32);
 
-  jMenuItem33.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
-  jMenuItem33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/edit.png"))); // NOI18N
-  jMenuItem33.setText("Edytuj");
-  jMenuItem33.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-  jMenuItem33.addActionListener(new java.awt.event.ActionListener() {
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuItem33ActionPerformed(evt);
-   }
-  });
-  jMenu8.add(jMenuItem33);
-
-  jMenuItem34.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
-  jMenuItem34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/delete.png"))); // NOI18N
-  jMenuItem34.setText("Usuń");
-  jMenuItem34.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-  jMenuItem34.addActionListener(new java.awt.event.ActionListener() {
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuItem34ActionPerformed(evt);
-   }
-  });
-  jMenu8.add(jMenuItem34);
-
   jMenu4.add(jMenu8);
 
   jMenuBar1.add(jMenu4);
 
   jMenu9.setText("Dane");
-
-  jMenuItem35.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
-  jMenuItem35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/chart_pie.png"))); // NOI18N
-  jMenuItem35.setText("Balans");
-  jMenuItem35.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-  jMenuItem35.addActionListener(new java.awt.event.ActionListener() {
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    jMenuItem35ActionPerformed(evt);
-   }
-  });
-  jMenu9.add(jMenuItem35);
 
   jMenuItem15.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
   jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/chart_bar.png"))); // NOI18N
@@ -1630,9 +1595,20 @@ public class MainView extends javax.swing.JFrame {
   });
   jMenu9.add(jMenuItem15);
 
+  jMenuItem35.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/chart_pie.png"))); // NOI18N
+  jMenuItem35.setText("Wartość towarów");
+  jMenuItem35.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem35.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem35ActionPerformed(evt);
+   }
+  });
+  jMenu9.add(jMenuItem35);
+
   jMenuBar1.add(jMenu9);
 
-  jMenu10.setText("Inne");
+  jMenu10.setText("Administracja");
 
   jMenuItem36.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
   jMenuItem36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/refresh_database.png"))); // NOI18N
@@ -1786,14 +1762,6 @@ public class MainView extends javax.swing.JFrame {
   this.showErrorPopup("Funkcjonalność niedostępna");
  }//GEN-LAST:event_jMenuItem19ActionPerformed
 
- private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
- }//GEN-LAST:event_jMenuItem20ActionPerformed
-
- private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
- }//GEN-LAST:event_jMenuItem21ActionPerformed
-
  private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
   this.showErrorPopup("Funkcjonalność niedostępna");
  }//GEN-LAST:event_jMenuItem11ActionPerformed
@@ -1806,14 +1774,6 @@ public class MainView extends javax.swing.JFrame {
   this.showErrorPopup("Funkcjonalność niedostępna");
  }//GEN-LAST:event_jMenuItem22ActionPerformed
 
- private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
- }//GEN-LAST:event_jMenuItem23ActionPerformed
-
- private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
- }//GEN-LAST:event_jMenuItem24ActionPerformed
-
  private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
   this.showErrorPopup("Funkcjonalność niedostępna");
  }//GEN-LAST:event_jMenuItem25ActionPerformed
@@ -1822,14 +1782,6 @@ public class MainView extends javax.swing.JFrame {
   this.showErrorPopup("Funkcjonalność niedostępna");
  }//GEN-LAST:event_jMenuItem27ActionPerformed
 
- private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
- }//GEN-LAST:event_jMenuItem28ActionPerformed
-
- private void jMenuItem29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem29ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
- }//GEN-LAST:event_jMenuItem29ActionPerformed
-
  private void jMenuItem30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem30ActionPerformed
   this.showErrorPopup("Funkcjonalność niedostępna");
  }//GEN-LAST:event_jMenuItem30ActionPerformed
@@ -1837,14 +1789,6 @@ public class MainView extends javax.swing.JFrame {
  private void jMenuItem31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem31ActionPerformed
   this.showErrorPopup("Funkcjonalność niedostępna");
  }//GEN-LAST:event_jMenuItem31ActionPerformed
-
- private void jMenuItem33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem33ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
- }//GEN-LAST:event_jMenuItem33ActionPerformed
-
- private void jMenuItem34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem34ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
- }//GEN-LAST:event_jMenuItem34ActionPerformed
 
  private void jMenuItem35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem35ActionPerformed
   this.showErrorPopup("Funkcjonalność niedostępna");
@@ -1895,6 +1839,7 @@ public class MainView extends javax.swing.JFrame {
  }
 
  // Variables declaration - do not modify//GEN-BEGIN:variables
+ private javax.swing.JPanel DocumentList;
  private javax.swing.JPanel ErrorPopup;
  private javax.swing.JLabel Header;
  private javax.swing.JPanel Index;
@@ -1971,22 +1916,14 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JMenuItem jMenuItem18;
  private javax.swing.JMenuItem jMenuItem19;
  private javax.swing.JMenuItem jMenuItem2;
- private javax.swing.JMenuItem jMenuItem20;
- private javax.swing.JMenuItem jMenuItem21;
  private javax.swing.JMenuItem jMenuItem22;
- private javax.swing.JMenuItem jMenuItem23;
- private javax.swing.JMenuItem jMenuItem24;
  private javax.swing.JMenuItem jMenuItem25;
  private javax.swing.JMenuItem jMenuItem26;
  private javax.swing.JMenuItem jMenuItem27;
- private javax.swing.JMenuItem jMenuItem28;
- private javax.swing.JMenuItem jMenuItem29;
  private javax.swing.JMenuItem jMenuItem3;
  private javax.swing.JMenuItem jMenuItem30;
  private javax.swing.JMenuItem jMenuItem31;
  private javax.swing.JMenuItem jMenuItem32;
- private javax.swing.JMenuItem jMenuItem33;
- private javax.swing.JMenuItem jMenuItem34;
  private javax.swing.JMenuItem jMenuItem35;
  private javax.swing.JMenuItem jMenuItem36;
  private javax.swing.JMenuItem jMenuItem4;
@@ -1999,8 +1936,10 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JScrollPane jScrollPane2;
  private javax.swing.JScrollPane jScrollPane3;
  private javax.swing.JScrollPane jScrollPane4;
+ private javax.swing.JScrollPane jScrollPane5;
  private javax.swing.JTable jTable1;
  private javax.swing.JTable jTable2;
+ private javax.swing.JTable jTable3;
  private javax.swing.JTextField jTextField1;
  private javax.swing.JTextField jTextField2;
  private javax.swing.JTextField jTextField3;
