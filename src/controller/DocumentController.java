@@ -54,8 +54,10 @@ public class DocumentController {
   for (Document document : documents) {
    table.addRow(new Object[]{
     document.getId().toString(),
-    document.getNumber()
-   });
+    document.getNumber(),
+    document.getWarehouse().getName(),
+    new DecimalFormat("#0.00zł").format((double) Math.round(document.getTotalValue() * 100) / 100),
+    new DecimalFormat("#0.00zł").format((double) Math.round(document.getTotalValueIncludingTax() * 100) / 100),});
   }
 
   view.hideAllViews();
@@ -130,94 +132,90 @@ public class DocumentController {
   Document document;
   List<Document> documentList = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID, 1);
   if (documentList.size() < 1) {
-   DocumentType documentType = database.getDocumentTypeById(DocumentType.PZ_ID);
-   document = new Document();
-   document.setDocumentType(documentType);
-   document.setBuffer(1);
-   database.saveDocument(document);
+   // Pre Form
+   
+   //DocumentType documentType = database.getDocumentTypeById(DocumentType.PZ_ID);
+   //document = new Document();
+   //document.setDocumentType(documentType);
+   //document.setBuffer(1);
+   //database.saveDocument(document);
   } else {
    document = documentList.get(0);
-  }
 
-  DefaultTableModel table = (DefaultTableModel) view.getDocumentElementListTable().getModel();
-  table.setRowCount(0);
-  List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
-  for (DocumentElement documentElement : documentElements) {
-   table.addRow(new Object[]{
-    documentElement.getId().toString(),
-    documentElement.getWareName(),
-    new DecimalFormat("#0.00zł").format((double) Math.round(documentElement.getTotalValue() * 100) / 100),
-    new DecimalFormat("#0.00%").format((double) Math.round(documentElement.getTax() * 100) / 10000),
-    new DecimalFormat("#0.00zł").format((double) Math.round(documentElement.getTotalValueIncludingTax() * 100) / 100),
-    documentElement.getAmount().toString()
+   DefaultTableModel table = (DefaultTableModel) view.getDocumentElementListTable().getModel();
+   table.setRowCount(0);
+   List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
+   for (DocumentElement documentElement : documentElements) {
+    table.addRow(new Object[]{
+     documentElement.getId().toString(),
+     documentElement.getWareName(),
+     new DecimalFormat("#0.00zł").format((double) Math.round(documentElement.getTotalValue() * 100) / 100),
+     new DecimalFormat("#0.00%").format((double) Math.round(documentElement.getTax() * 100) / 10000),
+     new DecimalFormat("#0.00zł").format((double) Math.round(documentElement.getTotalValueIncludingTax() * 100) / 100),
+     documentElement.getAmount().toString()
+    });
+   }
+
+   for (ActionListener listener : view.getDocumentFormButton().getActionListeners()) {
+    view.getDocumentFormButton().removeActionListener(listener);
+   }
+   for (ActionListener listener : view.getDocumentElementAddFormButton().getActionListeners()) {
+    view.getDocumentElementAddFormButton().removeActionListener(listener);
+   }
+   for (ActionListener listener : view.getDocumentElementDeleteFormButton().getActionListeners()) {
+    view.getDocumentElementDeleteFormButton().removeActionListener(listener);
+   }
+   for (ActionListener listener : view.getSelectWareFormReturnButton().getActionListeners()) {
+    view.getSelectWareFormReturnButton().removeActionListener(listener);
+   }
+
+   view.getDocumentFormButton().addActionListener(new java.awt.event.ActionListener() {
+    @Override
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+     try {
+      DocumentController.addPZAction();
+     } catch (Exception ex) {
+      Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+     }
+    }
    });
-  }
 
-  for (ActionListener listener : view.getDocumentFormButton().getActionListeners()) {
-   view.getDocumentFormButton().removeActionListener(listener);
-  }
-  for (ActionListener listener : view.getDocumentElementAddFormButton().getActionListeners()) {
-   view.getDocumentElementAddFormButton().removeActionListener(listener);
-  }
-  for (ActionListener listener : view.getDocumentElementDeleteFormButton().getActionListeners()) {
-   view.getDocumentElementDeleteFormButton().removeActionListener(listener);
-  }
-  for (ActionListener listener : view.getSelectWareFormReturnButton().getActionListeners()) {
-   view.getSelectWareFormReturnButton().removeActionListener(listener);
-  }
-
-  view.getDocumentFormButton().addActionListener(new java.awt.event.ActionListener() {
-   @Override
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    try {
-     DocumentController.addPZAction();
-    } catch (Exception ex) {
-     Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+   view.getDocumentElementAddFormButton().addActionListener(new java.awt.event.ActionListener() {
+    @Override
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+     try {
+      DocumentController.addDocumentElementForm();
+     } catch (Exception ex) {
+      Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+     }
     }
-   }
-  });
+   });
 
-  view.getDocumentElementAddFormButton().addActionListener(new java.awt.event.ActionListener() {
-   @Override
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    try {
-     DocumentController.addDocumentElementForm();
-    } catch (Exception ex) {
-     Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+   view.getDocumentElementDeleteFormButton().addActionListener(new java.awt.event.ActionListener() {
+    @Override
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+     try {
+      DocumentController.deleteDocumentElementForm();
+     } catch (Exception ex) {
+      Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+     }
     }
-   }
-  });
+   });
 
-  view.getDocumentElementDeleteFormButton().addActionListener(new java.awt.event.ActionListener() {
-   @Override
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    try {
-     DocumentController.deleteDocumentElementForm();
-    } catch (Exception ex) {
-     Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+   view.getSelectWareFormReturnButton().addActionListener(new java.awt.event.ActionListener() {
+    @Override
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+     try {
+      DocumentController.addDocumentPZ();
+     } catch (Exception ex) {
+      Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+     }
     }
-   }
-  });
+   });
 
-  view.getSelectWareFormReturnButton().addActionListener(new java.awt.event.ActionListener() {
-   @Override
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    try {
-     DocumentController.addDocumentPZ();
-    } catch (Exception ex) {
-     Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
-    }
-   }
-  });
-
-  List<Warehouse> warehouses = database.getWarehouses();
-  view.getSelectFormDocument().removeAllItems();
-  for (Warehouse warehouse : warehouses) {
-   view.getSelectFormDocument().addItem(new SelectItem(warehouse.getId(), warehouse.getName()));
+   view.getDocumentFormButton().setText("Dodaj");
+   view.getDocumentFormView().setVisible(true);
   }
-
-  view.getDocumentFormButton().setText("Dodaj");
-  view.getDocumentFormView().setVisible(true);
  }
 
  public static void addPZAction() {
@@ -231,6 +229,7 @@ public class DocumentController {
    String year = String.valueOf(yearInteger);
 
    Document document = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID, 1).get(0);
+   document.setWarehouse(warehouse);
    document.setBuffer(0);
    String documentNumber = document.getDocumentType().getSymbol() + "/" + document.getId() + "/" + warehouse.getId() + "/" + year;
    document.setNumber(documentNumber);

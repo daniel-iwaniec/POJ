@@ -30,6 +30,7 @@ public class Document extends AbstractEntity {
  private final Database database = Database.getInstance();
 
  private Integer id = AbstractEntity.NULL_ID;
+ private Warehouse warehouse = null;
  private DocumentType documentType = null;
  private String number = "";
  private Integer buffer = 1;
@@ -38,17 +39,19 @@ public class Document extends AbstractEntity {
   super();
  }
 
- public Document(Integer id, Integer documentTypeId, String number, Integer buffer) {
+ public Document(Integer id, Integer warehouseId, Integer documentTypeId, String number, Integer buffer) {
   super();
   this.id = id;
+  this.warehouse = database.getWarehouseById(warehouseId);
   this.documentType = database.getDocumentTypeById(documentTypeId);
   this.number = number;
   this.buffer = buffer;
  }
 
- public Document(Integer id, DocumentType documentType, String number, Integer buffer) {
+ public Document(Integer id, Warehouse warehouse, DocumentType documentType, String number, Integer buffer) {
   super();
   this.id = id;
+  this.warehouse = warehouse;
   this.documentType = documentType;
   this.number = number;
   this.buffer = buffer;
@@ -60,6 +63,14 @@ public class Document extends AbstractEntity {
 
  public void setId(Integer id) {
   this.id = id;
+ }
+
+ public Warehouse getWarehouse() {
+  return this.warehouse;
+ }
+
+ public void setWarehouse(Warehouse warehouse) {
+  this.warehouse = warehouse;
  }
 
  public String getNumber() {
@@ -86,6 +97,14 @@ public class Document extends AbstractEntity {
   this.buffer = buffer;
  }
 
+ public Double getTotalValue() {
+  return 0.0;
+ }
+
+ public Double getTotalValueIncludingTax() {
+  return 0.0;
+ }
+
  @Override
  public void filter() {
   this.number = this.number.trim();
@@ -97,6 +116,12 @@ public class Document extends AbstractEntity {
 
   if (documentType == null) {
    validationErrors.add("Dokument nie został przypisany do żadnego typu dokumentu");
+  }
+
+  if (buffer == 0) {
+   if (warehouse == null) {
+    validationErrors.add("Dokument nie został przypisany do żadnego magazynu");
+   }
   }
 
   if (!database.isDocumentNumberUnique(this)) {

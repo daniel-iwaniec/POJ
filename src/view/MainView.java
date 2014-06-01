@@ -198,8 +198,8 @@ public class MainView extends javax.swing.JFrame {
   return this.SelectFormSelect2;
  }
 
- public javax.swing.JComboBox getSelectFormDocument() {
-  return this.SelectFormSelect1;
+ public javax.swing.JComboBox getWarehouseSelectPreFormDocument() {
+  return this.SelectFormSelect2;
  }
 
  public javax.swing.JLabel getSelectFormHeader() {
@@ -412,11 +412,11 @@ public class MainView extends javax.swing.JFrame {
   DocumentForm = new javax.swing.JPanel();
   jButton5 = new javax.swing.JButton();
   jLabel30 = new javax.swing.JLabel();
-  SelectFormSelect1 = new javax.swing.JComboBox();
   jButton6 = new javax.swing.JButton();
   jScrollPane6 = new javax.swing.JScrollPane();
   jTable4 = new javax.swing.JTable();
   jButton7 = new javax.swing.JButton();
+  jTextField8 = new javax.swing.JTextField();
   SelectWareForm = new javax.swing.JPanel();
   jButton8 = new javax.swing.JButton();
   jLabel31 = new javax.swing.JLabel();
@@ -424,6 +424,10 @@ public class MainView extends javax.swing.JFrame {
   jLabel32 = new javax.swing.JLabel();
   jTextField7 = new javax.swing.JTextField();
   jButton9 = new javax.swing.JButton();
+  DocumentPreForm = new javax.swing.JPanel();
+  jButton11 = new javax.swing.JButton();
+  jLabel34 = new javax.swing.JLabel();
+  SelectFormSelect3 = new javax.swing.JComboBox();
   jMenuBar1 = new javax.swing.JMenuBar();
   jMenu2 = new javax.swing.JMenu();
   jMenuItem7 = new javax.swing.JMenuItem();
@@ -857,8 +861,11 @@ public class MainView extends javax.swing.JFrame {
 
   jLabel33.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
   jLabel33.setLabelFor(jTextField1);
-  jLabel33.setText("Wartość magazynu");
+  jLabel33.setText("Towary na magazynie");
 
+  jScrollPane7.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jTable5.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
   jTable5.setModel(new javax.swing.table.DefaultTableModel(
    new Object [][] {
 
@@ -882,6 +889,12 @@ public class MainView extends javax.swing.JFrame {
     return canEdit [columnIndex];
    }
   });
+  jTable5.setColumnSelectionAllowed(true);
+  jTable5.setFillsViewportHeight(true);
+  jTable5.setGridColor(new java.awt.Color(204, 204, 204));
+  jTable5.setRowHeight(36);
+  jTable5.setSelectionBackground(new java.awt.Color(204, 255, 255));
+  jTable5.getTableHeader().setReorderingAllowed(false);
   jScrollPane7.setViewportView(jTable5);
   if (jTable5.getColumnModel().getColumnCount() > 0) {
    jTable5.getColumnModel().getColumn(0).setResizable(false);
@@ -902,7 +915,7 @@ public class MainView extends javax.swing.JFrame {
      .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
      .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING)
      .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING)
-     .addComponent(jScrollPane7)
+     .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
      .addGroup(WarehouseViewInformationsLayout.createSequentialGroup()
       .addGroup(WarehouseViewInformationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
        .addComponent(jLabel19)
@@ -1232,14 +1245,14 @@ public class MainView extends javax.swing.JFrame {
 
    },
    new String [] {
-    "ID", "Numer", "Magazyn", "Netto", "Podatek", "Brutto"
+    "ID", "Numer", "Magazyn", "Netto", "Brutto"
    }
   ) {
    Class[] types = new Class [] {
-    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
    };
    boolean[] canEdit = new boolean [] {
-    false, false, false, false, false, false
+    false, false, false, false, false
    };
 
    public Class getColumnClass(int columnIndex) {
@@ -1264,7 +1277,6 @@ public class MainView extends javax.swing.JFrame {
    jTable3.getColumnModel().getColumn(2).setResizable(false);
    jTable3.getColumnModel().getColumn(3).setResizable(false);
    jTable3.getColumnModel().getColumn(4).setResizable(false);
-   jTable3.getColumnModel().getColumn(5).setResizable(false);
   }
 
   javax.swing.GroupLayout DocumentListLayout = new javax.swing.GroupLayout(DocumentList);
@@ -1293,14 +1305,6 @@ public class MainView extends javax.swing.JFrame {
   jLabel30.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
   jLabel30.setLabelFor(jTextField1);
   jLabel30.setText("Magazyn");
-
-  SelectFormSelect1.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
-  SelectFormSelect1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-  SelectFormSelect1.addActionListener(new java.awt.event.ActionListener() {
-   public void actionPerformed(java.awt.event.ActionEvent evt) {
-    SelectFormSelect1ActionPerformed(evt);
-   }
-  });
 
   jButton6.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
   jButton6.setText("Dodaj pozycję");
@@ -1361,6 +1365,9 @@ public class MainView extends javax.swing.JFrame {
    }
   });
 
+  jTextField8.setEditable(false);
+  jTextField8.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+
   javax.swing.GroupLayout DocumentFormLayout = new javax.swing.GroupLayout(DocumentForm);
   DocumentForm.setLayout(DocumentFormLayout);
   DocumentFormLayout.setHorizontalGroup(
@@ -1368,11 +1375,10 @@ public class MainView extends javax.swing.JFrame {
    .addGroup(DocumentFormLayout.createSequentialGroup()
     .addContainerGap()
     .addGroup(DocumentFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
      .addGroup(DocumentFormLayout.createSequentialGroup()
       .addGap(0, 0, Short.MAX_VALUE)
       .addComponent(jButton5))
-     .addComponent(SelectFormSelect1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
      .addGroup(DocumentFormLayout.createSequentialGroup()
       .addGroup(DocumentFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
        .addComponent(jLabel30)
@@ -1380,7 +1386,8 @@ public class MainView extends javax.swing.JFrame {
         .addComponent(jButton6)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(jButton7)))
-      .addGap(0, 0, Short.MAX_VALUE)))
+      .addGap(0, 0, Short.MAX_VALUE))
+     .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.TRAILING))
     .addContainerGap())
   );
   DocumentFormLayout.setVerticalGroup(
@@ -1389,7 +1396,7 @@ public class MainView extends javax.swing.JFrame {
     .addContainerGap()
     .addComponent(jLabel30)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-    .addComponent(SelectFormSelect1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     .addGap(18, 18, 18)
     .addGroup(DocumentFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
      .addComponent(jButton6)
@@ -1478,6 +1485,58 @@ public class MainView extends javax.swing.JFrame {
     .addContainerGap())
   );
 
+  DocumentPreForm.setBackground(new java.awt.Color(255, 255, 255));
+  DocumentPreForm.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+  DocumentPreForm.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jButton11.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jButton11.setText("Dalej");
+  jButton11.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jButton11ActionPerformed(evt);
+   }
+  });
+
+  jLabel34.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel34.setLabelFor(jTextField1);
+  jLabel34.setText("Magazyn");
+
+  SelectFormSelect3.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  SelectFormSelect3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+  SelectFormSelect3.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    SelectFormSelect3ActionPerformed(evt);
+   }
+  });
+
+  javax.swing.GroupLayout DocumentPreFormLayout = new javax.swing.GroupLayout(DocumentPreForm);
+  DocumentPreForm.setLayout(DocumentPreFormLayout);
+  DocumentPreFormLayout.setHorizontalGroup(
+   DocumentPreFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(DocumentPreFormLayout.createSequentialGroup()
+    .addContainerGap()
+    .addGroup(DocumentPreFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+     .addGroup(DocumentPreFormLayout.createSequentialGroup()
+      .addGap(0, 0, Short.MAX_VALUE)
+      .addComponent(jButton11))
+     .addComponent(SelectFormSelect3, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addGroup(DocumentPreFormLayout.createSequentialGroup()
+      .addComponent(jLabel34)
+      .addGap(0, 589, Short.MAX_VALUE)))
+    .addContainerGap())
+  );
+  DocumentPreFormLayout.setVerticalGroup(
+   DocumentPreFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DocumentPreFormLayout.createSequentialGroup()
+    .addContainerGap()
+    .addComponent(jLabel34)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(SelectFormSelect3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1401, Short.MAX_VALUE)
+    .addComponent(jButton11)
+    .addContainerGap())
+  );
+
   javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
   jLayeredPane1.setLayout(jLayeredPane1Layout);
   jLayeredPane1Layout.setHorizontalGroup(
@@ -1543,6 +1602,11 @@ public class MainView extends javax.swing.JFrame {
      .addContainerGap()
      .addComponent(SelectWareForm, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
      .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addGap(20, 20, 20)
+     .addComponent(DocumentPreForm, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
+     .addContainerGap()))
   );
   jLayeredPane1Layout.setVerticalGroup(
    jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1607,6 +1671,11 @@ public class MainView extends javax.swing.JFrame {
      .addContainerGap()
      .addComponent(SelectWareForm, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
      .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addGap(21, 21, 21)
+     .addComponent(DocumentPreForm, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
+     .addGap(1, 1, 1)))
   );
   jLayeredPane1.setLayer(WarehouseList, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -1629,6 +1698,7 @@ public class MainView extends javax.swing.JFrame {
   jLayeredPane1.setLayer(DocumentList, javax.swing.JLayeredPane.DEFAULT_LAYER);
   jLayeredPane1.setLayer(DocumentForm, javax.swing.JLayeredPane.DEFAULT_LAYER);
   jLayeredPane1.setLayer(SelectWareForm, javax.swing.JLayeredPane.DEFAULT_LAYER);
+  jLayeredPane1.setLayer(DocumentPreForm, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
   jMenuBar1.setBorderPainted(false);
 
@@ -2176,10 +2246,6 @@ public class MainView extends javax.swing.JFrame {
   // TODO add your handling code here:
  }//GEN-LAST:event_jButton5ActionPerformed
 
- private void SelectFormSelect1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectFormSelect1ActionPerformed
-  // TODO add your handling code here:
- }//GEN-LAST:event_SelectFormSelect1ActionPerformed
-
  private void SelectFormSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectFormSelectActionPerformed
   // TODO add your handling code here:
  }//GEN-LAST:event_SelectFormSelectActionPerformed
@@ -2207,6 +2273,14 @@ public class MainView extends javax.swing.JFrame {
  private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
   // TODO add your handling code here:
  }//GEN-LAST:event_jButton10ActionPerformed
+
+ private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+  // TODO add your handling code here:
+ }//GEN-LAST:event_jButton11ActionPerformed
+
+ private void SelectFormSelect3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectFormSelect3ActionPerformed
+  // TODO add your handling code here:
+ }//GEN-LAST:event_SelectFormSelect3ActionPerformed
 
  /**
   * @param args the command line arguments
@@ -2247,14 +2321,15 @@ public class MainView extends javax.swing.JFrame {
  // Variables declaration - do not modify//GEN-BEGIN:variables
  private javax.swing.JPanel DocumentForm;
  private javax.swing.JPanel DocumentList;
+ private javax.swing.JPanel DocumentPreForm;
  private javax.swing.JPanel ErrorPopup;
  private javax.swing.JLabel Header;
  private javax.swing.JPanel Index;
  private javax.swing.JPanel License;
  private javax.swing.JPanel SelectForm;
  private javax.swing.JComboBox SelectFormSelect;
- private javax.swing.JComboBox SelectFormSelect1;
  private javax.swing.JComboBox SelectFormSelect2;
+ private javax.swing.JComboBox SelectFormSelect3;
  private javax.swing.JPanel SelectWareForm;
  private javax.swing.JPanel WareForm;
  private javax.swing.JPanel WareList;
@@ -2266,6 +2341,7 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JTextField hiddenWarehouseId;
  private javax.swing.JButton jButton1;
  private javax.swing.JButton jButton10;
+ private javax.swing.JButton jButton11;
  private javax.swing.JButton jButton2;
  private javax.swing.JButton jButton3;
  private javax.swing.JButton jButton4;
@@ -2306,6 +2382,7 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JLabel jLabel31;
  private javax.swing.JLabel jLabel32;
  private javax.swing.JLabel jLabel33;
+ private javax.swing.JLabel jLabel34;
  private javax.swing.JLabel jLabel4;
  private javax.swing.JLabel jLabel5;
  private javax.swing.JLabel jLabel6;
@@ -2371,6 +2448,7 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JTextField jTextField5;
  private javax.swing.JTextField jTextField6;
  private javax.swing.JTextField jTextField7;
+ private javax.swing.JTextField jTextField8;
  private javax.swing.JTextArea licenseTextArea;
  private javax.swing.JTextArea licenseTextArea1;
  // End of variables declaration//GEN-END:variables
