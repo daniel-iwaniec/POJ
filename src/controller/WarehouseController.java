@@ -25,6 +25,7 @@ package controller;
 
 import java.util.List;
 import database.Database;
+import database.entity.WareRecord;
 import database.entity.Warehouse;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -131,6 +132,8 @@ public class WarehouseController {
    }
 
    WarehouseController.list();
+  } else {
+   view.showErrorPopup("Nie wybrano magazynu");
   }
  }
 
@@ -188,6 +191,8 @@ public class WarehouseController {
     view.getWarehouseFormButton().setText("Edytuj");
     view.getWarehouseFormView().setVisible(true);
    }
+  } else {
+   view.showErrorPopup("Nie wybrano magazynu");
   }
  }
 
@@ -245,12 +250,29 @@ public class WarehouseController {
     view.getHeader().setText("Magazyn - informacje");
     view.setIcon(MainView.BOX_ICON);
 
+    DefaultTableModel table = (DefaultTableModel) view.getWareRecordListTable().getModel();
+    table.setRowCount(0);
+
+    List<WareRecord> wareRecords = database.getWareRecordsByWarehouseId(warehouse.getId());
+    for (WareRecord wareRecord : wareRecords) {
+     table.addRow(new Object[]{
+      wareRecord.getId().toString(),
+      wareRecord.getWareName(),
+      new DecimalFormat("#0.00zł").format((double) Math.round(wareRecord.getTotalValue() * 100) / 100),
+      new DecimalFormat("#0.00%").format((double) Math.round(wareRecord.getTax() * 100) / 10000),
+      new DecimalFormat("#0.00zł").format((double) Math.round(wareRecord.getTotalValueIncludingTax() * 100) / 100),
+      wareRecord.getAmount().toString()
+     });
+    }
+
     view.getWarehouseViewIDInput().setText(warehouse.getId().toString());
     view.getWarehouseViewNameInput().setText(warehouse.getName());
     view.getWarehouseViewValueInput().setText(new DecimalFormat("#0.00zł").format((double) Math.round(warehouse.calculateValue() * 100) / 100));
 
     view.getWarehouseViewInformationsView().setVisible(true);
    }
+  } else {
+   view.showErrorPopup("Nie wybrano magazynu");
   }
 
  }

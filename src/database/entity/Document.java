@@ -32,23 +32,26 @@ public class Document extends AbstractEntity {
  private Integer id = AbstractEntity.NULL_ID;
  private DocumentType documentType = null;
  private String number = "";
+ private Integer buffer = 1;
 
  public Document() {
   super();
  }
 
- public Document(Integer id, Integer documentTypeId, String number) {
+ public Document(Integer id, Integer documentTypeId, String number, Integer buffer) {
   super();
   this.id = id;
   this.documentType = database.getDocumentTypeById(documentTypeId);
   this.number = number;
+  this.buffer = buffer;
  }
 
- public Document(Integer id, DocumentType documentType, String number) {
+ public Document(Integer id, DocumentType documentType, String number, Integer buffer) {
   super();
   this.id = id;
   this.documentType = documentType;
   this.number = number;
+  this.buffer = buffer;
  }
 
  public Integer getId() {
@@ -73,6 +76,14 @@ public class Document extends AbstractEntity {
 
  public void setDocumentType(DocumentType documentType) {
   this.documentType = documentType;
+ }
+
+ public Integer getBuffer() {
+  return this.buffer;
+ }
+
+ public void setBuffer(Integer buffer) {
+  this.buffer = buffer;
  }
 
  @Override

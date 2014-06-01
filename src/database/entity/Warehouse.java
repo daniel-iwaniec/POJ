@@ -24,6 +24,7 @@
 package database.entity;
 
 import database.Database;
+import java.util.List;
 
 public class Warehouse extends AbstractEntity {
 
@@ -57,10 +58,13 @@ public class Warehouse extends AbstractEntity {
  }
 
  public Double calculateValue() {
-  /**
-   * @todo calculate value
-   */
-  return 0.0;
+  Database database = Database.getInstance();
+  List<WareRecord> wareRecords = database.getWareRecordsByWarehouseId(this.id);
+  Double value = 0.0;
+  for (WareRecord wareRecord : wareRecords) {
+   value += wareRecord.getTotalValueIncludingTax();
+  }
+  return value;
  }
 
  @Override
@@ -73,20 +77,20 @@ public class Warehouse extends AbstractEntity {
   this.filter();
 
   if ("".equals(name)) {
-   validationErrors.add("Nazwa nie może być pusta");
+   validationErrors.add("Nazwa magazynu nie może być pusta");
   }
 
   if (name.length() > 20) {
-   validationErrors.add("Nazwa może zawierać max 20 znaków");
+   validationErrors.add("Nazwa magazynu może zawierać maksymalnie 20 znaków");
   }
 
   if (!name.matches("^[a-zA-Z0-9ęóąśłżźćńĘÓĄŚŁŻŹĆŃ ]*$")) {
-   validationErrors.add("Nazwa może zawierać tylko alfanumeryczne znaki");
+   validationErrors.add("Nazwa magazynu może zawierać tylko alfanumeryczne znaki");
   }
 
   Database database = Database.getInstance();
   if (!database.isWarehouseNameUnique(this)) {
-   validationErrors.add("Nazwa musi być unikalna");
+   validationErrors.add("Nazwa magazynu musi być unikalna");
   }
 
   return validationErrors.isEmpty();

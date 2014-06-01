@@ -1,22 +1,26 @@
-Politechnika Świętokrzyska
+﻿Politechnika Świętokrzyska
 ==========================
 Programowanie obiektowe Java - Projekt
 --------------------------------------
 
 TODO:
 
-* Ogólna lista dokumnetów
-* Ogólna lista pozycji
-
-* Dodawanie dokumentów.
-* Dodawanie serii towaru.
+* Poprawić wygląd tabelki, w której wyświetlają się towary na magazynie.
+* Wyświetlić informacje na liście dokumentów.
+* Edycja pozycji dokumentów.
 * Pokazywanie informacji o dokumentach.
 
-* To samo dla dokumentów PZ, WZ, PW, RW.
+* Dokument PZ.
+* Dokument WZ.
+* Dokument PW.
+* Dokument RW.
 * Podczas dodawania PZ i PW dodawać towary z serii towarów.
 * Podczas dodawania WZ i RW odejmować towary z serii towarów.
 
 * Jakieś statystyki/dane magazynów?
-* Lista towarów na stronie informacji o magazynie.
 
-* Trochę lepszy wyglą (kolor obramowań, podświetleń itp.).
+* Okno czy jesteś pewien do wyczyszczenia bazy?
+* Trochę lepszy wygląd (kolor obramowań, podświetleń itp.).
+
+* Kontrahenci do PZ i WZ?
+* Licencja ikonek.

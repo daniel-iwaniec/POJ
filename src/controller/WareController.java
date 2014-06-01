@@ -95,8 +95,18 @@ public class WareController {
  public static void addAction() throws java.lang.Exception {
   Ware newWare = new Ware();
   newWare.setName(view.getWareFormNameInput().getText());
-  newWare.setValue(Double.parseDouble(view.getWareFormValueInput().getText().replace(",", ".").trim()));
-  newWare.setTax(Double.parseDouble(view.getWareFormTaxInput().getText().replace(",", ".").trim()));
+  String value = view.getWareFormValueInput().getText().replace(",", ".").trim();
+  if (value.equals("")) {
+   newWare.setValue(0.0);
+  } else {
+   newWare.setValue(Double.parseDouble(value));
+  }
+  String tax = view.getWareFormTaxInput().getText().replace(",", ".").trim();
+  if (tax.equals("")) {
+   newWare.setTax(0.0);
+  } else {
+   newWare.setTax(Double.parseDouble(tax));
+  }
 
   if (newWare.validate()) {
    database.saveWare(newWare);
@@ -145,6 +155,8 @@ public class WareController {
    }
 
    WareController.list();
+  } else {
+   view.showErrorPopup("Nie wybrano towaru");
   }
  }
 
@@ -209,6 +221,8 @@ public class WareController {
     view.getWareFormButton().setText("Edytuj");
     view.getWareFormView().setVisible(true);
    }
+  } else {
+   view.showErrorPopup("Nie wybrano towaru");
   }
  }
 
@@ -216,8 +230,25 @@ public class WareController {
   Ware editedWare = new Ware();
   editedWare.setId(Integer.parseInt(view.getWareFormHiddenIdInput().getText()));
   editedWare.setName(view.getWareFormNameInput().getText());
-  editedWare.setValue(Double.parseDouble(view.getWareFormValueInput().getText().replace(",", ".")));
-  editedWare.setTax(Double.parseDouble(view.getWareFormTaxInput().getText().replace(",", ".")));
+  String value = view.getWareFormValueInput().getText().replace(",", ".").trim();
+  if (value.equals("")) {
+   editedWare.setValue(0.0);
+  } else {
+   editedWare.setValue(Double.parseDouble(value));
+  }
+  String tax = view.getWareFormTaxInput().getText().replace(",", ".").trim();
+  if (tax.equals("")) {
+   editedWare.setTax(0.0);
+  } else {
+   editedWare.setTax(Double.parseDouble(tax));
+  }
+
+  if (editedWare.validate()) {
+   database.saveWare(editedWare);
+   WareController.list();
+  } else {
+   view.showErrorPopup(editedWare.getValidationErrors());
+  }
 
   if (editedWare.validate()) {
    database.saveWare(editedWare);
@@ -277,6 +308,8 @@ public class WareController {
 
     view.getWareViewInformationsView().setVisible(true);
    }
+  } else {
+   view.showErrorPopup("Nie wybrano towaru");
   }
 
  }

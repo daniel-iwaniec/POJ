@@ -93,6 +93,10 @@ public class WareRecord extends AbstractEntity {
   this.value = value;
  }
 
+ public Double getTotalValue() {
+  return this.value * this.amount;
+ }
+
  public Double getTax() {
   return this.tax;
  }
@@ -103,6 +107,10 @@ public class WareRecord extends AbstractEntity {
 
  public Double getValueIncludingTax() {
   return this.getValue() + (this.getValue() * (this.getTax() / 100));
+ }
+
+ public Double getTotalValueIncludingTax() {
+  return this.getTotalValue() + (this.getTotalValue() * (this.getTax() / 100));
  }
 
  public void setAmount(Integer amount) {
