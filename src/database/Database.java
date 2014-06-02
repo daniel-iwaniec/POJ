@@ -416,6 +416,40 @@ public final class Database {
   return documents;
  }
 
+ public List<Document> getDocumentsByWarehouseId(Integer warehouseId) {
+  List<Document> documents = new LinkedList<>();
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM document WHERE buffer = ? AND warehouse_id = ?;");
+   preparedStatement.setInt(1, 0);
+   preparedStatement.setInt(2, warehouseId);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    documents.add(new Document(result.getInt("id"), result.getInt("warehouse_id"), result.getInt("document_type_id"), result.getString("number"), result.getInt("buffer")));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+  return documents;
+ }
+
+ public List<Document> getDocumentsByWarehouseId(Integer warehouseId, Integer buffer) {
+  List<Document> documents = new LinkedList<>();
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM document WHERE buffer = ? AND warehouse_id = ?;");
+   preparedStatement.setInt(1, buffer);
+   preparedStatement.setInt(2, warehouseId);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    documents.add(new Document(result.getInt("id"), result.getInt("warehouse_id"), result.getInt("document_type_id"), result.getString("number"), result.getInt("buffer")));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+  return documents;
+ }
+
  public List<Document> getDocumentsByDocumentTypeId(Integer documentTypeId) {
   List<Document> documents = new LinkedList<>();
   try {
@@ -471,15 +505,16 @@ public final class Database {
    }
 
    if (document.getBuffer().equals(1)) {
-    PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO document VALUES (NULL, NULL, ?, ?, ?);");
-    preparedStatement.setInt(1, document.getDocumentType().getId());
-    preparedStatement.setString(2, "");
-    preparedStatement.setInt(3, document.getBuffer());
+    PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO document VALUES (NULL, ?, ?, ?, ?);");
+    preparedStatement.setInt(1, document.getWarehouse().getId());
+    preparedStatement.setInt(2, document.getDocumentType().getId());
+    preparedStatement.setString(3, "");
+    preparedStatement.setInt(4, document.getBuffer());
     preparedStatement.execute();
    } else {
-    PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE document SET buffer = 0, number = ?, warehouse_id = ?;");
+    PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE document SET buffer = 0, number = ? WHERE id = ?;");
     preparedStatement.setString(1, document.getNumber());
-    preparedStatement.setInt(2, document.getWarehouse().getId());
+    preparedStatement.setInt(2, document.getId());
     preparedStatement.execute();
    }
   } catch (SQLException ex) {
@@ -618,6 +653,20 @@ public final class Database {
    }
   } catch (SQLException ex) {
    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+  }
+ }
+
+ public void clearDocumentBuffer(Integer documentTypeId) {
+  List<Document> documents = this.getDocumentsByDocumentTypeId(documentTypeId, 1);
+  if (documents.size() > 0) {
+   Document document = documents.get(0);
+   try {
+    PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM document WHERE id = ?;");
+    preparedStatement.setInt(1, document.getId());
+    preparedStatement.execute();
+   } catch (SQLException exception) {
+    System.err.println(exception.getMessage());
+   }
   }
  }
 

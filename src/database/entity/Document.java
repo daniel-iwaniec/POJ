@@ -24,6 +24,7 @@
 package database.entity;
 
 import database.Database;
+import java.util.List;
 
 public class Document extends AbstractEntity {
 
@@ -98,11 +99,23 @@ public class Document extends AbstractEntity {
  }
 
  public Double getTotalValue() {
-  return 0.0;
+  List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(this.id);
+  Double totalValue = 0.0;
+  for (DocumentElement documentElement : documentElements) {
+   totalValue += documentElement.getTotalValue();
+  }
+
+  return totalValue;
  }
 
  public Double getTotalValueIncludingTax() {
-  return 0.0;
+  List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(this.id);
+  Double totalValueIncludingTax = 0.0;
+  for (DocumentElement documentElement : documentElements) {
+   totalValueIncludingTax += documentElement.getTotalValueIncludingTax();
+  }
+
+  return totalValueIncludingTax;
  }
 
  @Override

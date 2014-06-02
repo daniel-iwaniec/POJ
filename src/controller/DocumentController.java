@@ -132,13 +132,30 @@ public class DocumentController {
   Document document;
   List<Document> documentList = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID, 1);
   if (documentList.size() < 1) {
-   // Pre Form
-   
-   //DocumentType documentType = database.getDocumentTypeById(DocumentType.PZ_ID);
-   //document = new Document();
-   //document.setDocumentType(documentType);
-   //document.setBuffer(1);
-   //database.saveDocument(document);
+
+   for (ActionListener listener : view.getDocumentPreFormButton().getActionListeners()) {
+    view.getDocumentPreFormButton().removeActionListener(listener);
+   }
+
+   view.getDocumentPreFormButton().addActionListener(new java.awt.event.ActionListener() {
+    @Override
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+     try {
+      DocumentController.addDocumentPreFormAction();
+     } catch (Exception ex) {
+      Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+     }
+    }
+   });
+
+   List<Warehouse> warehouses = database.getWarehouses();
+   view.getDocumentPreFormWarehouseSelect().removeAllItems();
+   for (Warehouse warehouse : warehouses) {
+    view.getDocumentPreFormWarehouseSelect().addItem(new SelectItem(warehouse.getId(), warehouse.getName()));
+   }
+
+   view.getDocumentPreFormButton().setText("Wybierz");
+   view.getDocumentPreFormView().setVisible(true);
   } else {
    document = documentList.get(0);
 
@@ -213,8 +230,28 @@ public class DocumentController {
     }
    });
 
+   view.getDocumentFormWarehouseInput().setText(document.getWarehouse().getName());
    view.getDocumentFormButton().setText("Dodaj");
    view.getDocumentFormView().setVisible(true);
+  }
+ }
+
+ public static void addDocumentPreFormAction() {
+  Object selectedWarehouse = view.getDocumentPreFormWarehouseSelect().getSelectedItem();
+  if (selectedWarehouse != null) {
+   Integer id = ((SelectItem) selectedWarehouse).getId();
+   Warehouse warehouse = database.getWarehouseById(id);
+
+   DocumentType documentType = database.getDocumentTypeById(DocumentType.PZ_ID);
+   Document document = new Document();
+   document.setDocumentType(documentType);
+   document.setBuffer(1);
+   document.setWarehouse(warehouse);
+   database.saveDocument(document);
+
+   DocumentController.addDocumentPZ();
+  } else {
+   view.showErrorPopup("Nie wybrano magazynu");
   }
  }
 
@@ -366,7 +403,75 @@ public class DocumentController {
    }
 
    DocumentController.addDocumentPZ();
+  } else {
+   view.showErrorPopup("Nie wybrano pozycji dokumentu");
   }
+ }
+
+ public static void viewInformationsForm() {
+  view.hideAllViews();
+  view.getHeader().setText("Przyjęcie zewnętrzne (PZ) - informacje");
+  view.setIcon(MainView.DOCUMENT_ICON);
+
+  List<Document> documents = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID);
+  view.getSelectFormSelect().removeAllItems();
+  for (Document document : documents) {
+   view.getSelectFormSelect().addItem(new SelectItem(document.getId(), document.getNumber()));
+  }
+
+  for (ActionListener listener : view.getSelectFormButton().getActionListeners()) {
+   view.getSelectFormButton().removeActionListener(listener);
+  }
+  view.getSelectFormButton().addActionListener(new java.awt.event.ActionListener() {
+   @Override
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    DocumentController.viewInformationsAction();
+   }
+  });
+
+  view.getSelectFormHeader().setText("Wybierz dokument");
+  view.getSelectFormButton().setText("Pokaż informacje");
+  view.getSelectFormView().setVisible(true);
+ }
+
+ public static void viewInformationsAction() {
+  Object selectedDocument = view.getSelectFormSelect().getSelectedItem();
+  if (selectedDocument != null) {
+   Integer id = ((SelectItem) selectedDocument).getId();
+
+   Document document = database.getDocumentById(id);
+   if (document == null) {
+    view.showErrorPopup("Wybrany dokument nie istnieje");
+   } else {
+    view.hideAllViews();
+    view.getHeader().setText("Przyjęcie zewnętrzne (PZ) - informacje");
+    view.setIcon(MainView.DOCUMENT_ICON);
+
+    view.getDocumentViewInformationsNumberInput().setText(document.getNumber());
+    view.getDocumentViewInformationsWarehouseInput().setText(document.getWarehouse().getName());
+    view.getDocumentViewInformationsNettoInput().setText(new DecimalFormat("#0.00zł").format((double) Math.round(document.getTotalValue() * 100) / 100));
+    view.getDocumentViewInformationsBruttoInput().setText(new DecimalFormat("#0.00zł").format((double) Math.round(document.getTotalValueIncludingTax() * 100) / 100));
+
+    DefaultTableModel table = (DefaultTableModel) view.getDocumentViewInformationsTable().getModel();
+    table.setRowCount(0);
+    List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
+    for (DocumentElement documentElement : documentElements) {
+     table.addRow(new Object[]{
+      documentElement.getId().toString(),
+      documentElement.getWareName(),
+      new DecimalFormat("#0.00zł").format((double) Math.round(documentElement.getTotalValue() * 100) / 100),
+      new DecimalFormat("#0.00%").format((double) Math.round(documentElement.getTax() * 100) / 10000),
+      new DecimalFormat("#0.00zł").format((double) Math.round(documentElement.getTotalValueIncludingTax() * 100) / 100),
+      documentElement.getAmount().toString()
+     });
+    }
+
+    view.getDocumentViewInformationsView().setVisible(true);
+   }
+  } else {
+   view.showErrorPopup("Nie wybrano dokumentu");
+  }
+
  }
 
 }

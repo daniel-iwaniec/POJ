@@ -25,6 +25,7 @@ package main;
 
 import java.awt.EventQueue;
 import database.Database;
+import database.entity.DocumentType;
 import view.MainView;
 
 public class Main {
@@ -70,6 +71,12 @@ public class Main {
 
  public static void clearDatabaseAction() {
   database.clearDatabase();
+  view.hideAllViews();
+  view.getIndexView().setVisible(true);
+ }
+
+ public static void clearDocumentBufferAction(Integer documentTypeId) {
+  database.clearDocumentBuffer(documentTypeId);
   view.hideAllViews();
   view.getIndexView().setVisible(true);
  }

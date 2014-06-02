@@ -25,6 +25,7 @@ package controller;
 
 import java.util.List;
 import database.Database;
+import database.entity.Document;
 import database.entity.WareRecord;
 import database.entity.Warehouse;
 import java.awt.event.ActionListener;
@@ -128,10 +129,14 @@ public class WarehouseController {
    if (warehouse == null) {
     view.showErrorPopup("Wybrany magazyn nie istnieje");
    } else {
-    database.deleteWarehouseById(id);
+    List<Document> documents = database.getDocumentsByWarehouseId(warehouse.getId());
+    if (documents.size() > 0) {
+     view.showErrorPopup("Magazyn nie może zostać usunięty,\nponieważ został już powiązany z dokumentami");
+    } else {
+     database.deleteWarehouseById(id);
+     WarehouseController.list();
+    }
    }
-
-   WarehouseController.list();
   } else {
    view.showErrorPopup("Nie wybrano magazynu");
   }
@@ -172,24 +177,29 @@ public class WarehouseController {
    if (warehouse == null) {
     view.showErrorPopup("Wybrany magazyn nie istnieje");
    } else {
-    view.hideAllViews();
-    view.getHeader().setText("Magazyn - edytuj");
-    view.setIcon(MainView.BOX_ICON);
+    List<Document> documents = database.getDocumentsByWarehouseId(warehouse.getId());
+    if (documents.size() > 0) {
+     view.showErrorPopup("Wybrany magazyn nie może zostać edytowany,\nponieważ został już powiązany z dokumentami");
+    } else {
+     view.hideAllViews();
+     view.getHeader().setText("Magazyn - edytuj");
+     view.setIcon(MainView.BOX_ICON);
 
-    for (ActionListener listener : view.getWarehouseFormButton().getActionListeners()) {
-     view.getWarehouseFormButton().removeActionListener(listener);
-    }
-    view.getWarehouseFormButton().addActionListener(new java.awt.event.ActionListener() {
-     @Override
-     public void actionPerformed(java.awt.event.ActionEvent evt) {
-      WarehouseController.editAction();
+     for (ActionListener listener : view.getWarehouseFormButton().getActionListeners()) {
+      view.getWarehouseFormButton().removeActionListener(listener);
      }
-    });
+     view.getWarehouseFormButton().addActionListener(new java.awt.event.ActionListener() {
+      @Override
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+       WarehouseController.editAction();
+      }
+     });
 
-    view.getHiddenWarehouseId().setText(warehouse.getId().toString());
-    view.getWarehouseFormNameInput().setText(warehouse.getName());
-    view.getWarehouseFormButton().setText("Edytuj");
-    view.getWarehouseFormView().setVisible(true);
+     view.getHiddenWarehouseId().setText(warehouse.getId().toString());
+     view.getWarehouseFormNameInput().setText(warehouse.getName());
+     view.getWarehouseFormButton().setText("Edytuj");
+     view.getWarehouseFormView().setVisible(true);
+    }
    }
   } else {
    view.showErrorPopup("Nie wybrano magazynu");

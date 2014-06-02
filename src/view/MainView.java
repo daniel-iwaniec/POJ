@@ -30,6 +30,7 @@ import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.UIManager;
 import controller.*;
+import database.entity.*;
 import java.util.List;
 import javax.swing.JDialog;
 
@@ -153,12 +154,20 @@ public class MainView extends javax.swing.JFrame {
   return this.WareForm;
  }
 
+ public javax.swing.JPanel getDocumentPreFormView() {
+  return this.DocumentPreForm;
+ }
+
  public javax.swing.JPanel getDocumentFormView() {
   return this.DocumentForm;
  }
 
  public javax.swing.JPanel getWareViewInformationsView() {
   return this.WareViewInformations;
+ }
+
+ public javax.swing.JPanel getDocumentViewInformationsView() {
+  return this.DocumentViewInformations;
  }
 
  public javax.swing.JTextField getWareViewInformationsNameInput() {
@@ -196,6 +205,10 @@ public class MainView extends javax.swing.JFrame {
 
  public javax.swing.JComboBox getSelectWareFormSelect() {
   return this.SelectFormSelect2;
+ }
+
+ public javax.swing.JComboBox getDocumentPreFormWarehouseSelect() {
+  return this.SelectFormSelect3;
  }
 
  public javax.swing.JComboBox getWarehouseSelectPreFormDocument() {
@@ -252,6 +265,8 @@ public class MainView extends javax.swing.JFrame {
   this.DocumentList.setVisible(false);
   this.DocumentForm.setVisible(false);
   this.SelectWareForm.setVisible(false);
+  this.DocumentPreForm.setVisible(false);
+  this.DocumentViewInformations.setVisible(false);
  }
 
  public javax.swing.JTable getWarehouseListTable() {
@@ -298,8 +313,16 @@ public class MainView extends javax.swing.JFrame {
   return this.jButton4;
  }
 
+ public javax.swing.JButton getDocumentPreFormButton() {
+  return this.jButton11;
+ }
+
  public javax.swing.JButton getDocumentFormButton() {
   return this.jButton5;
+ }
+
+ public javax.swing.JTextField getDocumentFormWarehouseInput() {
+  return this.jTextField8;
  }
 
  public javax.swing.JButton getDocumentElementAddFormButton() {
@@ -324,6 +347,26 @@ public class MainView extends javax.swing.JFrame {
 
  public javax.swing.JTextField getWareFormHiddenIdInput() {
   return hiddenWareId;
+ }
+
+ public javax.swing.JTextField getDocumentViewInformationsNumberInput() {
+  return jTextField9;
+ }
+
+ public javax.swing.JTextField getDocumentViewInformationsWarehouseInput() {
+  return jTextField10;
+ }
+
+ public javax.swing.JTextField getDocumentViewInformationsNettoInput() {
+  return jTextField11;
+ }
+
+ public javax.swing.JTextField getDocumentViewInformationsBruttoInput() {
+  return jTextField12;
+ }
+
+ public javax.swing.JTable getDocumentViewInformationsTable() {
+  return jTable6;
  }
 
  /**
@@ -428,6 +471,17 @@ public class MainView extends javax.swing.JFrame {
   jButton11 = new javax.swing.JButton();
   jLabel34 = new javax.swing.JLabel();
   SelectFormSelect3 = new javax.swing.JComboBox();
+  DocumentViewInformations = new javax.swing.JPanel();
+  jLabel35 = new javax.swing.JLabel();
+  jScrollPane8 = new javax.swing.JScrollPane();
+  jTable6 = new javax.swing.JTable();
+  jTextField9 = new javax.swing.JTextField();
+  jLabel36 = new javax.swing.JLabel();
+  jTextField10 = new javax.swing.JTextField();
+  jLabel37 = new javax.swing.JLabel();
+  jTextField11 = new javax.swing.JTextField();
+  jLabel38 = new javax.swing.JLabel();
+  jTextField12 = new javax.swing.JTextField();
   jMenuBar1 = new javax.swing.JMenuBar();
   jMenu2 = new javax.swing.JMenu();
   jMenuItem7 = new javax.swing.JMenuItem();
@@ -467,6 +521,10 @@ public class MainView extends javax.swing.JFrame {
   jMenuItem35 = new javax.swing.JMenuItem();
   jMenu10 = new javax.swing.JMenu();
   jMenuItem36 = new javax.swing.JMenuItem();
+  jMenuItem37 = new javax.swing.JMenuItem();
+  jMenuItem38 = new javax.swing.JMenuItem();
+  jMenuItem39 = new javax.swing.JMenuItem();
+  jMenuItem40 = new javax.swing.JMenuItem();
 
   setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
   setTitle("Magazyn");
@@ -523,12 +581,11 @@ public class MainView extends javax.swing.JFrame {
   jTable1.setSelectionBackground(new java.awt.Color(204, 255, 255));
   jTable1.getTableHeader().setReorderingAllowed(false);
   jScrollPane2.setViewportView(jTable1);
-  jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+  jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
   if (jTable1.getColumnModel().getColumnCount() > 0) {
    jTable1.getColumnModel().getColumn(0).setResizable(false);
    jTable1.getColumnModel().getColumn(1).setResizable(false);
    jTable1.getColumnModel().getColumn(2).setResizable(false);
-   jTable1.getColumnModel().getColumn(2).setHeaderValue("Wartość");
   }
 
   javax.swing.GroupLayout WarehouseListLayout = new javax.swing.GroupLayout(WarehouseList);
@@ -576,12 +633,12 @@ public class MainView extends javax.swing.JFrame {
     .addContainerGap()
     .addGroup(WarehouseFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
      .addGroup(WarehouseFormLayout.createSequentialGroup()
-      .addGap(0, 399, Short.MAX_VALUE)
+      .addGap(0, 0, Short.MAX_VALUE)
       .addComponent(jButton1))
      .addComponent(jTextField1)
      .addGroup(WarehouseFormLayout.createSequentialGroup()
       .addComponent(jLabel1)
-      .addGap(0, 0, Short.MAX_VALUE))
+      .addGap(0, 534, Short.MAX_VALUE))
      .addComponent(hiddenWarehouseId))
     .addContainerGap())
   );
@@ -594,7 +651,7 @@ public class MainView extends javax.swing.JFrame {
     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
     .addComponent(hiddenWarehouseId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1375, Short.MAX_VALUE)
     .addComponent(jButton1)
     .addContainerGap())
   );
@@ -667,7 +724,7 @@ public class MainView extends javax.swing.JFrame {
   IndexLayout.setHorizontalGroup(
    IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-   .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
+   .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
    .addGroup(IndexLayout.createSequentialGroup()
     .addContainerGap()
     .addGroup(IndexLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -711,7 +768,7 @@ public class MainView extends javax.swing.JFrame {
     .addComponent(jLabel28)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
     .addComponent(jLabel29)
-    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 286, Short.MAX_VALUE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1103, Short.MAX_VALUE)
     .addComponent(jLabel8)
     .addContainerGap())
   );
@@ -748,7 +805,7 @@ public class MainView extends javax.swing.JFrame {
   LicenseLayout.setHorizontalGroup(
    LicenseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-   .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+   .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LicenseLayout.createSequentialGroup()
     .addContainerGap()
     .addGroup(LicenseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -766,7 +823,7 @@ public class MainView extends javax.swing.JFrame {
     .addGap(18, 18, 18)
     .addComponent(jLabel14)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1379, Short.MAX_VALUE)
     .addContainerGap())
   );
 
@@ -810,14 +867,14 @@ public class MainView extends javax.swing.JFrame {
     .addContainerGap()
     .addGroup(SelectFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
      .addGroup(SelectFormLayout.createSequentialGroup()
-      .addGap(0, 0, Short.MAX_VALUE)
+      .addGap(0, 524, Short.MAX_VALUE)
       .addComponent(jButton10)
       .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
       .addComponent(jButton2))
      .addGroup(SelectFormLayout.createSequentialGroup()
       .addComponent(jLabel17)
       .addGap(0, 0, Short.MAX_VALUE))
-     .addComponent(SelectFormSelect, 0, 430, Short.MAX_VALUE))
+     .addComponent(SelectFormSelect, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     .addContainerGap())
   );
   SelectFormLayout.setVerticalGroup(
@@ -827,7 +884,7 @@ public class MainView extends javax.swing.JFrame {
     .addComponent(jLabel17)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
     .addComponent(SelectFormSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 330, Short.MAX_VALUE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1401, Short.MAX_VALUE)
     .addGroup(SelectFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
      .addComponent(jButton2)
      .addComponent(jButton10))
@@ -861,7 +918,7 @@ public class MainView extends javax.swing.JFrame {
 
   jLabel33.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
   jLabel33.setLabelFor(jTextField1);
-  jLabel33.setText("Towary na magazynie");
+  jLabel33.setText("Stan magazynu");
 
   jScrollPane7.setPreferredSize(new java.awt.Dimension(452, 427));
 
@@ -896,6 +953,7 @@ public class MainView extends javax.swing.JFrame {
   jTable5.setSelectionBackground(new java.awt.Color(204, 255, 255));
   jTable5.getTableHeader().setReorderingAllowed(false);
   jScrollPane7.setViewportView(jTable5);
+  jTable5.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
   if (jTable5.getColumnModel().getColumnCount() > 0) {
    jTable5.getColumnModel().getColumn(0).setResizable(false);
    jTable5.getColumnModel().getColumn(1).setResizable(false);
@@ -912,10 +970,10 @@ public class MainView extends javax.swing.JFrame {
    .addGroup(WarehouseViewInformationsLayout.createSequentialGroup()
     .addContainerGap()
     .addGroup(WarehouseViewInformationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-     .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+     .addComponent(jTextField2)
      .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.TRAILING)
      .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING)
-     .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+     .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
      .addGroup(WarehouseViewInformationsLayout.createSequentialGroup()
       .addGroup(WarehouseViewInformationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
        .addComponent(jLabel19)
@@ -943,7 +1001,7 @@ public class MainView extends javax.swing.JFrame {
     .addGap(18, 18, 18)
     .addComponent(jLabel33)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1247, Short.MAX_VALUE)
+    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1257, Short.MAX_VALUE)
     .addContainerGap())
   );
 
@@ -981,8 +1039,8 @@ public class MainView extends javax.swing.JFrame {
    .addGroup(ErrorPopupLayout.createSequentialGroup()
     .addContainerGap()
     .addGroup(ErrorPopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-     .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+     .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
+     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ErrorPopupLayout.createSequentialGroup()
       .addGap(0, 0, Short.MAX_VALUE)
       .addComponent(jButton3)))
@@ -997,7 +1055,7 @@ public class MainView extends javax.swing.JFrame {
     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
     .addComponent(jButton3)
-    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    .addContainerGap(1256, Short.MAX_VALUE))
   );
 
   WareList.setBackground(new java.awt.Color(255, 255, 255));
@@ -1035,7 +1093,7 @@ public class MainView extends javax.swing.JFrame {
   jTable2.setSelectionBackground(new java.awt.Color(204, 255, 255));
   jTable2.getTableHeader().setReorderingAllowed(false);
   jScrollPane4.setViewportView(jTable2);
-  jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+  jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
   if (jTable2.getColumnModel().getColumnCount() > 0) {
    jTable2.getColumnModel().getColumn(0).setResizable(false);
    jTable2.getColumnModel().getColumn(1).setResizable(false);
@@ -1048,11 +1106,11 @@ public class MainView extends javax.swing.JFrame {
   WareList.setLayout(WareListLayout);
   WareListLayout.setHorizontalGroup(
    WareListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+   .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
   );
   WareListLayout.setVerticalGroup(
    WareListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+   .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
   );
 
   WareForm.setBackground(new java.awt.Color(255, 255, 255));
@@ -1107,7 +1165,7 @@ public class MainView extends javax.swing.JFrame {
     .addContainerGap()
     .addGroup(WareFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
      .addGroup(WareFormLayout.createSequentialGroup()
-      .addGap(0, 459, Short.MAX_VALUE)
+      .addGap(0, 0, Short.MAX_VALUE)
       .addComponent(jButton4))
      .addComponent(jTextField5)
      .addComponent(hiddenWareId)
@@ -1116,7 +1174,7 @@ public class MainView extends javax.swing.JFrame {
        .addComponent(jLabel15)
        .addComponent(jLabel16)
        .addComponent(jLabel21))
-      .addGap(0, 0, Short.MAX_VALUE))
+      .addGap(0, 427, Short.MAX_VALUE))
      .addComponent(jFormattedTextField1)
      .addComponent(jFormattedTextField2))
     .addContainerGap())
@@ -1136,7 +1194,7 @@ public class MainView extends javax.swing.JFrame {
     .addComponent(jLabel21)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
     .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 661, Short.MAX_VALUE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1247, Short.MAX_VALUE)
     .addComponent(hiddenWareId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
     .addComponent(jButton4)
@@ -1209,7 +1267,7 @@ public class MainView extends javax.swing.JFrame {
        .addComponent(jLabel24)
        .addComponent(jLabel25)
        .addComponent(jLabel26))
-      .addGap(0, 239, Short.MAX_VALUE))
+      .addGap(0, 427, Short.MAX_VALUE))
      .addComponent(jFormattedTextField5))
     .addContainerGap())
   );
@@ -1232,7 +1290,7 @@ public class MainView extends javax.swing.JFrame {
     .addComponent(jLabel26)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
     .addComponent(jFormattedTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-    .addContainerGap(308, Short.MAX_VALUE))
+    .addContainerGap(1247, Short.MAX_VALUE))
   );
 
   DocumentList.setBackground(new java.awt.Color(255, 255, 255));
@@ -1270,7 +1328,7 @@ public class MainView extends javax.swing.JFrame {
   jTable3.setSelectionBackground(new java.awt.Color(204, 255, 255));
   jTable3.getTableHeader().setReorderingAllowed(false);
   jScrollPane5.setViewportView(jTable3);
-  jTable3.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+  jTable3.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
   if (jTable3.getColumnModel().getColumnCount() > 0) {
    jTable3.getColumnModel().getColumn(0).setResizable(false);
    jTable3.getColumnModel().getColumn(1).setResizable(false);
@@ -1283,11 +1341,11 @@ public class MainView extends javax.swing.JFrame {
   DocumentList.setLayout(DocumentListLayout);
   DocumentListLayout.setHorizontalGroup(
    DocumentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+   .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
   );
   DocumentListLayout.setVerticalGroup(
    DocumentListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-   .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE)
+   .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
   );
 
   DocumentForm.setBackground(new java.awt.Color(255, 255, 255));
@@ -1347,7 +1405,7 @@ public class MainView extends javax.swing.JFrame {
   jTable4.setSelectionBackground(new java.awt.Color(204, 255, 255));
   jTable4.getTableHeader().setReorderingAllowed(false);
   jScrollPane6.setViewportView(jTable4);
-  jTable4.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+  jTable4.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
   if (jTable4.getColumnModel().getColumnCount() > 0) {
    jTable4.getColumnModel().getColumn(0).setResizable(false);
    jTable4.getColumnModel().getColumn(1).setResizable(false);
@@ -1454,7 +1512,7 @@ public class MainView extends javax.swing.JFrame {
     .addContainerGap()
     .addGroup(SelectWareFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
      .addGroup(SelectWareFormLayout.createSequentialGroup()
-      .addGap(0, 288, Short.MAX_VALUE)
+      .addGap(0, 524, Short.MAX_VALUE)
       .addComponent(jButton9)
       .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
       .addComponent(jButton8))
@@ -1478,7 +1536,7 @@ public class MainView extends javax.swing.JFrame {
     .addComponent(jLabel32)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 266, Short.MAX_VALUE)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1337, Short.MAX_VALUE)
     .addGroup(SelectWareFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
      .addComponent(jButton8)
      .addComponent(jButton9))
@@ -1517,12 +1575,12 @@ public class MainView extends javax.swing.JFrame {
     .addContainerGap()
     .addGroup(DocumentPreFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
      .addGroup(DocumentPreFormLayout.createSequentialGroup()
-      .addGap(0, 0, Short.MAX_VALUE)
+      .addGap(0, 593, Short.MAX_VALUE)
       .addComponent(jButton11))
      .addComponent(SelectFormSelect3, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
      .addGroup(DocumentPreFormLayout.createSequentialGroup()
       .addComponent(jLabel34)
-      .addGap(0, 589, Short.MAX_VALUE)))
+      .addGap(0, 0, Short.MAX_VALUE)))
     .addContainerGap())
   );
   DocumentPreFormLayout.setVerticalGroup(
@@ -1534,6 +1592,125 @@ public class MainView extends javax.swing.JFrame {
     .addComponent(SelectFormSelect3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1401, Short.MAX_VALUE)
     .addComponent(jButton11)
+    .addContainerGap())
+  );
+
+  DocumentViewInformations.setBackground(new java.awt.Color(255, 255, 255));
+  DocumentViewInformations.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+  DocumentViewInformations.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jLabel35.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel35.setLabelFor(jTextField1);
+  jLabel35.setText("Numer dokumentu");
+
+  jScrollPane8.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jTable6.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jTable6.setModel(new javax.swing.table.DefaultTableModel(
+   new Object [][] {
+
+   },
+   new String [] {
+    "ID", "Nazwa", "Netto", "Podatek", "Brutto", "Ilość"
+   }
+  ) {
+   Class[] types = new Class [] {
+    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+   };
+   boolean[] canEdit = new boolean [] {
+    false, false, false, false, false, false
+   };
+
+   public Class getColumnClass(int columnIndex) {
+    return types [columnIndex];
+   }
+
+   public boolean isCellEditable(int rowIndex, int columnIndex) {
+    return canEdit [columnIndex];
+   }
+  });
+  jTable6.setFillsViewportHeight(true);
+  jTable6.setGridColor(new java.awt.Color(204, 204, 204));
+  jTable6.setRowHeight(36);
+  jTable6.setSelectionBackground(new java.awt.Color(204, 255, 255));
+  jTable6.getTableHeader().setReorderingAllowed(false);
+  jScrollPane8.setViewportView(jTable6);
+  jTable6.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+  if (jTable6.getColumnModel().getColumnCount() > 0) {
+   jTable6.getColumnModel().getColumn(0).setResizable(false);
+   jTable6.getColumnModel().getColumn(1).setResizable(false);
+   jTable6.getColumnModel().getColumn(2).setResizable(false);
+   jTable6.getColumnModel().getColumn(3).setResizable(false);
+   jTable6.getColumnModel().getColumn(4).setResizable(false);
+   jTable6.getColumnModel().getColumn(5).setResizable(false);
+  }
+
+  jTextField9.setEditable(false);
+  jTextField9.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+
+  jLabel36.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel36.setLabelFor(jTextField1);
+  jLabel36.setText("Magazyn");
+
+  jTextField10.setEditable(false);
+  jTextField10.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+
+  jLabel37.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel37.setLabelFor(jTextField1);
+  jLabel37.setText("Wartość netto");
+
+  jTextField11.setEditable(false);
+  jTextField11.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+
+  jLabel38.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel38.setLabelFor(jTextField1);
+  jLabel38.setText("Wartość brutto");
+
+  jTextField12.setEditable(false);
+  jTextField12.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+
+  javax.swing.GroupLayout DocumentViewInformationsLayout = new javax.swing.GroupLayout(DocumentViewInformations);
+  DocumentViewInformations.setLayout(DocumentViewInformationsLayout);
+  DocumentViewInformationsLayout.setHorizontalGroup(
+   DocumentViewInformationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(DocumentViewInformationsLayout.createSequentialGroup()
+    .addContainerGap()
+    .addGroup(DocumentViewInformationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+     .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+     .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.TRAILING)
+     .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.TRAILING)
+     .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.TRAILING)
+     .addGroup(DocumentViewInformationsLayout.createSequentialGroup()
+      .addGroup(DocumentViewInformationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+       .addComponent(jLabel35)
+       .addComponent(jLabel36)
+       .addComponent(jLabel37)
+       .addComponent(jLabel38))
+      .addGap(0, 0, Short.MAX_VALUE))
+     .addComponent(jTextField12))
+    .addContainerGap())
+  );
+  DocumentViewInformationsLayout.setVerticalGroup(
+   DocumentViewInformationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DocumentViewInformationsLayout.createSequentialGroup()
+    .addContainerGap()
+    .addComponent(jLabel35)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel36)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel37)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel38)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addGap(18, 18, 18)
+    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 1218, Short.MAX_VALUE)
     .addContainerGap())
   );
 
@@ -1568,10 +1745,9 @@ public class MainView extends javax.swing.JFrame {
      .addComponent(WarehouseViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(ErrorPopup, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
-     .addContainerGap()))
+     .addComponent(ErrorPopup, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
@@ -1585,8 +1761,8 @@ public class MainView extends javax.swing.JFrame {
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(WareViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
-     .addGap(30, 30, 30)))
+     .addComponent(WareViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+     .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
@@ -1603,47 +1779,49 @@ public class MainView extends javax.swing.JFrame {
      .addComponent(SelectWareForm, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-     .addGap(20, 20, 20)
-     .addComponent(DocumentPreForm, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
+    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(DocumentPreForm, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(DocumentViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
      .addContainerGap()))
   );
   jLayeredPane1Layout.setVerticalGroup(
    jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
    .addComponent(WarehouseList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-     .addGap(10, 10, 10)
-     .addComponent(WarehouseForm, javax.swing.GroupLayout.DEFAULT_SIZE, 1499, Short.MAX_VALUE)
+    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(WarehouseForm, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-     .addGap(10, 10, 10)
-     .addComponent(Index, javax.swing.GroupLayout.DEFAULT_SIZE, 1499, Short.MAX_VALUE)
+    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(Index, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(License, javax.swing.GroupLayout.DEFAULT_SIZE, 1488, Short.MAX_VALUE)
-     .addGap(21, 21, 21)))
-   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-     .addContainerGap()
-     .addComponent(SelectForm, javax.swing.GroupLayout.DEFAULT_SIZE, 1488, Short.MAX_VALUE)
-     .addGap(21, 21, 21)))
-   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-     .addContainerGap()
-     .addComponent(WarehouseViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 1488, Short.MAX_VALUE)
-     .addGap(21, 21, 21)))
-   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-    .addGroup(jLayeredPane1Layout.createSequentialGroup()
-     .addGap(21, 21, 21)
-     .addComponent(ErrorPopup, javax.swing.GroupLayout.DEFAULT_SIZE, 1488, Short.MAX_VALUE)
+     .addComponent(License, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-     .addGap(10, 10, 10)
+     .addContainerGap()
+     .addComponent(SelectForm, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(WarehouseViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addComponent(ErrorPopup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1520, Short.MAX_VALUE))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
      .addComponent(WareList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1654,11 +1832,11 @@ public class MainView extends javax.swing.JFrame {
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
-     .addComponent(WareViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 1377, Short.MAX_VALUE)
-     .addGap(132, 132, 132)))
+     .addComponent(WareViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
+     .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-     .addGap(10, 10, 10)
+     .addContainerGap()
      .addComponent(DocumentList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1673,9 +1851,14 @@ public class MainView extends javax.swing.JFrame {
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
-     .addGap(21, 21, 21)
+     .addContainerGap()
      .addComponent(DocumentPreForm, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
-     .addGap(1, 1, 1)))
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(DocumentViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
+     .addContainerGap()))
   );
   jLayeredPane1.setLayer(WarehouseList, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -1699,6 +1882,7 @@ public class MainView extends javax.swing.JFrame {
   jLayeredPane1.setLayer(DocumentForm, javax.swing.JLayeredPane.DEFAULT_LAYER);
   jLayeredPane1.setLayer(SelectWareForm, javax.swing.JLayeredPane.DEFAULT_LAYER);
   jLayeredPane1.setLayer(DocumentPreForm, javax.swing.JLayeredPane.DEFAULT_LAYER);
+  jLayeredPane1.setLayer(DocumentViewInformations, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
   jMenuBar1.setBorderPainted(false);
 
@@ -2061,6 +2245,50 @@ public class MainView extends javax.swing.JFrame {
   });
   jMenu10.add(jMenuItem36);
 
+  jMenuItem37.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/outside_income_clear_buffer.png"))); // NOI18N
+  jMenuItem37.setText("Wyczyść bufor PZ");
+  jMenuItem37.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem37.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem37ActionPerformed(evt);
+   }
+  });
+  jMenu10.add(jMenuItem37);
+
+  jMenuItem38.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/outside_outcome_clear_buffer.png"))); // NOI18N
+  jMenuItem38.setText("Wyczyść bufor WZ");
+  jMenuItem38.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem38.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem38ActionPerformed(evt);
+   }
+  });
+  jMenu10.add(jMenuItem38);
+
+  jMenuItem39.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/inside_income_clear_buffer.png"))); // NOI18N
+  jMenuItem39.setText("Wyczyść bufor PW");
+  jMenuItem39.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem39.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem39ActionPerformed(evt);
+   }
+  });
+  jMenu10.add(jMenuItem39);
+
+  jMenuItem40.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jMenuItem40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/icon/inside_outcome_clear_buffer.png"))); // NOI18N
+  jMenuItem40.setText("Wyczyść bufor RW");
+  jMenuItem40.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+  jMenuItem40.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jMenuItem40ActionPerformed(evt);
+   }
+  });
+  jMenu10.add(jMenuItem40);
+
   jMenuBar1.add(jMenu10);
 
   setJMenuBar(jMenuBar1);
@@ -2195,7 +2423,7 @@ public class MainView extends javax.swing.JFrame {
  }//GEN-LAST:event_jMenuItem10ActionPerformed
 
  private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
+  DocumentController.viewInformationsForm();
  }//GEN-LAST:event_jMenuItem9ActionPerformed
 
  private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
@@ -2282,6 +2510,22 @@ public class MainView extends javax.swing.JFrame {
   // TODO add your handling code here:
  }//GEN-LAST:event_SelectFormSelect3ActionPerformed
 
+ private void jMenuItem37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem37ActionPerformed
+  main.Main.clearDocumentBufferAction(DocumentType.PZ_ID);
+ }//GEN-LAST:event_jMenuItem37ActionPerformed
+
+ private void jMenuItem38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem38ActionPerformed
+  main.Main.clearDocumentBufferAction(DocumentType.WZ_ID);
+ }//GEN-LAST:event_jMenuItem38ActionPerformed
+
+ private void jMenuItem39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem39ActionPerformed
+  main.Main.clearDocumentBufferAction(DocumentType.PW_ID);
+ }//GEN-LAST:event_jMenuItem39ActionPerformed
+
+ private void jMenuItem40ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem40ActionPerformed
+  main.Main.clearDocumentBufferAction(DocumentType.RW_ID);
+ }//GEN-LAST:event_jMenuItem40ActionPerformed
+
  /**
   * @param args the command line arguments
   */
@@ -2322,6 +2566,7 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JPanel DocumentForm;
  private javax.swing.JPanel DocumentList;
  private javax.swing.JPanel DocumentPreForm;
+ private javax.swing.JPanel DocumentViewInformations;
  private javax.swing.JPanel ErrorPopup;
  private javax.swing.JLabel Header;
  private javax.swing.JPanel Index;
@@ -2383,6 +2628,10 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JLabel jLabel32;
  private javax.swing.JLabel jLabel33;
  private javax.swing.JLabel jLabel34;
+ private javax.swing.JLabel jLabel35;
+ private javax.swing.JLabel jLabel36;
+ private javax.swing.JLabel jLabel37;
+ private javax.swing.JLabel jLabel38;
  private javax.swing.JLabel jLabel4;
  private javax.swing.JLabel jLabel5;
  private javax.swing.JLabel jLabel6;
@@ -2423,7 +2672,11 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JMenuItem jMenuItem32;
  private javax.swing.JMenuItem jMenuItem35;
  private javax.swing.JMenuItem jMenuItem36;
+ private javax.swing.JMenuItem jMenuItem37;
+ private javax.swing.JMenuItem jMenuItem38;
+ private javax.swing.JMenuItem jMenuItem39;
  private javax.swing.JMenuItem jMenuItem4;
+ private javax.swing.JMenuItem jMenuItem40;
  private javax.swing.JMenuItem jMenuItem5;
  private javax.swing.JMenuItem jMenuItem6;
  private javax.swing.JMenuItem jMenuItem7;
@@ -2436,12 +2689,17 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JScrollPane jScrollPane5;
  private javax.swing.JScrollPane jScrollPane6;
  private javax.swing.JScrollPane jScrollPane7;
+ private javax.swing.JScrollPane jScrollPane8;
  private javax.swing.JTable jTable1;
  private javax.swing.JTable jTable2;
  private javax.swing.JTable jTable3;
  private javax.swing.JTable jTable4;
  private javax.swing.JTable jTable5;
+ private javax.swing.JTable jTable6;
  private javax.swing.JTextField jTextField1;
+ private javax.swing.JTextField jTextField10;
+ private javax.swing.JTextField jTextField11;
+ private javax.swing.JTextField jTextField12;
  private javax.swing.JTextField jTextField2;
  private javax.swing.JTextField jTextField3;
  private javax.swing.JTextField jTextField4;
@@ -2449,6 +2707,7 @@ public class MainView extends javax.swing.JFrame {
  private javax.swing.JTextField jTextField6;
  private javax.swing.JTextField jTextField7;
  private javax.swing.JTextField jTextField8;
+ private javax.swing.JTextField jTextField9;
  private javax.swing.JTextArea licenseTextArea;
  private javax.swing.JTextArea licenseTextArea1;
  // End of variables declaration//GEN-END:variables

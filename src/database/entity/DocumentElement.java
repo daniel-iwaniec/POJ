@@ -165,7 +165,7 @@ public class DocumentElement extends AbstractEntity {
   }
 
   if (!(amount > 0)) {
-   validationErrors.add("Ilość towaru musi być większa od zera");
+   validationErrors.add("Ilość towaru musi być liczbą całkowitą większą od zera");
   }
 
   if (amount > 999999999) {
