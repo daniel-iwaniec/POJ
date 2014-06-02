@@ -2415,23 +2415,23 @@ public class MainView extends javax.swing.JFrame {
  }//GEN-LAST:event_jMenuItem32ActionPerformed
 
  private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
+  DocumentController.viewInformationsForm(DocumentType.PW_ID);
  }//GEN-LAST:event_jMenuItem26ActionPerformed
 
  private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-  DocumentController.listPZ();
+  DocumentController.list(DocumentType.PZ_ID);
  }//GEN-LAST:event_jMenuItem10ActionPerformed
 
  private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-  DocumentController.viewInformationsForm();
+  DocumentController.viewInformationsForm(DocumentType.PZ_ID);
  }//GEN-LAST:event_jMenuItem9ActionPerformed
 
  private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
-  DocumentController.addDocumentPZ();
+  DocumentController.addDocument(DocumentType.PZ_ID);
  }//GEN-LAST:event_jMenuItem19ActionPerformed
 
  private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-  DocumentController.listWZ();
+  DocumentController.list(DocumentType.WZ_ID);
  }//GEN-LAST:event_jMenuItem11ActionPerformed
 
  private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
@@ -2443,15 +2443,15 @@ public class MainView extends javax.swing.JFrame {
  }//GEN-LAST:event_jMenuItem22ActionPerformed
 
  private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
-  DocumentController.listPW();
+  DocumentController.list(DocumentType.PW_ID);
  }//GEN-LAST:event_jMenuItem25ActionPerformed
 
  private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
+  DocumentController.addDocument(DocumentType.PW_ID);
  }//GEN-LAST:event_jMenuItem27ActionPerformed
 
  private void jMenuItem30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem30ActionPerformed
-  DocumentController.listRW();
+  DocumentController.list(DocumentType.RW_ID);
  }//GEN-LAST:event_jMenuItem30ActionPerformed
 
  private void jMenuItem31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem31ActionPerformed

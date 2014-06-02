@@ -46,11 +46,11 @@ public class DocumentController {
  protected static MainView view = MainView.getInstance();
  protected static Database database = Database.getInstance();
 
- public static void listPZ() {
+ public static void list(Integer documentTypeId) {
   DefaultTableModel table = (DefaultTableModel) view.getDocumentListTable().getModel();
   table.setRowCount(0);
 
-  List<Document> documents = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID);
+  List<Document> documents = database.getDocumentsByDocumentTypeId(documentTypeId);
   for (Document document : documents) {
    table.addRow(new Object[]{
     document.getId().toString(),
@@ -61,76 +61,21 @@ public class DocumentController {
   }
 
   view.hideAllViews();
-  view.getHeader().setText("Przyjęcie zewnętrzne (PZ) - lista");
+  DocumentType documentType = database.getDocumentTypeById(documentTypeId);
+  view.getHeader().setText(documentType.getName() + " (" + documentType.getSymbol() + ") - lista");
   view.setIcon(MainView.DOCUMENT_ICON);
 
   view.getDocumentListView().setVisible(true);
  }
 
- public static void listWZ() {
-  DefaultTableModel table = (DefaultTableModel) view.getDocumentListTable().getModel();
-  table.setRowCount(0);
-
-  List<Document> documents = database.getDocumentsByDocumentTypeId(DocumentType.WZ_ID);
-  for (Document document : documents) {
-   table.addRow(new Object[]{
-    document.getId().toString(),
-    document.getNumber()
-   });
-  }
-
+ public static void addDocument(final Integer documentTypeId) {
   view.hideAllViews();
-  view.getHeader().setText("Wydanie zewnętrzne (WZ) - lista");
-  view.setIcon(MainView.DOCUMENT_ICON);
-
-  view.getDocumentListView().setVisible(true);
- }
-
- public static void listPW() {
-  DefaultTableModel table = (DefaultTableModel) view.getDocumentListTable().getModel();
-  table.setRowCount(0);
-
-  List<Document> documents = database.getDocumentsByDocumentTypeId(DocumentType.PW_ID);
-  for (Document document : documents) {
-   table.addRow(new Object[]{
-    document.getId().toString(),
-    document.getNumber()
-   });
-  }
-
-  view.hideAllViews();
-  view.getHeader().setText("Przyjęcie wewnętrzne (PW) - lista");
-  view.setIcon(MainView.DOCUMENT_ICON);
-
-  view.getDocumentListView().setVisible(true);
- }
-
- public static void listRW() {
-  DefaultTableModel table = (DefaultTableModel) view.getDocumentListTable().getModel();
-  table.setRowCount(0);
-
-  List<Document> documents = database.getDocumentsByDocumentTypeId(DocumentType.RW_ID);
-  for (Document document : documents) {
-   table.addRow(new Object[]{
-    document.getId().toString(),
-    document.getNumber()
-   });
-  }
-
-  view.hideAllViews();
-  view.getHeader().setText("Rozchód wewnętrzny (RW) - lista");
-  view.setIcon(MainView.DOCUMENT_ICON);
-
-  view.getDocumentListView().setVisible(true);
- }
-
- public static void addDocumentPZ() {
-  view.hideAllViews();
-  view.getHeader().setText("Przyjęcie zewnętrzne (PZ) - dodaj");
+  DocumentType documentType = database.getDocumentTypeById(documentTypeId);
+  view.getHeader().setText(documentType.getName() + " (" + documentType.getSymbol() + ") - dodaj");
   view.setIcon(MainView.DOCUMENT_ICON);
 
   Document document;
-  List<Document> documentList = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID, 1);
+  List<Document> documentList = database.getDocumentsByDocumentTypeId(documentTypeId, 1);
   if (documentList.size() < 1) {
 
    for (ActionListener listener : view.getDocumentPreFormButton().getActionListeners()) {
@@ -141,7 +86,7 @@ public class DocumentController {
     @Override
     public void actionPerformed(java.awt.event.ActionEvent evt) {
      try {
-      DocumentController.addDocumentPreFormAction();
+      DocumentController.addDocumentPreFormAction(documentTypeId);
      } catch (Exception ex) {
       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
      }
@@ -190,7 +135,15 @@ public class DocumentController {
     @Override
     public void actionPerformed(java.awt.event.ActionEvent evt) {
      try {
-      DocumentController.addPZAction();
+      if (documentTypeId == DocumentType.PZ_ID) {
+       DocumentController.addPZAction();
+      } else if (documentTypeId == DocumentType.PW_ID) {
+       DocumentController.addPWAction();
+      } else if (documentTypeId == DocumentType.WZ_ID) {
+       view.showErrorPopup("Funkcjonalność niedostępna");
+      } else if (documentTypeId == DocumentType.RW_ID) {
+       view.showErrorPopup("Funkcjonalność niedostępna");
+      }
      } catch (Exception ex) {
       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
      }
@@ -201,7 +154,7 @@ public class DocumentController {
     @Override
     public void actionPerformed(java.awt.event.ActionEvent evt) {
      try {
-      DocumentController.addDocumentElementForm();
+      DocumentController.addDocumentElementForm(documentTypeId);
      } catch (Exception ex) {
       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
      }
@@ -212,7 +165,7 @@ public class DocumentController {
     @Override
     public void actionPerformed(java.awt.event.ActionEvent evt) {
      try {
-      DocumentController.deleteDocumentElementForm();
+      DocumentController.deleteDocumentElementForm(documentTypeId);
      } catch (Exception ex) {
       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
      }
@@ -223,7 +176,7 @@ public class DocumentController {
     @Override
     public void actionPerformed(java.awt.event.ActionEvent evt) {
      try {
-      DocumentController.addDocumentPZ();
+      DocumentController.addDocument(documentTypeId);
      } catch (Exception ex) {
       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
      }
@@ -236,66 +189,32 @@ public class DocumentController {
   }
  }
 
- public static void addDocumentPreFormAction() {
+ public static void addDocumentPreFormAction(Integer documentTypeId) {
   Object selectedWarehouse = view.getDocumentPreFormWarehouseSelect().getSelectedItem();
   if (selectedWarehouse != null) {
    Integer id = ((SelectItem) selectedWarehouse).getId();
    Warehouse warehouse = database.getWarehouseById(id);
 
-   DocumentType documentType = database.getDocumentTypeById(DocumentType.PZ_ID);
+   DocumentType documentType = database.getDocumentTypeById(documentTypeId);
    Document document = new Document();
    document.setDocumentType(documentType);
    document.setBuffer(1);
    document.setWarehouse(warehouse);
    database.saveDocument(document);
 
-   DocumentController.addDocumentPZ();
+   DocumentController.addDocument(documentTypeId);
   } else {
    view.showErrorPopup("Nie wybrano magazynu");
   }
  }
 
- public static void addPZAction() {
-  Object selectedWarehouse = view.getSelectWareFormSelect().getSelectedItem();
-  if (selectedWarehouse != null) {
-   Integer id = ((SelectItem) selectedWarehouse).getId();
-   Warehouse warehouse = database.getWarehouseById(id);
-
-   Calendar now = Calendar.getInstance();
-   Integer yearInteger = now.get(Calendar.YEAR);
-   String year = String.valueOf(yearInteger);
-
-   Document document = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID, 1).get(0);
-   document.setWarehouse(warehouse);
-   document.setBuffer(0);
-   String documentNumber = document.getDocumentType().getSymbol() + "/" + document.getId() + "/" + warehouse.getId() + "/" + year;
-   document.setNumber(documentNumber);
-
-   List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
-   WareRecord wareRecord = new WareRecord();
-   wareRecord.setWarehouse(warehouse);
-   for (DocumentElement documentElement : documentElements) {
-    wareRecord.setWareName(documentElement.getWareName());
-    wareRecord.setValue(documentElement.getValue());
-    wareRecord.setTax(documentElement.getTax());
-    wareRecord.setAmount(documentElement.getAmount());
-    database.saveWareRecord(wareRecord);
-   }
-
-   database.saveDocument(document);
-
-   DocumentController.listPZ();
-  } else {
-   view.showErrorPopup("Nie wybrano magazynu");
-  }
- }
-
- public static void addDocumentElementForm() {
+ public static void addDocumentElementForm(final Integer documentTypeId) {
   view.hideAllViews();
-  view.getHeader().setText("Pozycja dokumentu PZ - dodaj");
+  DocumentType documentType = database.getDocumentTypeById(documentTypeId);
+  view.getHeader().setText("Pozycja dokumentu " + documentType.getSymbol() + " - dodaj");
   view.setIcon(MainView.DOCUMENT_ICON);
 
-  Document document = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID, 1).get(0);
+  Document document = database.getDocumentsByDocumentTypeId(documentTypeId, 1).get(0);
   List<Ware> wares = database.getUniqueWaresForDocumentId(document.getId());
   view.getSelectWareFormSelect().removeAllItems();
   for (Ware ware : wares) {
@@ -308,7 +227,7 @@ public class DocumentController {
   view.getSelectWareFormButton().addActionListener(new java.awt.event.ActionListener() {
    @Override
    public void actionPerformed(java.awt.event.ActionEvent evt) {
-    DocumentController.addDocumentElementAction();
+    DocumentController.addDocumentElementAction(documentTypeId);
    }
   });
 
@@ -318,7 +237,7 @@ public class DocumentController {
   view.getSelectWareFormView().setVisible(true);
  }
 
- public static void addDocumentElementAction() {
+ public static void addDocumentElementAction(Integer documentTypeId) {
   Object selectedWare = view.getSelectWareFormSelect().getSelectedItem();
   if (selectedWare != null) {
    Integer id = ((SelectItem) selectedWare).getId();
@@ -327,7 +246,7 @@ public class DocumentController {
    if (ware == null) {
     view.showErrorPopup("Wybrany towar nie istnieje");
    } else {
-    Document document = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID, 1).get(0);
+    Document document = database.getDocumentsByDocumentTypeId(documentTypeId, 1).get(0);
     DocumentElement documentElement = new DocumentElement();
     documentElement.setDocument(document);
     documentElement.setWareName(ware.getName());
@@ -342,7 +261,7 @@ public class DocumentController {
 
     if (documentElement.validate()) {
      database.saveDocumentElement(documentElement);
-     DocumentController.addDocumentPZ();
+     DocumentController.addDocument(documentTypeId);
     } else {
      view.showErrorPopup(documentElement.getValidationErrors());
     }
@@ -352,12 +271,13 @@ public class DocumentController {
   }
  }
 
- public static void deleteDocumentElementForm() {
+ public static void deleteDocumentElementForm(final Integer documentTypeId) {
   view.hideAllViews();
-  view.getHeader().setText("Pozycja dokumentu PZ - dodaj");
+  DocumentType documentType = database.getDocumentTypeById(documentTypeId);
+  view.getHeader().setText("Pozycja dokumentu " + documentType.getSymbol() + " - usuń");
   view.setIcon(MainView.DOCUMENT_ICON);
 
-  Document document = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID, 1).get(0);
+  Document document = database.getDocumentsByDocumentTypeId(documentTypeId, 1).get(0);
   List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
   view.getSelectFormSelect().removeAllItems();
   for (DocumentElement documentElement : documentElements) {
@@ -370,7 +290,7 @@ public class DocumentController {
   view.getSelectFormButton().addActionListener(new java.awt.event.ActionListener() {
    @Override
    public void actionPerformed(java.awt.event.ActionEvent evt) {
-    DocumentController.deleteDocumentElementAction();
+    DocumentController.deleteDocumentElementAction(documentTypeId);
    }
   });
 
@@ -380,7 +300,7 @@ public class DocumentController {
   view.getSelectFormReturnButton().addActionListener(new java.awt.event.ActionListener() {
    @Override
    public void actionPerformed(java.awt.event.ActionEvent evt) {
-    DocumentController.addDocumentPZ();
+    DocumentController.addDocument(documentTypeId);
    }
   });
 
@@ -390,7 +310,7 @@ public class DocumentController {
   view.getSelectFormReturnButton().setVisible(true);
  }
 
- public static void deleteDocumentElementAction() {
+ public static void deleteDocumentElementAction(Integer documentTypeId) {
   Object selectedDocumentElement = view.getSelectFormSelect().getSelectedItem();
   if (selectedDocumentElement != null) {
    Integer id = ((SelectItem) selectedDocumentElement).getId();
@@ -402,18 +322,19 @@ public class DocumentController {
     database.deleteDocumentElementById(id);
    }
 
-   DocumentController.addDocumentPZ();
+   DocumentController.addDocument(documentTypeId);
   } else {
    view.showErrorPopup("Nie wybrano pozycji dokumentu");
   }
  }
 
- public static void viewInformationsForm() {
+ public static void viewInformationsForm(final Integer documentTypeId) {
   view.hideAllViews();
-  view.getHeader().setText("Przyjęcie zewnętrzne (PZ) - informacje");
+  DocumentType documentType = database.getDocumentTypeById(documentTypeId);
+  view.getHeader().setText(documentType.getName() + " (" + documentType.getSymbol() + ") - informacje");
   view.setIcon(MainView.DOCUMENT_ICON);
 
-  List<Document> documents = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID);
+  List<Document> documents = database.getDocumentsByDocumentTypeId(documentTypeId);
   view.getSelectFormSelect().removeAllItems();
   for (Document document : documents) {
    view.getSelectFormSelect().addItem(new SelectItem(document.getId(), document.getNumber()));
@@ -425,7 +346,7 @@ public class DocumentController {
   view.getSelectFormButton().addActionListener(new java.awt.event.ActionListener() {
    @Override
    public void actionPerformed(java.awt.event.ActionEvent evt) {
-    DocumentController.viewInformationsAction();
+    DocumentController.viewInformationsAction(documentTypeId);
    }
   });
 
@@ -434,7 +355,7 @@ public class DocumentController {
   view.getSelectFormView().setVisible(true);
  }
 
- public static void viewInformationsAction() {
+ public static void viewInformationsAction(Integer documentTypeId) {
   Object selectedDocument = view.getSelectFormSelect().getSelectedItem();
   if (selectedDocument != null) {
    Integer id = ((SelectItem) selectedDocument).getId();
@@ -444,7 +365,8 @@ public class DocumentController {
     view.showErrorPopup("Wybrany dokument nie istnieje");
    } else {
     view.hideAllViews();
-    view.getHeader().setText("Przyjęcie zewnętrzne (PZ) - informacje");
+    DocumentType documentType = database.getDocumentTypeById(documentTypeId);
+    view.getHeader().setText(documentType.getName() + " (" + documentType.getSymbol() + ") - informacje");
     view.setIcon(MainView.DOCUMENT_ICON);
 
     view.getDocumentViewInformationsNumberInput().setText(document.getNumber());
@@ -471,7 +393,58 @@ public class DocumentController {
   } else {
    view.showErrorPopup("Nie wybrano dokumentu");
   }
+ }
 
+ public static void addPZAction() {
+  Calendar now = Calendar.getInstance();
+  Integer yearInteger = now.get(Calendar.YEAR);
+  String year = String.valueOf(yearInteger);
+
+  Document document = database.getDocumentsByDocumentTypeId(DocumentType.PZ_ID, 1).get(0);
+  document.setBuffer(0);
+  String documentNumber = document.getDocumentType().getSymbol() + "/" + document.getId() + "/" + document.getWarehouse().getId() + "/" + year;
+  document.setNumber(documentNumber);
+
+  List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
+  WareRecord wareRecord = new WareRecord();
+  wareRecord.setWarehouse(document.getWarehouse());
+  for (DocumentElement documentElement : documentElements) {
+   wareRecord.setWareName(documentElement.getWareName());
+   wareRecord.setValue(documentElement.getValue());
+   wareRecord.setTax(documentElement.getTax());
+   wareRecord.setAmount(documentElement.getAmount());
+   database.saveWareRecord(wareRecord);
+  }
+
+  database.saveDocument(document);
+
+  DocumentController.list(DocumentType.PZ_ID);
+ }
+
+ public static void addPWAction() {
+  Calendar now = Calendar.getInstance();
+  Integer yearInteger = now.get(Calendar.YEAR);
+  String year = String.valueOf(yearInteger);
+
+  Document document = database.getDocumentsByDocumentTypeId(DocumentType.PW_ID, 1).get(0);
+  document.setBuffer(0);
+  String documentNumber = document.getDocumentType().getSymbol() + "/" + document.getId() + "/" + document.getWarehouse().getId() + "/" + year;
+  document.setNumber(documentNumber);
+
+  List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
+  WareRecord wareRecord = new WareRecord();
+  wareRecord.setWarehouse(document.getWarehouse());
+  for (DocumentElement documentElement : documentElements) {
+   wareRecord.setWareName(documentElement.getWareName());
+   wareRecord.setValue(documentElement.getValue());
+   wareRecord.setTax(documentElement.getTax());
+   wareRecord.setAmount(documentElement.getAmount());
+   database.saveWareRecord(wareRecord);
+  }
+
+  database.saveDocument(document);
+
+  DocumentController.list(DocumentType.PW_ID);
  }
 
 }

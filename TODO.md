@@ -5,11 +5,8 @@ Programowanie obiektowe Java - Projekt
 
 TODO:
 
-* Parametryzacja kontrolera do dokumentów.
 * Dokument WZ.
-* Dokument PW.
 * Dokument RW.
-* Podczas dodawania PZ i PW dodawać towary z serii towarów.
 * Podczas dodawania WZ i RW odejmować towary z serii towarów.
 * Jak rozwiązać problem dodawania/usuwania/edycji pozycji na WZ i RW? (wpisywać tylko nazwe towaru i ilość i potem po nazwie reszte pobierać, bo nazwa unikalna jest)
 
