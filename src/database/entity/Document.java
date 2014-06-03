@@ -137,7 +137,7 @@ public class Document extends AbstractEntity {
    }
   }
 
-  if (!database.isDocumentNumberUnique(this)) {
+  if (!this.number.equals("") && !database.isDocumentNumberUnique(this)) {
    validationErrors.add("Numer dokumentu musi być unikalny");
   }
 

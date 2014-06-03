@@ -68,7 +68,7 @@ public class DocumentController {
   view.getDocumentListView().setVisible(true);
  }
 
- public static void addDocument(final Integer documentTypeId) {
+ public static void addDocument(Integer documentTypeId) {
   view.hideAllViews();
   DocumentType documentType = database.getDocumentTypeById(documentTypeId);
   view.getHeader().setText(documentType.getName() + " (" + documentType.getSymbol() + ") - dodaj");
@@ -77,120 +77,253 @@ public class DocumentController {
   Document document;
   List<Document> documentList = database.getDocumentsByDocumentTypeId(documentTypeId, 1);
   if (documentList.size() < 1) {
-
-   for (ActionListener listener : view.getDocumentPreFormButton().getActionListeners()) {
-    view.getDocumentPreFormButton().removeActionListener(listener);
-   }
-
-   view.getDocumentPreFormButton().addActionListener(new java.awt.event.ActionListener() {
-    @Override
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-     try {
-      DocumentController.addDocumentPreFormAction(documentTypeId);
-     } catch (Exception ex) {
-      Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
-     }
+   if (documentTypeId == DocumentType.PZ_ID || documentTypeId == DocumentType.WZ_ID) {
+    for (ActionListener listener : view.getDocumentOutsidePreFormButton().getActionListeners()) {
+     view.getDocumentOutsidePreFormButton().removeActionListener(listener);
     }
-   });
 
-   List<Warehouse> warehouses = database.getWarehouses();
-   view.getDocumentPreFormWarehouseSelect().removeAllItems();
-   for (Warehouse warehouse : warehouses) {
-    view.getDocumentPreFormWarehouseSelect().addItem(new SelectItem(warehouse.getId(), warehouse.getName()));
-   }
+    view.getDocumentInsideTypeHidden().setText(documentTypeId.toString());
+    view.getDocumentOutsideTypeHidden().setText(documentTypeId.toString());
 
-   view.getDocumentPreFormButton().setText("Wybierz");
-   view.getDocumentPreFormView().setVisible(true);
-  } else {
-   document = documentList.get(0);
+    view.getDocumentOutsidePreFormButton().addActionListener(new java.awt.event.ActionListener() {
+     @Override
+     public void actionPerformed(java.awt.event.ActionEvent evt) {
+      try {
+       DocumentController.addDocumentPreFormAction();
+      } catch (Exception ex) {
+       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     }
+    });
+   } else {
+    for (ActionListener listener : view.getDocumentInsidePreFormButton().getActionListeners()) {
+     view.getDocumentInsidePreFormButton().removeActionListener(listener);
+    }
 
-   DefaultTableModel table = (DefaultTableModel) view.getDocumentElementListTable().getModel();
-   table.setRowCount(0);
-   List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
-   for (DocumentElement documentElement : documentElements) {
-    table.addRow(new Object[]{
-     documentElement.getId().toString(),
-     documentElement.getWareName(),
-     new DecimalFormat("#0.00zł").format((double) Math.round(documentElement.getTotalValue() * 100) / 100),
-     new DecimalFormat("#0.00%").format((double) Math.round(documentElement.getTax() * 100) / 10000),
-     new DecimalFormat("#0.00zł").format((double) Math.round(documentElement.getTotalValueIncludingTax() * 100) / 100),
-     documentElement.getAmount().toString()
+    view.getDocumentInsideTypeHidden().setText(documentTypeId.toString());
+    view.getDocumentOutsideTypeHidden().setText(documentTypeId.toString());
+
+    view.getDocumentInsidePreFormButton().addActionListener(new java.awt.event.ActionListener() {
+     @Override
+     public void actionPerformed(java.awt.event.ActionEvent evt) {
+      try {
+       DocumentController.addDocumentPreFormAction();
+      } catch (Exception ex) {
+       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     }
     });
    }
 
-   for (ActionListener listener : view.getDocumentFormButton().getActionListeners()) {
-    view.getDocumentFormButton().removeActionListener(listener);
-   }
-   for (ActionListener listener : view.getDocumentElementAddFormButton().getActionListeners()) {
-    view.getDocumentElementAddFormButton().removeActionListener(listener);
-   }
-   for (ActionListener listener : view.getDocumentElementDeleteFormButton().getActionListeners()) {
-    view.getDocumentElementDeleteFormButton().removeActionListener(listener);
-   }
-   for (ActionListener listener : view.getSelectWareFormReturnButton().getActionListeners()) {
-    view.getSelectWareFormReturnButton().removeActionListener(listener);
+   if (documentTypeId == DocumentType.PZ_ID || documentTypeId == DocumentType.WZ_ID) {
+    List<Warehouse> warehouses = database.getWarehouses();
+    view.getDocumentOutsidePreFormWarehouseSelect().removeAllItems();
+    for (Warehouse warehouse : warehouses) {
+     view.getDocumentOutsidePreFormWarehouseSelect().addItem(new SelectItem(warehouse.getId(), warehouse.getName()));
+    }
+   } else {
+    List<Warehouse> warehouses = database.getWarehouses();
+    view.getDocumentInsidePreFormWarehouseSelect().removeAllItems();
+    for (Warehouse warehouse : warehouses) {
+     view.getDocumentInsidePreFormWarehouseSelect().addItem(new SelectItem(warehouse.getId(), warehouse.getName()));
+    }
    }
 
-   view.getDocumentFormButton().addActionListener(new java.awt.event.ActionListener() {
-    @Override
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-     try {
-      if (documentTypeId == DocumentType.PZ_ID) {
-       DocumentController.addPZAction();
-      } else if (documentTypeId == DocumentType.PW_ID) {
-       DocumentController.addPWAction();
-      } else if (documentTypeId == DocumentType.WZ_ID) {
-       view.showErrorPopup("Funkcjonalność niedostępna");
-      } else if (documentTypeId == DocumentType.RW_ID) {
-       view.showErrorPopup("Funkcjonalność niedostępna");
+   if (documentTypeId == DocumentType.PZ_ID || documentTypeId == DocumentType.WZ_ID) {
+    view.getDocumentOutsidePreFormButton().setText("Wybierz");
+    view.getDocumentOutsidePreFormView().setVisible(true);
+   } else {
+    view.getDocumentInsidePreFormButton().setText("Wybierz");
+    view.getDocumentInsidePreFormView().setVisible(true);
+   }
+  } else {
+   if (documentTypeId == DocumentType.PZ_ID || documentTypeId == DocumentType.PW_ID) {
+    document = documentList.get(0);
+    DefaultTableModel table = (DefaultTableModel) view.getDocumentIncomeElementListTable().getModel();
+    table.setRowCount(0);
+    List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
+    for (DocumentElement documentElement : documentElements) {
+     table.addRow(new Object[]{
+      documentElement.getId().toString(),
+      documentElement.getWareName(),
+      documentElement.getAmount().toString()
+     });
+    }
+   } else {
+    document = documentList.get(0);
+    DefaultTableModel table = (DefaultTableModel) view.getDocumentOutcomeElementListTable().getModel();
+    table.setRowCount(0);
+    List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
+    for (DocumentElement documentElement : documentElements) {
+     table.addRow(new Object[]{
+      documentElement.getId().toString(),
+      documentElement.getWareName(),
+      documentElement.getAmount().toString()
+     });
+    }
+   }
+
+   view.getDocumentIncomeTypeHidden().setText(documentTypeId.toString());
+   view.getDocumentOutcomeTypeHidden().setText(documentTypeId.toString());
+
+   if (documentTypeId == DocumentType.PZ_ID || documentTypeId == DocumentType.PW_ID) {
+    for (ActionListener listener : view.getDocumentIncomeFormButton().getActionListeners()) {
+     view.getDocumentIncomeFormButton().removeActionListener(listener);
+    }
+    for (ActionListener listener : view.getDocumentIncomeElementAddFormButton().getActionListeners()) {
+     view.getDocumentIncomeElementAddFormButton().removeActionListener(listener);
+    }
+    for (ActionListener listener : view.getDocumentIncomeElementDeleteFormButton().getActionListeners()) {
+     view.getDocumentIncomeElementDeleteFormButton().removeActionListener(listener);
+    }
+    for (ActionListener listener : view.getSelectWareFormReturnButton().getActionListeners()) {
+     view.getSelectWareFormReturnButton().removeActionListener(listener);
+    }
+
+    view.getDocumentIncomeFormButton().addActionListener(new java.awt.event.ActionListener() {
+     @Override
+     public void actionPerformed(java.awt.event.ActionEvent evt) {
+      try {
+       Integer documentTypeId = Integer.parseInt(view.getDocumentIncomeTypeHidden().getText());
+       if (documentTypeId == DocumentType.PZ_ID) {
+        DocumentController.addPZAction();
+       } else if (documentTypeId == DocumentType.PW_ID) {
+        DocumentController.addPWAction();
+       } else if (documentTypeId == DocumentType.WZ_ID) {
+        DocumentController.addWZAction();
+       } else if (documentTypeId == DocumentType.RW_ID) {
+        DocumentController.addRWAction();
+       }
+      } catch (NumberFormatException ex) {
+       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
       }
-     } catch (Exception ex) {
-      Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
      }
-    }
-   });
+    });
 
-   view.getDocumentElementAddFormButton().addActionListener(new java.awt.event.ActionListener() {
-    @Override
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-     try {
-      DocumentController.addDocumentElementForm(documentTypeId);
-     } catch (Exception ex) {
-      Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+    view.getDocumentIncomeElementAddFormButton().addActionListener(new java.awt.event.ActionListener() {
+     @Override
+     public void actionPerformed(java.awt.event.ActionEvent evt) {
+      try {
+       Integer documentTypeId = Integer.parseInt(view.getDocumentIncomeTypeHidden().getText());
+       DocumentController.addDocumentElementForm(documentTypeId);
+      } catch (NumberFormatException ex) {
+       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+      }
      }
-    }
-   });
+    });
 
-   view.getDocumentElementDeleteFormButton().addActionListener(new java.awt.event.ActionListener() {
-    @Override
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-     try {
-      DocumentController.deleteDocumentElementForm(documentTypeId);
-     } catch (Exception ex) {
-      Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+    view.getDocumentIncomeElementDeleteFormButton().addActionListener(new java.awt.event.ActionListener() {
+     @Override
+     public void actionPerformed(java.awt.event.ActionEvent evt) {
+      try {
+       Integer documentTypeId = Integer.parseInt(view.getDocumentIncomeTypeHidden().getText());
+       DocumentController.deleteDocumentElementForm(documentTypeId);
+      } catch (NumberFormatException ex) {
+       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+      }
      }
-    }
-   });
+    });
 
-   view.getSelectWareFormReturnButton().addActionListener(new java.awt.event.ActionListener() {
-    @Override
-    public void actionPerformed(java.awt.event.ActionEvent evt) {
-     try {
-      DocumentController.addDocument(documentTypeId);
-     } catch (Exception ex) {
-      Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+    view.getSelectWareFormReturnButton().addActionListener(new java.awt.event.ActionListener() {
+     @Override
+     public void actionPerformed(java.awt.event.ActionEvent evt) {
+      try {
+       Integer documentTypeId = Integer.parseInt(view.getDocumentIncomeTypeHidden().getText());
+       DocumentController.addDocument(documentTypeId);
+      } catch (NumberFormatException ex) {
+       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+      }
      }
+    });
+   } else {
+    for (ActionListener listener : view.getDocumentOutcomeFormButton().getActionListeners()) {
+     view.getDocumentOutcomeFormButton().removeActionListener(listener);
     }
-   });
+    for (ActionListener listener : view.getDocumentOutcomeElementAddFormButton().getActionListeners()) {
+     view.getDocumentOutcomeElementAddFormButton().removeActionListener(listener);
+    }
+    for (ActionListener listener : view.getDocumentOutcomeElementDeleteFormButton().getActionListeners()) {
+     view.getDocumentOutcomeElementDeleteFormButton().removeActionListener(listener);
+    }
+    for (ActionListener listener : view.getSelectWareFormReturnButton().getActionListeners()) {
+     view.getSelectWareFormReturnButton().removeActionListener(listener);
+    }
 
-   view.getDocumentFormWarehouseInput().setText(document.getWarehouse().getName());
-   view.getDocumentFormButton().setText("Dodaj");
-   view.getDocumentFormView().setVisible(true);
+    view.getDocumentOutcomeFormButton().addActionListener(new java.awt.event.ActionListener() {
+     @Override
+     public void actionPerformed(java.awt.event.ActionEvent evt) {
+      try {
+       Integer documentTypeId = Integer.parseInt(view.getDocumentOutcomeTypeHidden().getText());
+       if (documentTypeId == DocumentType.PZ_ID) {
+        DocumentController.addPZAction();
+       } else if (documentTypeId == DocumentType.PW_ID) {
+        DocumentController.addPWAction();
+       } else if (documentTypeId == DocumentType.WZ_ID) {
+        DocumentController.addWZAction();
+       } else if (documentTypeId == DocumentType.RW_ID) {
+        DocumentController.addRWAction();
+       }
+      } catch (NumberFormatException ex) {
+       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     }
+    });
+
+    view.getDocumentOutcomeElementAddFormButton().addActionListener(new java.awt.event.ActionListener() {
+     @Override
+     public void actionPerformed(java.awt.event.ActionEvent evt) {
+      try {
+       Integer documentTypeId = Integer.parseInt(view.getDocumentOutcomeTypeHidden().getText());
+       DocumentController.addDocumentElementForm(documentTypeId);
+      } catch (NumberFormatException ex) {
+       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     }
+    });
+
+    view.getDocumentOutcomeElementDeleteFormButton().addActionListener(new java.awt.event.ActionListener() {
+     @Override
+     public void actionPerformed(java.awt.event.ActionEvent evt) {
+      try {
+       Integer documentTypeId = Integer.parseInt(view.getDocumentOutcomeTypeHidden().getText());
+       DocumentController.deleteDocumentElementForm(documentTypeId);
+      } catch (NumberFormatException ex) {
+       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     }
+    });
+
+    view.getSelectWareFormReturnButton().addActionListener(new java.awt.event.ActionListener() {
+     @Override
+     public void actionPerformed(java.awt.event.ActionEvent evt) {
+      try {
+       Integer documentTypeId = Integer.parseInt(view.getDocumentOutcomeTypeHidden().getText());
+       DocumentController.addDocument(documentTypeId);
+      } catch (NumberFormatException ex) {
+       Logger.getLogger(DocumentController.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     }
+    });
+   }
+
+   if (documentTypeId == DocumentType.PZ_ID || documentTypeId == DocumentType.PW_ID) {
+    view.getDocumentIncomeFormWarehouseInput().setText(document.getWarehouse().getName());
+    view.getDocumentIncomeFormButton().setText("Zatwierdź");
+    view.getDocumentIncomeFormView().setVisible(true);
+   } else {
+    view.getDocumentOutcomeFormWarehouseInput().setText(document.getWarehouse().getName());
+    view.getDocumentOutcomeFormButton().setText("Zatwierdź");
+    view.getDocumentOutcomeFormView().setVisible(true);
+   }
   }
  }
 
- public static void addDocumentPreFormAction(Integer documentTypeId) {
-  Object selectedWarehouse = view.getDocumentPreFormWarehouseSelect().getSelectedItem();
+ public static void addDocumentPreFormAction() {
+  Integer documentTypeId = Integer.parseInt(view.getDocumentInsideTypeHidden().getText());
+  Object selectedWarehouse = view.getDocumentInsidePreFormWarehouseSelect().getSelectedItem();
+  if (documentTypeId == DocumentType.PZ_ID || documentTypeId == DocumentType.WZ_ID) {
+   selectedWarehouse = view.getDocumentOutsidePreFormWarehouseSelect().getSelectedItem();
+  }
   if (selectedWarehouse != null) {
    Integer id = ((SelectItem) selectedWarehouse).getId();
    Warehouse warehouse = database.getWarehouseById(id);
@@ -381,9 +514,9 @@ public class DocumentController {
      table.addRow(new Object[]{
       documentElement.getId().toString(),
       documentElement.getWareName(),
-      new DecimalFormat("#0.00zł").format((double) Math.round(documentElement.getTotalValue() * 100) / 100),
+      new DecimalFormat("#0.00zł").format((double) Math.round(documentElement.getValue() * 100) / 100),
       new DecimalFormat("#0.00%").format((double) Math.round(documentElement.getTax() * 100) / 10000),
-      new DecimalFormat("#0.00zł").format((double) Math.round(documentElement.getTotalValueIncludingTax() * 100) / 100),
+      new DecimalFormat("#0.00zł").format((double) Math.round(documentElement.getValueIncludingTax() * 100) / 100),
       documentElement.getAmount().toString()
      });
     }
@@ -406,19 +539,31 @@ public class DocumentController {
   document.setNumber(documentNumber);
 
   List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
-  WareRecord wareRecord = new WareRecord();
-  wareRecord.setWarehouse(document.getWarehouse());
-  for (DocumentElement documentElement : documentElements) {
-   wareRecord.setWareName(documentElement.getWareName());
-   wareRecord.setValue(documentElement.getValue());
-   wareRecord.setTax(documentElement.getTax());
-   wareRecord.setAmount(documentElement.getAmount());
-   database.saveWareRecord(wareRecord);
+  if (documentElements.isEmpty()) {
+   view.showErrorPopup("Nie można zatwierdzić dokumentu bez pozycji");
+  } else {
+   Ware ware;
+   for (DocumentElement documentElement : documentElements) {
+    ware = database.getWareByName(documentElement.getWareName());
+    documentElement.setValue(ware.getValue());
+    documentElement.setTax(ware.getTax());
+    documentElement.setDocument(document);
+    database.saveDocumentElement(documentElement);
+   }
+
+   WareRecord wareRecord = new WareRecord();
+   wareRecord.setWarehouse(document.getWarehouse());
+   for (DocumentElement documentElement : documentElements) {
+    wareRecord.setWareName(documentElement.getWareName());
+    wareRecord.setValue(documentElement.getValue());
+    wareRecord.setTax(documentElement.getTax());
+    wareRecord.setAmount(documentElement.getAmount());
+    database.saveWareRecord(wareRecord);
+   }
+
+   database.saveDocument(document);
+   DocumentController.list(DocumentType.PZ_ID);
   }
-
-  database.saveDocument(document);
-
-  DocumentController.list(DocumentType.PZ_ID);
  }
 
  public static void addPWAction() {
@@ -432,19 +577,187 @@ public class DocumentController {
   document.setNumber(documentNumber);
 
   List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
-  WareRecord wareRecord = new WareRecord();
-  wareRecord.setWarehouse(document.getWarehouse());
-  for (DocumentElement documentElement : documentElements) {
-   wareRecord.setWareName(documentElement.getWareName());
-   wareRecord.setValue(documentElement.getValue());
-   wareRecord.setTax(documentElement.getTax());
-   wareRecord.setAmount(documentElement.getAmount());
-   database.saveWareRecord(wareRecord);
+  if (documentElements.isEmpty()) {
+   view.showErrorPopup("Nie można zatwierdzić dokumentu bez pozycji");
+  } else {
+   Ware ware;
+   for (DocumentElement documentElement : documentElements) {
+    ware = database.getWareByName(documentElement.getWareName());
+    documentElement.setValue(ware.getValue());
+    documentElement.setTax(ware.getTax());
+    documentElement.setDocument(document);
+    database.saveDocumentElement(documentElement);
+   }
+
+   WareRecord wareRecord = new WareRecord();
+   wareRecord.setWarehouse(document.getWarehouse());
+   for (DocumentElement documentElement : documentElements) {
+    wareRecord.setWareName(documentElement.getWareName());
+    wareRecord.setValue(documentElement.getValue());
+    wareRecord.setTax(documentElement.getTax());
+    wareRecord.setAmount(documentElement.getAmount());
+    database.saveWareRecord(wareRecord);
+   }
+
+   database.saveDocument(document);
+   DocumentController.list(DocumentType.PW_ID);
   }
+ }
 
-  database.saveDocument(document);
+ public static void addWZAction() {
+  Calendar now = Calendar.getInstance();
+  Integer yearInteger = now.get(Calendar.YEAR);
+  String year = String.valueOf(yearInteger);
 
-  DocumentController.list(DocumentType.PW_ID);
+  Document document = database.getDocumentsByDocumentTypeId(DocumentType.WZ_ID, 1).get(0);
+  document.setBuffer(0);
+  String documentNumber = document.getDocumentType().getSymbol() + "/" + document.getId() + "/" + document.getWarehouse().getId() + "/" + year;
+  document.setNumber(documentNumber);
+
+  List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
+  if (documentElements.isEmpty()) {
+   view.showErrorPopup("Nie można zatwierdzić dokumentu bez pozycji");
+  } else {
+   Boolean saveDocument = true;
+   for (DocumentElement documentElement : documentElements) {
+    List<WareRecord> wareRecords = database.getWareRecordsByWarehouseIdAndWareName(document.getWarehouse().getId(), documentElement.getWareName());
+    Integer totalAmount = 0;
+    for (WareRecord wareRecord : wareRecords) {
+     totalAmount += wareRecord.getAmount();
+    }
+
+    if (totalAmount < documentElement.getAmount()) {
+     view.showErrorPopup("Za mało towaru " + documentElement.getWareName() + " na magazynie " + document.getWarehouse().getName());
+     saveDocument = false;
+     break;
+    }
+   }
+
+   if (saveDocument) {
+    for (DocumentElement documentElement : documentElements) {
+     List<WareRecord> wareRecords = database.getWareRecordsByWarehouseIdAndWareName(document.getWarehouse().getId(), documentElement.getWareName());
+
+     Integer wareRecordIndex = 0;
+     WareRecord wareRecord = wareRecords.get(wareRecordIndex);
+     DocumentElement newDocumentElement = new DocumentElement();
+     newDocumentElement.setDocument(document);
+     newDocumentElement.setWareName(documentElement.getWareName());
+     newDocumentElement.setAmount(0);
+
+     for (Integer i = 1;;) {
+      if (wareRecord.getAmount() > 0) {
+       wareRecord.setAmount(wareRecord.getAmount() - 1);
+       newDocumentElement.setAmount(newDocumentElement.getAmount() + 1);
+       newDocumentElement.setValue(wareRecord.getValue());
+       newDocumentElement.setTax(wareRecord.getTax());
+       i++;
+      } else {
+       database.saveWareRecord(wareRecord);
+       if (newDocumentElement.getAmount() > 0) {
+        database.saveDocumentElement(newDocumentElement);
+       }
+
+       wareRecordIndex++;
+       wareRecord = wareRecords.get(wareRecordIndex);
+       newDocumentElement = new DocumentElement();
+       newDocumentElement.setDocument(document);
+       newDocumentElement.setWareName(documentElement.getWareName());
+       newDocumentElement.setAmount(0);
+      }
+
+      if (i == documentElement.getAmount() + 1) {
+       database.saveWareRecord(wareRecord);
+       if (newDocumentElement.getAmount() > 0) {
+        database.saveDocumentElement(newDocumentElement);
+       }
+       break;
+      }
+     }
+     database.deleteDocumentElementById(documentElement.getId());
+    }
+
+    database.saveDocument(document);
+    DocumentController.list(DocumentType.WZ_ID);
+   }
+  }
+ }
+
+ public static void addRWAction() {
+  Calendar now = Calendar.getInstance();
+  Integer yearInteger = now.get(Calendar.YEAR);
+  String year = String.valueOf(yearInteger);
+
+  Document document = database.getDocumentsByDocumentTypeId(DocumentType.RW_ID, 1).get(0);
+  document.setBuffer(0);
+  String documentNumber = document.getDocumentType().getSymbol() + "/" + document.getId() + "/" + document.getWarehouse().getId() + "/" + year;
+  document.setNumber(documentNumber);
+
+  List<DocumentElement> documentElements = database.getDocumentElementsByDocumentId(document.getId());
+  if (documentElements.isEmpty()) {
+   view.showErrorPopup("Nie można zatwierdzić dokumentu bez pozycji");
+  } else {
+   Boolean saveDocument = true;
+   for (DocumentElement documentElement : documentElements) {
+    List<WareRecord> wareRecords = database.getWareRecordsByWarehouseIdAndWareName(document.getWarehouse().getId(), documentElement.getWareName());
+    Integer totalAmount = 0;
+    for (WareRecord wareRecord : wareRecords) {
+     totalAmount += wareRecord.getAmount();
+    }
+
+    if (totalAmount < documentElement.getAmount()) {
+     view.showErrorPopup("Za mało towaru " + documentElement.getWareName() + " na magazynie " + document.getWarehouse().getName());
+     saveDocument = false;
+     break;
+    }
+   }
+
+   if (saveDocument) {
+    for (DocumentElement documentElement : documentElements) {
+     List<WareRecord> wareRecords = database.getWareRecordsByWarehouseIdAndWareName(document.getWarehouse().getId(), documentElement.getWareName());
+
+     Integer wareRecordIndex = 0;
+     WareRecord wareRecord = wareRecords.get(wareRecordIndex);
+     DocumentElement newDocumentElement = new DocumentElement();
+     newDocumentElement.setDocument(document);
+     newDocumentElement.setWareName(documentElement.getWareName());
+     newDocumentElement.setAmount(0);
+
+     for (Integer i = 1;;) {
+      if (wareRecord.getAmount() > 0) {
+       wareRecord.setAmount(wareRecord.getAmount() - 1);
+       newDocumentElement.setAmount(newDocumentElement.getAmount() + 1);
+       newDocumentElement.setValue(wareRecord.getValue());
+       newDocumentElement.setTax(wareRecord.getTax());
+       i++;
+      } else {
+       database.saveWareRecord(wareRecord);
+       if (newDocumentElement.getAmount() > 0) {
+        database.saveDocumentElement(newDocumentElement);
+       }
+
+       wareRecordIndex++;
+       wareRecord = wareRecords.get(wareRecordIndex);
+       newDocumentElement = new DocumentElement();
+       newDocumentElement.setDocument(document);
+       newDocumentElement.setWareName(documentElement.getWareName());
+       newDocumentElement.setAmount(0);
+      }
+
+      if (i == documentElement.getAmount() + 1) {
+       database.saveWareRecord(wareRecord);
+       if (newDocumentElement.getAmount() > 0) {
+        database.saveDocumentElement(newDocumentElement);
+       }
+       break;
+      }
+     }
+     database.deleteDocumentElementById(documentElement.getId());
+    }
+
+    database.saveDocument(document);
+    DocumentController.list(DocumentType.RW_ID);
+   }
+  }
  }
 
 }

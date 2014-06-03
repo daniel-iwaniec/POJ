@@ -287,6 +287,23 @@ public final class Database {
   return ware;
  }
 
+ public Ware getWareByName(String wareName) {
+  Ware ware = null;
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM ware WHERE name = ?;");
+   preparedStatement.setString(1, wareName);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    ware = new Ware(result.getInt("id"), result.getString("name"), result.getDouble("value"), result.getDouble("tax"));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+
+  return ware;
+ }
+
  public void deleteWareById(Integer id) {
   Ware ware = null;
   try {
@@ -453,7 +470,7 @@ public final class Database {
  public List<Document> getDocumentsByDocumentTypeId(Integer documentTypeId) {
   List<Document> documents = new LinkedList<>();
   try {
-   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM document WHERE document_type_id = ? AND buffer = ?;");
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM document WHERE document_type_id = ? AND buffer = ? ORDER BY id DESC;");
    preparedStatement.setInt(1, documentTypeId);
    preparedStatement.setInt(2, 0);
    ResultSet result = preparedStatement.executeQuery();
@@ -575,13 +592,22 @@ public final class Database {
     return;
    }
 
-   if (documentElement.getId().equals(Ware.NULL_ID)) {
+   if (documentElement.getId().equals(DocumentElement.NULL_ID)) {
     PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO document_element VALUES (NULL, ?, ?, ?, ?, ?);");
     preparedStatement.setInt(1, documentElement.getDocument().getId());
     preparedStatement.setString(2, documentElement.getWareName());
     preparedStatement.setDouble(3, documentElement.getValue());
     preparedStatement.setDouble(4, documentElement.getTax());
     preparedStatement.setInt(5, documentElement.getAmount());
+    preparedStatement.execute();
+   } else {
+    PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE document_element SET document_id = ?, ware_name = ?, value = ?, tax = ?, amount = ? WHERE id = ?;");
+    preparedStatement.setInt(1, documentElement.getDocument().getId());
+    preparedStatement.setString(2, documentElement.getWareName());
+    preparedStatement.setDouble(3, documentElement.getValue());
+    preparedStatement.setDouble(4, documentElement.getTax());
+    preparedStatement.setInt(5, documentElement.getAmount());
+    preparedStatement.setInt(6, documentElement.getId());
     preparedStatement.execute();
    }
   } catch (SQLException ex) {
@@ -623,8 +649,41 @@ public final class Database {
  public List<WareRecord> getWareRecordsByWarehouseId(Integer warehouseId) {
   List<WareRecord> wareRecords = new LinkedList<>();
   try {
-   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM ware_record WHERE warehouse_id = ?");
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM ware_record WHERE warehouse_id = ? ORDER BY id DESC");
    preparedStatement.setInt(1, warehouseId);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    wareRecords.add(new WareRecord(result.getInt("id"), result.getInt("warehouse_id"), result.getString("ware_name"), result.getDouble("value"), result.getDouble("tax"), result.getInt("amount")));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+  return wareRecords;
+ }
+
+ public List<WareRecord> getWareRecordsByWarehouseIdOnlyExisting(Integer warehouseId) {
+  List<WareRecord> wareRecords = new LinkedList<>();
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM ware_record WHERE warehouse_id = ? AND amount > 0 ORDER BY id DESC");
+   preparedStatement.setInt(1, warehouseId);
+   ResultSet result = preparedStatement.executeQuery();
+   while (result.next()) {
+    wareRecords.add(new WareRecord(result.getInt("id"), result.getInt("warehouse_id"), result.getString("ware_name"), result.getDouble("value"), result.getDouble("tax"), result.getInt("amount")));
+   }
+  } catch (SQLException exception) {
+   System.err.println(exception.getMessage());
+   return null;
+  }
+  return wareRecords;
+ }
+
+ public List<WareRecord> getWareRecordsByWarehouseIdAndWareName(Integer warehouseId, String wareName) {
+  List<WareRecord> wareRecords = new LinkedList<>();
+  try {
+   PreparedStatement preparedStatement = this.connection.prepareStatement("SELECT * FROM ware_record WHERE warehouse_id = ? AND ware_name = ? ORDER BY id ASC");
+   preparedStatement.setInt(1, warehouseId);
+   preparedStatement.setString(2, wareName);
    ResultSet result = preparedStatement.executeQuery();
    while (result.next()) {
     wareRecords.add(new WareRecord(result.getInt("id"), result.getInt("warehouse_id"), result.getString("ware_name"), result.getDouble("value"), result.getDouble("tax"), result.getInt("amount")));
@@ -650,6 +709,15 @@ public final class Database {
     preparedStatement.setDouble(4, wareRecord.getTax());
     preparedStatement.setInt(5, wareRecord.getAmount());
     preparedStatement.execute();
+   } else {
+    PreparedStatement preparedStatement = this.connection.prepareStatement("UPDATE ware_record SET warehouse_id = ?, ware_name = ?, value = ?, tax = ?, amount = ? WHERE id = ?;");
+    preparedStatement.setInt(1, wareRecord.getWarehouse().getId());
+    preparedStatement.setString(2, wareRecord.getWareName());
+    preparedStatement.setDouble(3, wareRecord.getValue());
+    preparedStatement.setDouble(4, wareRecord.getTax());
+    preparedStatement.setInt(5, wareRecord.getAmount());
+    preparedStatement.setInt(6, wareRecord.getId());
+    preparedStatement.execute();
    }
   } catch (SQLException ex) {
    Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -661,6 +729,13 @@ public final class Database {
   if (documents.size() > 0) {
    Document document = documents.get(0);
    try {
+    List<DocumentElement> documentElements = this.getDocumentElementsByDocumentId(document.getId());
+    for (DocumentElement documentElement : documentElements) {
+     PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM document_element WHERE id = ?;");
+     preparedStatement.setInt(1, documentElement.getId());
+     preparedStatement.execute();
+    }
+
     PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM document WHERE id = ?;");
     preparedStatement.setInt(1, document.getId());
     preparedStatement.execute();

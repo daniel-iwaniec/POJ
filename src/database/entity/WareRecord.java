@@ -164,7 +164,7 @@ public class WareRecord extends AbstractEntity {
    validationErrors.add("Maksymalna procentowa wysokość podatku to 999999999999999.99");
   }
 
-  if (!(amount > 0)) {
+  if (id == AbstractEntity.NULL_ID && (amount <= 0)) {
    validationErrors.add("Ilość towaru musi być większa od zera");
   }
 

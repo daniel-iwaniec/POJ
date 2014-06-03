@@ -263,19 +263,18 @@ public class WarehouseController {
     DefaultTableModel table = (DefaultTableModel) view.getWareRecordListTable().getModel();
     table.setRowCount(0);
 
-    List<WareRecord> wareRecords = database.getWareRecordsByWarehouseId(warehouse.getId());
+    List<WareRecord> wareRecords = database.getWareRecordsByWarehouseIdOnlyExisting(warehouse.getId());
     for (WareRecord wareRecord : wareRecords) {
      table.addRow(new Object[]{
       wareRecord.getId().toString(),
       wareRecord.getWareName(),
-      new DecimalFormat("#0.00zł").format((double) Math.round(wareRecord.getTotalValue() * 100) / 100),
+      new DecimalFormat("#0.00zł").format((double) Math.round(wareRecord.getValue() * 100) / 100),
       new DecimalFormat("#0.00%").format((double) Math.round(wareRecord.getTax() * 100) / 10000),
-      new DecimalFormat("#0.00zł").format((double) Math.round(wareRecord.getTotalValueIncludingTax() * 100) / 100),
+      new DecimalFormat("#0.00zł").format((double) Math.round(wareRecord.getValueIncludingTax() * 100) / 100),
       wareRecord.getAmount().toString()
      });
     }
 
-    view.getWarehouseViewIDInput().setText(warehouse.getId().toString());
     view.getWarehouseViewNameInput().setText(warehouse.getName());
     view.getWarehouseViewValueInput().setText(new DecimalFormat("#0.00zł").format((double) Math.round(warehouse.calculateValue() * 100) / 100));
 
