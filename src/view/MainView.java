@@ -61,6 +61,32 @@ public final class MainView extends javax.swing.JFrame {
   this.setLocation(0, 0);
 
   UIManager.put("PopupMenu.border", BorderFactory.createLineBorder(Color.BLACK, 1));
+  UIManager.put("PopupMenu.background", new Color(225, 225, 225));
+  UIManager.put("MenuItem.background", new Color(225, 225, 225));
+  UIManager.put("MenuItem.selectionBackground", Color.WHITE);
+
+  UIManager.put("Menu.selectionBackground", new Color(150, 150, 150));
+  UIManager.put("Menu.selectionForeground", new Color(250, 250, 250));
+
+  UIManager.put("ComboBox.background", Color.WHITE);
+  UIManager.put("ComboBox.foreground", Color.BLACK);
+  UIManager.put("ComboBox.selectionBackground", new Color(230, 230, 230));
+  UIManager.put("ComboBox.selectionForeground", Color.BLACK);
+  UIManager.put("ComboBox.buttonBackground", new Color(150, 150, 150));
+  UIManager.put("ComboBox.buttonDarkShadow", Color.BLACK);
+  UIManager.put("ComboBox.buttonHighlight", Color.WHITE);
+  UIManager.put("ComboBox.border", Color.BLACK);
+  UIManager.put("ComboBox.buttonShadow", Color.BLACK);
+
+  UIManager.put("Button.background", Color.WHITE);
+  UIManager.put("Button.darkShadow", Color.WHITE);
+  UIManager.put("Button.disabledText", Color.WHITE);
+  UIManager.put("Button.foreground", Color.BLACK);
+  UIManager.put("Button.highlight", new Color(225, 225, 225));
+  UIManager.put("Button.light", new Color(225, 225, 225));
+  UIManager.put("Button.select", new Color(225, 225, 225));
+  UIManager.put("Button.shadow", new Color(225, 225, 225));
+  UIManager.put("Button.focus", Color.WHITE);
 
   initComponents();
 
@@ -2006,6 +2032,11 @@ public final class MainView extends javax.swing.JFrame {
 
   jTextField3.setEditable(false);
   jTextField3.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+  jTextField3.addActionListener(new java.awt.event.ActionListener() {
+   public void actionPerformed(java.awt.event.ActionEvent evt) {
+    jTextField3ActionPerformed(evt);
+   }
+  });
 
   jLabel19.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
   jLabel19.setLabelFor(jTextField1);
@@ -3002,6 +3033,10 @@ public final class MainView extends javax.swing.JFrame {
  private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
   // TODO add your handling code here:
  }//GEN-LAST:event_jButton15ActionPerformed
+
+ private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+  // TODO add your handling code here:
+ }//GEN-LAST:event_jTextField3ActionPerformed
 
  /**
   * @param args the command line arguments
