@@ -24,6 +24,7 @@
 package database.entity;
 
 import database.Database;
+import java.util.Objects;
 
 public class WareRecord extends AbstractEntity {
 
@@ -119,6 +120,24 @@ public class WareRecord extends AbstractEntity {
 
  public Integer getAmount() {
   return this.amount;
+ }
+
+ @Override
+ public int hashCode() {
+  int hash = 3;
+  return hash;
+ }
+
+ @Override
+ public boolean equals(Object obj) {
+  if (obj == null) {
+   return false;
+  }
+  if (getClass() != obj.getClass()) {
+   return false;
+  }
+  final WareRecord other = (WareRecord) obj;
+  return Objects.equals(this.wareName, other.wareName);
  }
 
  @Override

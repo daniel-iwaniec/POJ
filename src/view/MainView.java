@@ -43,6 +43,7 @@ public final class MainView extends javax.swing.JFrame {
  public static final String HOME_ICON = "home";
  public static final String LICENSE_ICON = "license";
  public static final String DOCUMENT_ICON = "document";
+ public static final String STATISTICS_ICON = "statistics";
 
  private static MainView instance = null;
 
@@ -267,6 +268,14 @@ public final class MainView extends javax.swing.JFrame {
   return this.DocumentList;
  }
 
+ public javax.swing.JPanel getWarehouseStatisticsView() {
+  return this.WarehouseStatistics;
+ }
+
+ public javax.swing.JPanel getWareStatisticsView() {
+  return this.WareStatistics;
+ }
+
  public final void hideAllViews() {
   this.WarehouseList.setVisible(false);
   this.WarehouseForm.setVisible(false);
@@ -285,6 +294,8 @@ public final class MainView extends javax.swing.JFrame {
   this.DocumentViewInformations.setVisible(false);
   this.DocumentOutcomeForm.setVisible(false);
   this.DocumentInsidePreForm.setVisible(false);
+  this.WarehouseStatistics.setVisible(false);
+  this.WareStatistics.setVisible(false);
  }
 
  public javax.swing.JTable getWarehouseListTable() {
@@ -293,6 +304,10 @@ public final class MainView extends javax.swing.JFrame {
 
  public javax.swing.JTable getWareRecordListTable() {
   return this.jTable5;
+ }
+
+ public javax.swing.JTable getWareRecordStatisticsTable() {
+  return this.jTable9;
  }
 
  public javax.swing.JTable getWareListTable() {
@@ -423,6 +438,22 @@ public final class MainView extends javax.swing.JFrame {
   return documentOutcomeTypeHidden;
  }
 
+ public javax.swing.JTextField getWarehouseStatisticsNettoInput() {
+  return jTextField14;
+ }
+
+ public javax.swing.JTextField getWarehouseStatisticsTaraInput() {
+  return jTextField3;
+ }
+
+ public javax.swing.JTextField getWarehouseStatisticsBruttoInput() {
+  return jTextField17;
+ }
+
+ public javax.swing.JTextField getWarehouseStatisticsAmountInput() {
+  return jTextField19;
+ }
+
  /**
   * This method is called from within the constructor to initialize the form.
   * WARNING: Do NOT modify this code. The content of this method is always
@@ -550,6 +581,18 @@ public final class MainView extends javax.swing.JFrame {
   jButton15 = new javax.swing.JButton();
   jTextField13 = new javax.swing.JTextField();
   documentOutcomeTypeHidden = new javax.swing.JTextField();
+  WarehouseStatistics = new javax.swing.JPanel();
+  jTextField3 = new javax.swing.JTextField();
+  jLabel19 = new javax.swing.JLabel();
+  jLabel41 = new javax.swing.JLabel();
+  jTextField14 = new javax.swing.JTextField();
+  jLabel46 = new javax.swing.JLabel();
+  jTextField17 = new javax.swing.JTextField();
+  jLabel48 = new javax.swing.JLabel();
+  jTextField19 = new javax.swing.JTextField();
+  WareStatistics = new javax.swing.JPanel();
+  jScrollPane11 = new javax.swing.JScrollPane();
+  jTable9 = new javax.swing.JTable();
   jMenuBar1 = new javax.swing.JMenuBar();
   jMenu2 = new javax.swing.JMenu();
   jMenuItem7 = new javax.swing.JMenuItem();
@@ -1017,6 +1060,7 @@ public final class MainView extends javax.swing.JFrame {
   jTable5.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
   if (jTable5.getColumnModel().getColumnCount() > 0) {
    jTable5.getColumnModel().getColumn(0).setResizable(false);
+   jTable5.getColumnModel().getColumn(0).setHeaderValue("ID");
    jTable5.getColumnModel().getColumn(1).setResizable(false);
    jTable5.getColumnModel().getColumn(2).setResizable(false);
    jTable5.getColumnModel().getColumn(3).setResizable(false);
@@ -1094,7 +1138,7 @@ public final class MainView extends javax.swing.JFrame {
    .addGroup(ErrorPopupLayout.createSequentialGroup()
     .addContainerGap()
     .addGroup(ErrorPopupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-     .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
+     .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
      .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ErrorPopupLayout.createSequentialGroup()
       .addGap(0, 0, Short.MAX_VALUE)
@@ -1956,6 +2000,135 @@ public final class MainView extends javax.swing.JFrame {
     .addContainerGap())
   );
 
+  WarehouseStatistics.setBackground(new java.awt.Color(255, 255, 255));
+  WarehouseStatistics.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+  WarehouseStatistics.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jTextField3.setEditable(false);
+  jTextField3.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+
+  jLabel19.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel19.setLabelFor(jTextField1);
+  jLabel19.setText("Wartość netto wszystkich magazynów");
+
+  jLabel41.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel41.setLabelFor(jTextField1);
+  jLabel41.setText("Wartość tara wszystkich magazynów");
+
+  jTextField14.setEditable(false);
+  jTextField14.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+
+  jLabel46.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel46.setLabelFor(jTextField1);
+  jLabel46.setText("Wartość brutto wszystkich magazynów");
+
+  jTextField17.setEditable(false);
+  jTextField17.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+
+  jLabel48.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jLabel48.setLabelFor(jTextField1);
+  jLabel48.setText("Ilość wszystkich towarów na magazynach");
+
+  jTextField19.setEditable(false);
+  jTextField19.setFont(new java.awt.Font("Myriad Pro", 0, 14)); // NOI18N
+
+  javax.swing.GroupLayout WarehouseStatisticsLayout = new javax.swing.GroupLayout(WarehouseStatistics);
+  WarehouseStatistics.setLayout(WarehouseStatisticsLayout);
+  WarehouseStatisticsLayout.setHorizontalGroup(
+   WarehouseStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(WarehouseStatisticsLayout.createSequentialGroup()
+    .addContainerGap()
+    .addGroup(WarehouseStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+     .addComponent(jTextField3)
+     .addComponent(jTextField14, javax.swing.GroupLayout.Alignment.TRAILING)
+     .addComponent(jTextField17, javax.swing.GroupLayout.Alignment.TRAILING)
+     .addGroup(WarehouseStatisticsLayout.createSequentialGroup()
+      .addGroup(WarehouseStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+       .addComponent(jLabel19)
+       .addComponent(jLabel41)
+       .addComponent(jLabel46)
+       .addComponent(jLabel48))
+      .addGap(0, 354, Short.MAX_VALUE))
+     .addComponent(jTextField19, javax.swing.GroupLayout.Alignment.TRAILING))
+    .addContainerGap())
+  );
+  WarehouseStatisticsLayout.setVerticalGroup(
+   WarehouseStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WarehouseStatisticsLayout.createSequentialGroup()
+    .addContainerGap()
+    .addComponent(jLabel19)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel41)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel46)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jTextField17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addGap(18, 18, 18)
+    .addComponent(jLabel48)
+    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+    .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+    .addContainerGap(1247, Short.MAX_VALUE))
+  );
+
+  WareStatistics.setBackground(new java.awt.Color(255, 255, 255));
+  WareStatistics.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jScrollPane11.setPreferredSize(new java.awt.Dimension(452, 427));
+
+  jTable9.setFont(new java.awt.Font("Myriad Pro", 0, 18)); // NOI18N
+  jTable9.setModel(new javax.swing.table.DefaultTableModel(
+   new Object [][] {
+
+   },
+   new String [] {
+    "Nazwa", "Netto", "Tara", "Brutto", "Ilość"
+   }
+  ) {
+   Class[] types = new Class [] {
+    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+   };
+   boolean[] canEdit = new boolean [] {
+    false, false, false, false, false
+   };
+
+   public Class getColumnClass(int columnIndex) {
+    return types [columnIndex];
+   }
+
+   public boolean isCellEditable(int rowIndex, int columnIndex) {
+    return canEdit [columnIndex];
+   }
+  });
+  jTable9.setFillsViewportHeight(true);
+  jTable9.setGridColor(new java.awt.Color(204, 204, 204));
+  jTable9.setRowHeight(36);
+  jTable9.setSelectionBackground(new java.awt.Color(204, 255, 255));
+  jTable9.getTableHeader().setReorderingAllowed(false);
+  jScrollPane11.setViewportView(jTable9);
+  jTable9.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+  if (jTable9.getColumnModel().getColumnCount() > 0) {
+   jTable9.getColumnModel().getColumn(0).setResizable(false);
+   jTable9.getColumnModel().getColumn(1).setResizable(false);
+   jTable9.getColumnModel().getColumn(2).setResizable(false);
+   jTable9.getColumnModel().getColumn(3).setResizable(false);
+   jTable9.getColumnModel().getColumn(4).setResizable(false);
+  }
+
+  javax.swing.GroupLayout WareStatisticsLayout = new javax.swing.GroupLayout(WareStatistics);
+  WareStatistics.setLayout(WareStatisticsLayout);
+  WareStatisticsLayout.setHorizontalGroup(
+   WareStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+  );
+  WareStatisticsLayout.setVerticalGroup(
+   WareStatisticsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+   .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 1496, Short.MAX_VALUE)
+  );
+
   javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
   jLayeredPane1.setLayout(jLayeredPane1Layout);
   jLayeredPane1Layout.setHorizontalGroup(
@@ -1987,9 +2160,7 @@ public final class MainView extends javax.swing.JFrame {
      .addComponent(WarehouseViewInformations, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
      .addContainerGap()))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-     .addContainerGap()
-     .addComponent(ErrorPopup, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)))
+    .addComponent(ErrorPopup, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE))
    .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
     .addGroup(jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
@@ -2039,6 +2210,16 @@ public final class MainView extends javax.swing.JFrame {
     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
      .addContainerGap()
      .addComponent(DocumentOutcomeForm, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(WarehouseStatistics, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(WareStatistics, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
      .addContainerGap()))
   );
   jLayeredPane1Layout.setVerticalGroup(
@@ -2121,6 +2302,16 @@ public final class MainView extends javax.swing.JFrame {
      .addContainerGap()
      .addComponent(DocumentOutcomeForm, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
      .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(WarehouseStatistics, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
+     .addContainerGap()))
+   .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGroup(jLayeredPane1Layout.createSequentialGroup()
+     .addContainerGap()
+     .addComponent(WareStatistics, javax.swing.GroupLayout.DEFAULT_SIZE, 1498, Short.MAX_VALUE)
+     .addContainerGap()))
   );
   jLayeredPane1.setLayer(WarehouseList, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
@@ -2147,6 +2338,8 @@ public final class MainView extends javax.swing.JFrame {
   jLayeredPane1.setLayer(DocumentViewInformations, javax.swing.JLayeredPane.DEFAULT_LAYER);
   jLayeredPane1.setLayer(DocumentInsidePreForm, javax.swing.JLayeredPane.DEFAULT_LAYER);
   jLayeredPane1.setLayer(DocumentOutcomeForm, javax.swing.JLayeredPane.DEFAULT_LAYER);
+  jLayeredPane1.setLayer(WarehouseStatistics, javax.swing.JLayeredPane.DEFAULT_LAYER);
+  jLayeredPane1.setLayer(WareStatistics, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
   jMenuBar1.setBorderPainted(false);
 
@@ -2723,11 +2916,11 @@ public final class MainView extends javax.swing.JFrame {
  }//GEN-LAST:event_jMenuItem31ActionPerformed
 
  private void jMenuItem35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem35ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
+  StatisticsController.WareStatistics();
  }//GEN-LAST:event_jMenuItem35ActionPerformed
 
  private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-  this.showErrorPopup("Funkcjonalność niedostępna");
+  StatisticsController.WarehouseStatistics();
  }//GEN-LAST:event_jMenuItem15ActionPerformed
 
  private void jMenuItem36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem36ActionPerformed
@@ -2826,13 +3019,7 @@ public final class MainView extends javax.swing.JFrame {
      break;
     }
    }
-  } catch (ClassNotFoundException ex) {
-   java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-  } catch (InstantiationException ex) {
-   java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-  } catch (IllegalAccessException ex) {
-   java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-  } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+  } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
    java.util.logging.Logger.getLogger(MainView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
   }
   //</editor-fold>
@@ -2865,9 +3052,11 @@ public final class MainView extends javax.swing.JFrame {
  private javax.swing.JPanel SelectWareForm;
  private javax.swing.JPanel WareForm;
  private javax.swing.JPanel WareList;
+ private javax.swing.JPanel WareStatistics;
  private javax.swing.JPanel WareViewInformations;
  private javax.swing.JPanel WarehouseForm;
  private javax.swing.JPanel WarehouseList;
+ private javax.swing.JPanel WarehouseStatistics;
  private javax.swing.JPanel WarehouseViewInformations;
  private javax.swing.JTextField documentIncomeTypeHidden;
  private javax.swing.JTextField documentInsideTypeHidden;
@@ -2905,6 +3094,7 @@ public final class MainView extends javax.swing.JFrame {
  private javax.swing.JLabel jLabel16;
  private javax.swing.JLabel jLabel17;
  private javax.swing.JLabel jLabel18;
+ private javax.swing.JLabel jLabel19;
  private javax.swing.JLabel jLabel2;
  private javax.swing.JLabel jLabel20;
  private javax.swing.JLabel jLabel21;
@@ -2929,6 +3119,9 @@ public final class MainView extends javax.swing.JFrame {
  private javax.swing.JLabel jLabel39;
  private javax.swing.JLabel jLabel4;
  private javax.swing.JLabel jLabel40;
+ private javax.swing.JLabel jLabel41;
+ private javax.swing.JLabel jLabel46;
+ private javax.swing.JLabel jLabel48;
  private javax.swing.JLabel jLabel5;
  private javax.swing.JLabel jLabel6;
  private javax.swing.JLabel jLabel7;
@@ -2979,6 +3172,7 @@ public final class MainView extends javax.swing.JFrame {
  private javax.swing.JMenuItem jMenuItem8;
  private javax.swing.JMenuItem jMenuItem9;
  private javax.swing.JScrollPane jScrollPane1;
+ private javax.swing.JScrollPane jScrollPane11;
  private javax.swing.JScrollPane jScrollPane2;
  private javax.swing.JScrollPane jScrollPane3;
  private javax.swing.JScrollPane jScrollPane4;
@@ -2994,12 +3188,17 @@ public final class MainView extends javax.swing.JFrame {
  private javax.swing.JTable jTable5;
  private javax.swing.JTable jTable6;
  private javax.swing.JTable jTable7;
+ private javax.swing.JTable jTable9;
  private javax.swing.JTextField jTextField1;
  private javax.swing.JTextField jTextField10;
  private javax.swing.JTextField jTextField11;
  private javax.swing.JTextField jTextField12;
  private javax.swing.JTextField jTextField13;
+ private javax.swing.JTextField jTextField14;
+ private javax.swing.JTextField jTextField17;
+ private javax.swing.JTextField jTextField19;
  private javax.swing.JTextField jTextField2;
+ private javax.swing.JTextField jTextField3;
  private javax.swing.JTextField jTextField4;
  private javax.swing.JTextField jTextField5;
  private javax.swing.JTextField jTextField6;
